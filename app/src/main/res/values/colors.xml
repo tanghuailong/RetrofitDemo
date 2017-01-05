@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--自定义的颜色-->
+    <!--背景颜色-->
+    <color name="custom_bg_color">#394553</color>
+    <color name="inner_bg_color">#333542</color>
+    <!--边框颜色-->
+    <color name="custom_border_color">#00B6ED</color>
+    <!--form表单边框颜色-->
+    <color name="form_border_color">#626269</color>
+    <!--描述文本的颜色-->
+    <color name="desc_text_color">#FFFFFF</color>
+    <!--失效的文本颜色-->
+    <color name="disable_text_color">#888888</color>
+
+
+</resources>
