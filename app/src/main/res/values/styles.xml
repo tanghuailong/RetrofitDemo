@@ -8,4 +8,36 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="status_bar_text">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textColor">@color/status_bar_txt_color</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="status_bar">
+        <item name="android:layout_height">15dp</item>
+        <item name="android:layout_width">30dp</item>
+    </style>
+    <style name="stove_item_txt">
+        <item name="android:textColor">@color/desc_text_color</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/form_border</item>
+    </style>
+
+    <!--圆形进度条-->
+    <style name="circle_progress">
+        <item name="cpv_autoTextColor">true</item>
+        <item name="cpv_autoTextSize">true</item>
+        <item name="cpv_barColor">@color/progress_bar_color</item>
+        <item name="cpv_barColor1">@color/transition_color_1</item>
+        <item name="cpv_barColor2">@color/transition_color_2</item>
+        <item name="cpv_barColor3">@color/transition_color_3</item>
+        <item name="cpv_barWidth">10dp</item>
+        <item name="cpv_innerContourSize">0dp</item>
+        <item name="cpv_outerContourSize">0dp</item>
+        <item name="cpv_rimColor">@color/progress_bg_color</item>
+        <item name="cpv_rimWidth">12dp</item>
+        <item name="cpv_showUnit">false</item>
+        <item name="cpv_value">80</item>
+    </style>
+
 </resources>

@@ -1,7 +1,9 @@
-package com.vstar.sacredsun_android;
+package com.vstar.sacredsun_android.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.vstar.sacredsun_android.R;
 
 public class MainActivity extends AppCompatActivity {
 
