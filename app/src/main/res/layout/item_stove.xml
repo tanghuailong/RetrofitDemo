@@ -4,302 +4,316 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/status_bar_solidify"
+    android:background="@color/inner_bg_color"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="15dp"
-        android:background="@color/inner_bg_color"
-        android:orientation="vertical"
-        android:paddingBottom="8dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="8dp">
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:background="@color/status_bar_solidify"
+        android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:background="@color/inner_bg_color"
+            android:orientation="vertical"
+            android:paddingBottom="8dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="8dp">
 
-            <TextView
-                android:id="@+id/stove_run_status_title"
-                style="@style/stove_item_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/run_status_title" />
-
-            <TextView
-                android:id="@+id/stove_run_status"
-                style="@style/stove_item_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/stove_run_status_title"
-                tools:text="固化" />
-
-            <TextView
-                style="@style/stove_item_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="@string/time_left_title"></TextView>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:background="@drawable/status_bar_dry"></View>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/textlines"
-                android:orientation="horizontal"
-                android:paddingBottom="3dp"
-                android:paddingTop="3dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/emphasize_txt_color"
-                    tools:text="31" />
-
-                <TextView
-                    style="@style/stove_item_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/time_title" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="*">
-
-            <TableRow
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/stove_run_status_title"
                     style="@style/stove_item_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    ></TextView>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/run_status_title" />
+
+                <TextView
+                    android:id="@+id/stove_run_status"
+                    style="@style/stove_item_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/stove_run_status_title"
+                    tools:text="固化" />
 
                 <TextView
                     style="@style/stove_item_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/form_title_1"></TextView>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/time_left_title"></TextView>
+            </RelativeLayout>
 
-                <TextView
-                    style="@style/stove_item_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/form_title_2"
-                    ></TextView>
-            </TableRow>
-
-            <TableRow
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    style="@style/stove_item_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/form_item_1"></TextView>
-
-                <TextView
-                    style="@style/stove_item_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    tools:text="60"></TextView>
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/status_bar_dry"></View>
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/form_border"
-                    android:gravity="center">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/textlines"
+                    android:orientation="horizontal"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp">
 
-                    <at.grabner.circleprogress.CircleProgressView
-                        android:id="@+id/circleView"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        style="@style/circle_progress"
-                        custom:cpv_maxValue="100"
-                        ></at.grabner.circleprogress.CircleProgressView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/emphasize_txt_color"
+                        tools:text="31" />
+
+                    <TextView
+                        style="@style/stove_item_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/time_title" />
                 </LinearLayout>
-            </TableRow>
+            </RelativeLayout>
 
-            <TableRow
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+                android:layout_height="wrap_content"
+                android:stretchColumns="*">
 
-                <TextView
-                    style="@style/stove_item_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/form_item_2"></TextView>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    style="@style/stove_item_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    tools:text="60"></TextView>
+                    <TextView
+                        style="@style/stove_item_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"></TextView>
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                    <TextView
+                        style="@style/stove_item_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/form_title_1"></TextView>
+
+                    <TextView
+                        style="@style/stove_item_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/form_title_2"></TextView>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/form_border"
                     android:gravity="center">
 
-                    <at.grabner.circleprogress.CircleProgressView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        style="@style/circle_progress"
-                        custom:cpv_maxValue="100">
-                    </at.grabner.circleprogress.CircleProgressView>
-                </LinearLayout>
-            </TableRow>
-            <TableRow
+                    <TextView
+                        style="@style/stove_item_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/form_item_1"></TextView>
+
+                    <TextView
+                        style="@style/stove_item_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        tools:text="60"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/form_border"
+                        android:gravity="center">
+
+                        <at.grabner.circleprogress.CircleProgressView
+                            android:id="@+id/circleView"
+                            style="@style/circle_progress"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            custom:cpv_maxValue="100"></at.grabner.circleprogress.CircleProgressView>
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        style="@style/stove_item_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/form_item_2"></TextView>
+
+                    <TextView
+                        style="@style/stove_item_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        tools:text="60"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/form_border"
+                        android:gravity="center">
+
+                        <at.grabner.circleprogress.CircleProgressView
+                            style="@style/circle_progress"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            custom:cpv_maxValue="100"></at.grabner.circleprogress.CircleProgressView>
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        style="@style/stove_item_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/form_item_3"></TextView>
+
+                    <TextView
+                        style="@style/stove_item_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        tools:text="60"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/form_border"
+                        android:gravity="center">
+
+                        <at.grabner.circleprogress.CircleProgressView
+                            style="@style/circle_progress"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            custom:cpv_maxValue="100"></at.grabner.circleprogress.CircleProgressView>
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        style="@style/stove_item_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/form_item_4"></TextView>
+
+                    <TextView
+                        style="@style/stove_item_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        tools:text="60"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/form_border"
+                        android:gravity="center">
+
+                        <at.grabner.circleprogress.CircleProgressView
+                            style="@style/circle_progress"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            custom:cpv_maxValue="100"></at.grabner.circleprogress.CircleProgressView>
+                    </LinearLayout>
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
-                    style="@style/stove_item_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/form_item_3"></TextView>
+                    style="@style/stove_other_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/product_model_title" />
 
                 <TextView
-                    style="@style/stove_item_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    tools:text="60"></TextView>
+                    style="@style/stove_other_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="OPZV-120" />
+            </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/form_border"
-                    android:gravity="center">
-
-                    <at.grabner.circleprogress.CircleProgressView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        style="@style/circle_progress"
-                        custom:cpv_maxValue="100"
-                        ></at.grabner.circleprogress.CircleProgressView>
-                </LinearLayout>
-            </TableRow>
-            <TableRow
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
-                    style="@style/stove_item_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/form_item_4"></TextView>
+                    style="@style/stove_other_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_num_title" />
 
                 <TextView
-                    style="@style/stove_item_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    tools:text="60"></TextView>
+                    style="@style/stove_other_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="31000" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/form_border"
-                    android:gravity="center">
-
-                    <at.grabner.circleprogress.CircleProgressView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        style="@style/circle_progress"
-                        custom:cpv_maxValue="100"
-                        ></at.grabner.circleprogress.CircleProgressView>
-                </LinearLayout>
-            </TableRow>
-        </TableLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/status_bar_text"
-                android:text="@string/product_model_title"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/status_bar_text"
-                tools:text="OPZV-120"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/status_bar_text"
-                android:text="@string/order_num_title"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/status_bar_text"
-                tools:text="31000"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/status_bar_text"
-                tools:text="块"
-                />
+                <TextView
+                    style="@style/stove_other_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="块" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:gravity="center"
+        style="@style/stove_description"
+        tools:text="G123"/>
 </LinearLayout>

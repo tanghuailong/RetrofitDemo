@@ -22,7 +22,14 @@
         <item name="android:textSize">15sp</item>
         <item name="android:background">@drawable/form_border</item>
     </style>
-
+    <style name="stove_other_txt">
+        <item name="android:textColor">@color/status_bar_txt_color</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="stove_description">
+        <item name="android:textColor">@color/status_bar_txt_color</item>
+        <item name="android:textSize">20sp</item>
+    </style>
     <!--圆形进度条-->
     <style name="circle_progress">
         <item name="cpv_autoTextColor">true</item>
