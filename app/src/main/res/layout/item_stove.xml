@@ -3,7 +3,7 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="650dp"
     android:background="@color/inner_bg_color"
     android:orientation="vertical">
 
@@ -12,12 +12,13 @@
         android:layout_height="0dp"
         android:layout_weight="0.9"
         android:background="@color/status_bar_solidify"
+        android:layout_margin="5dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="15dp"
+            android:layout_margin="35dp"
             android:background="@color/inner_bg_color"
             android:orientation="vertical"
             android:paddingBottom="8dp"
@@ -57,9 +58,11 @@
                 android:layout_height="wrap_content">
 
                 <View
+                    android:id="@+id/stove_run_status_block"
                     android:layout_width="100dp"
                     android:layout_height="20dp"
-                    android:background="@drawable/status_bar_dry"></View>
+                    tools:background="@drawable/status_bar_dry"
+                    ></View>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -71,6 +74,7 @@
                     android:paddingTop="3dp">
 
                     <TextView
+                        android:id="@+id/stove_left_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/emphasize_txt_color"
@@ -131,6 +135,7 @@
                         android:text="@string/form_item_1"></TextView>
 
                     <TextView
+                        android:id="@+id/first_setting"
                         style="@style/stove_item_txt"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -146,7 +151,7 @@
                         android:gravity="center">
 
                         <at.grabner.circleprogress.CircleProgressView
-                            android:id="@+id/circleView"
+                            android:id="@+id/first_actual"
                             style="@style/circle_progress"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
@@ -168,6 +173,7 @@
                         android:text="@string/form_item_2"></TextView>
 
                     <TextView
+                        android:id="@+id/second_setting"
                         style="@style/stove_item_txt"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -183,6 +189,7 @@
                         android:gravity="center">
 
                         <at.grabner.circleprogress.CircleProgressView
+                            android:id="@+id/second_actual"
                             style="@style/circle_progress"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
@@ -204,6 +211,7 @@
                         android:text="@string/form_item_3"></TextView>
 
                     <TextView
+                        android:id="@+id/third_setting"
                         style="@style/stove_item_txt"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -219,6 +227,7 @@
                         android:gravity="center">
 
                         <at.grabner.circleprogress.CircleProgressView
+                            android:id="@+id/third_actual"
                             style="@style/circle_progress"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
@@ -240,6 +249,7 @@
                         android:text="@string/form_item_4"></TextView>
 
                     <TextView
+                        android:id="@+id/four_setting"
                         style="@style/stove_item_txt"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -255,6 +265,7 @@
                         android:gravity="center">
 
                         <at.grabner.circleprogress.CircleProgressView
+                            android:id="@+id/four_actual"
                             style="@style/circle_progress"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
@@ -276,6 +287,7 @@
                     android:text="@string/product_model_title" />
 
                 <TextView
+                    android:id="@+id/product_model"
                     style="@style/stove_other_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -295,6 +307,7 @@
                     android:text="@string/order_num_title" />
 
                 <TextView
+                    android:id="@+id/order_num"
                     style="@style/stove_other_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -310,6 +323,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/stove_num"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
