@@ -54,4 +54,18 @@
         <item name="cpv_value">80</item>
     </style>
 
+    <style name="detail_text_normal">
+        <item name="android:textColor">@color/status_bar_txt_color</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="detail_form_text">
+        <item name="android:textColor">@color/status_bar_txt_color</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">@drawable/form_border</item>
+    </style>
+    <style name="detail_text_emphasiz">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

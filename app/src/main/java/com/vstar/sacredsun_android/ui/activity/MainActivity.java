@@ -18,6 +18,9 @@ import butterknife.ButterKnife;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
+/**
+ *
+ */
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.all_stove)
     RecyclerView recyclerView;
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         List<StoveItem> list = initData();
         StoveAdapter adapter = new StoveAdapter(list,this);
         recyclerView.setAdapter(adapter);
+
+
 
     }
 

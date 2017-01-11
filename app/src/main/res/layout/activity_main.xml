@@ -10,159 +10,11 @@
     android:baselineAligned="false"
     android:orientation="vertical"
     >
-
-    <RelativeLayout
+    <include android:id="@+id/news_title"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.15">
-
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="85dp"
-            android:layout_height="45dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:src="@drawable/sunlogo" />
-        <View
-            android:id="@+id/adjust_view"
-            android:layout_width="20dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/logo"
-            android:layout_height="16dp"></View>
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="55dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/sunsign" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="@string/sun_sign_name"
-            android:textColor="@color/desc_text_color" />
-
-        <LinearLayout
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/adjust_view"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <View
-                    style="@style/status_bar"
-                    android:background="@drawable/status_bar_idle"></View>
-
-                <TextView
-                    style="@style/status_bar_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="闲置" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <View
-                    style="@style/status_bar"
-                    android:background="@drawable/status_bar_preheating"></View>
-
-                <TextView
-                    style="@style/status_bar_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="预热" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <View
-                    style="@style/status_bar"
-                    android:background="@drawable/status_bar_presolidify"></View>
-
-                <TextView
-                    style="@style/status_bar_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="预固化" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <View
-                    style="@style/status_bar"
-                    android:background="@drawable/status_bar_solidify"></View>
-
-                <TextView
-                    style="@style/status_bar_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="固化" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <View
-                    style="@style/status_bar"
-                    android:background="@drawable/status_bar_dry"></View>
-
-                <TextView
-                    style="@style/status_bar_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="干燥" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <View
-                    style="@style/status_bar"
-                    android:background="@drawable/status_bar_warning"></View>
-
-                <TextView
-                    style="@style/status_bar_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="告警" />
-            </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
-
+        android:layout_weight="0.15"
+        layout="@layout/header"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -177,17 +29,10 @@
             android:background="@color/inner_bg_color">
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
-
-    <RelativeLayout
+    <include
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1">
-        <ImageView
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:src="@drawable/vtlogo"/>
-    </RelativeLayout>
-
+        android:layout_weight="0.1"
+        layout="@layout/footer">
+    </include>
 </LinearLayout>
