@@ -9,7 +9,7 @@ import rx.schedulers.Schedulers;
  * Created by tanghuailong on 2017/1/11.
  */
 
-public class RxSchedulerHelper {
+public class RxHelper {
     public static <T> Observable.Transformer<T,T> io_main() {
         return new Observable.Transformer<T,T>() {
             @Override
@@ -19,4 +19,5 @@ public class RxSchedulerHelper {
            }
         };
     }
+
 }

@@ -29,6 +29,7 @@ public class GsonResponseConvert<T> implements Converter<ResponseBody,T> {
     public T convert(ResponseBody value) throws IOException {
         String response = value.string();
         Log.d("NetWork","response"+response);
+        //TODO 测试的公共类
         HttpResultTest httpResult = gson.fromJson(response,HttpResultTest.class);
         if(httpResult.getCount() == 0) {
             throw new ApiException("访问失败");

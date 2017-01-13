@@ -19,13 +19,15 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.vstar.sacredsun_android.R;
 import com.vstar.sacredsun_android.service.MovieService;
 import com.vstar.sacredsun_android.util.rest.HttpMethods;
+import com.vstar.sacredsun_android.util.rxjava.RxHelper;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import rx.Subscription;
 
 /**
  * Created by tanghuailong on 2017/1/10.
@@ -92,14 +94,14 @@ public class DetailActivity extends AppCompatActivity {
 
     private void addEntry(float currentX) {
         LineData data = mLineChart.getData();
-        if(data != null) {
+        if (data != null) {
             ILineDataSet set = data.getDataSetByIndex(0);
-            if(set == null) {
+            if (set == null) {
                 set = createSet();
                 data.addDataSet(set);
             }
-            data.addEntry(new Entry(currentX,(float)(Math.random() * 40) + 30f),0);
-            if(set.getEntryCount() > 20) {
+            data.addEntry(new Entry(currentX, (float) (Math.random() * 40) + 30f), 0);
+            if (set.getEntryCount() > 20) {
                 set.removeFirst();
             }
             data.notifyDataChanged();
@@ -109,7 +111,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private LineDataSet createSet() {
-        LineDataSet set = new LineDataSet(null,"温度");
+        LineDataSet set = new LineDataSet(null, "温度");
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
         set.setColor(Color.WHITE);
@@ -117,15 +119,15 @@ public class DetailActivity extends AppCompatActivity {
         set.setCircleRadius(4f);
         set.setFillAlpha(65);
         set.setFillColor(ColorTemplate.getHoloBlue());
-        set.setHighLightColor(Color.rgb(244,117,117));
+        set.setHighLightColor(Color.rgb(244, 117, 117));
         set.setValueTextColor(Color.WHITE);
         set.setValueTextSize(9f);
         set.setDrawValues(false);
         return set;
     }
 
-    private void feedMultiple(){
-        if(thread != null) {
+    private void feedMultiple() {
+        if (thread != null) {
             thread.interrupt();
         }
 
@@ -139,7 +141,7 @@ public class DetailActivity extends AppCompatActivity {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i=0; i<1000; i++) {
+                for (int i = 0; i < 1000; i++) {
                     runOnUiThread(runnable);
                     try {
                         Thread.sleep(1000);
@@ -154,24 +156,25 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.start_mock)
-    public void startMOck(){
-//        Log.d(LOG_TAG,"start mock ...");
-//        feedMultiple();
-        HttpMethods.getInstance().getService(MovieService.class)
-                .getTopMovie(1,12)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+    public void startMOck() {
+
+        Subscription subscription = HttpMethods.getInstance().getService(MovieService.class)
+                .getTopMovie(1, 12)
+                .compose(RxHelper.io_main())
+                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(5, TimeUnit.SECONDS)))
+                .repeatWhen(completed -> completed.delay(5, TimeUnit.SECONDS))
                 .subscribe((r) -> {
-                    Log.d("result", r.toString());
+                    Log.d(LOG_TAG,r.toString());
                 },(e) -> {
                     e.printStackTrace();
+                },() -> {
+                    Log.d(LOG_TAG,"completed");
                 });
-        Observable.range(1,6).retryWhen(errors -> Observable.just(null));
     }
 
     @OnClick(R.id.add_mock)
     public void addMock() {
-        Log.d(LOG_TAG,"add mock...");
+        Log.d(LOG_TAG, "add mock...");
         addEntry(currentPosition);
         currentPosition++;
     }

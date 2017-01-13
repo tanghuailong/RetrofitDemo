@@ -1,5 +1,7 @@
 package com.vstar.sacredsun_android.util.rest;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -14,30 +16,35 @@ public class HttpMethods {
 
     //测试使用
     private static final String BASE_URL = "https://api.douban.com/v2/movie/";
-//  private static final String BASE_URL = "";
+    //  private static final String BASE_URL = "";
     private static final int DEFAULT_TIME = 5;
 
     Retrofit retrofit;
 
-    private HttpMethods(){
+    private HttpMethods() {
+
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(DEFAULT_TIME, TimeUnit.SECONDS);
+        //开启网络调试
+        OkHttpClient client = builder.addNetworkInterceptor(new StethoInterceptor())
+                .connectTimeout(DEFAULT_TIME, TimeUnit.SECONDS).build();
+
         retrofit = new Retrofit.Builder()
-                .client(builder.build())
+                .client(client)
                 .addConverterFactory(ResponseConvertFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
                 .build();
     }
 
-    private static class SingleHolder{
+    private static class SingleHolder {
         private static final HttpMethods INSTANCE = new HttpMethods();
     }
+
     public static HttpMethods getInstance() {
         return SingleHolder.INSTANCE;
     }
 
-    public<T> T getService(Class<T> tClass){
+    public <T> T getService(Class<T> tClass) {
         return retrofit.create(tClass);
     }
 }

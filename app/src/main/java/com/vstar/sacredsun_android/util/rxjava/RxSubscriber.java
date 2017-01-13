@@ -8,7 +8,7 @@ import rx.Subscriber;
  * Created by tanghuailong on 2017/1/11.
  */
 
-public abstract class RxSubscriber<T> extends Subscriber {
+public abstract class RxSubscriber<T> extends Subscriber<T> {
     @Override
     public void onCompleted() {
         Log.d("RxSubscriber","completed");
@@ -18,4 +18,5 @@ public abstract class RxSubscriber<T> extends Subscriber {
     public void onError(Throwable e) {
         e.printStackTrace();
     }
+
 }

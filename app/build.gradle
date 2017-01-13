@@ -53,18 +53,22 @@ dependencies {
     provided 'org.projectlombok:lombok:1.16.10'
     //圆形进度条
     compile 'com.github.jakob-grabner:Circle-Progress-View:v1.3'
+    //ButterKnife
     compile 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     //图表组件
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-
+    //网络访问
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:+'
     compile 'com.squareup.retrofit2:adapter-rxjava:+'
     compile 'com.google.code.gson:gson:2.8.0'
-
+    //RxJava
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
+    //网络调试
+    compile 'com.facebook.stetho:stetho:1.4.2'
+    compile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
 
     testCompile 'junit:junit:4.12'
 }

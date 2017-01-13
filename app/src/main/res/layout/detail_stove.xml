@@ -38,6 +38,16 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="6dp">
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始"
+                android:id="@+id/start_mock"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="增加"
+                android:id="@+id/add_mock"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -455,16 +465,7 @@
                 </RelativeLayout>
 
             </LinearLayout>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="开始"
-                android:id="@+id/start_mock"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="增加"
-                android:id="@+id/add_mock"/>
+
         </LinearLayout>
     </LinearLayout>
 
