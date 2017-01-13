@@ -23,6 +23,7 @@ import com.vstar.sacredsun_android.util.rest.HttpMethods;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -165,7 +166,7 @@ public class DetailActivity extends AppCompatActivity {
                 },(e) -> {
                     e.printStackTrace();
                 });
-
+        Observable.range(1,6).retryWhen(errors -> Observable.just(null));
     }
 
     @OnClick(R.id.add_mock)

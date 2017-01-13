@@ -1,15 +1,9 @@
 package com.vstar.sacredsun_android.dao;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * Created by tangh on 2017/1/9.
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class StoveItem {
     //炉子编号
     private String stoveNum;
@@ -30,4 +24,108 @@ public class StoveItem {
     private int thirdActual;
     private int fourSetting;
     private int fourActual;
+
+    public int getFourActual() {
+        return fourActual;
+    }
+
+    public void setFourActual(int fourActual) {
+        this.fourActual = fourActual;
+    }
+
+    public String getStoveNum() {
+        return stoveNum;
+    }
+
+    public void setStoveNum(String stoveNum) {
+        this.stoveNum = stoveNum;
+    }
+
+    public int getFourSetting() {
+        return fourSetting;
+    }
+
+    public void setFourSetting(int fourSetting) {
+        this.fourSetting = fourSetting;
+    }
+
+    public int getThirdActual() {
+        return thirdActual;
+    }
+
+    public void setThirdActual(int thirdActual) {
+        this.thirdActual = thirdActual;
+    }
+
+    public int getSecondSetting() {
+        return secondSetting;
+    }
+
+    public void setSecondSetting(int secondSetting) {
+        this.secondSetting = secondSetting;
+    }
+
+    public int getSecondActual() {
+        return secondActual;
+    }
+
+    public void setSecondActual(int secondActual) {
+        this.secondActual = secondActual;
+    }
+
+    public int getThirdSetting() {
+        return thirdSetting;
+    }
+
+    public void setThirdSetting(int thirdSetting) {
+        this.thirdSetting = thirdSetting;
+    }
+
+    public int getFirstAcutal() {
+        return firstAcutal;
+    }
+
+    public void setFirstAcutal(int firstAcutal) {
+        this.firstAcutal = firstAcutal;
+    }
+
+    public int getFirstSetting() {
+        return firstSetting;
+    }
+
+    public void setFirstSetting(int firstSetting) {
+        this.firstSetting = firstSetting;
+    }
+
+    public String getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(String orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public int getTimeLeft() {
+        return timeLeft;
+    }
+
+    public void setTimeLeft(int timeLeft) {
+        this.timeLeft = timeLeft;
+    }
+
+    public String getProductModel() {
+        return productModel;
+    }
+
+    public void setProductModel(String productModel) {
+        this.productModel = productModel;
+    }
+
+    public String getRunState() {
+        return runState;
+    }
+
+    public void setRunState(String runState) {
+        this.runState = runState;
+    }
 }
