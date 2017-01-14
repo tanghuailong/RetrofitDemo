@@ -69,6 +69,11 @@ dependencies {
     //网络调试
     compile 'com.facebook.stetho:stetho:1.4.2'
     compile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
+    //时间处理
+    compile 'com.jakewharton.threetenabp:threetenabp:1.0.4'
+    //stream支持
+    compile 'com.annimon:stream:1.1.4'
+
 
     testCompile 'junit:junit:4.12'
 }
