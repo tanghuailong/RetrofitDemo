@@ -8,7 +8,9 @@ import android.widget.Button;
 
 import com.annimon.stream.Stream;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -22,6 +24,11 @@ import com.vstar.sacredsun_android.entity.ChartTypeEntity;
 import com.vstar.sacredsun_android.entity.ChartValueEntity;
 import com.vstar.sacredsun_android.entity.HttpResult;
 import com.vstar.sacredsun_android.util.chart.ConstantChart;
+import com.vstar.sacredsun_android.util.chart.HourAxisValueFormatter;
+import com.vstar.sacredsun_android.util.chart.MyMarkerView;
+import com.vstar.sacredsun_android.util.chart.TimeHelper;
+
+import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +55,7 @@ public class DetailActivity extends AppCompatActivity {
     private Thread thread;
 
     private static final String LOG_TAG = "DetailActivity";
+    private LocalDate periorDate = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,36 +67,60 @@ public class DetailActivity extends AppCompatActivity {
 
     private void initChart(LineChart lineChart) {
 
-        lineChart.getDescription().setEnabled(true);
         lineChart.setTouchEnabled(true);
         lineChart.setDragEnabled(false);
         lineChart.setScaleEnabled(false);
         lineChart.setDrawGridBackground(false);
         lineChart.setPinchZoom(true);
-        lineChart.setVisibleXRangeMaximum(10);
-
-
+        Description description = new Description();
+        description.setTextColor(Color.YELLOW);
+        description.setText("Œ¬ ™∂»±‰ªØ");
+        lineChart.setDescription(description);
         lineChart.setBackgroundResource(R.color.custom_bg_color);
-
+        MyMarkerView myMarkerView = new MyMarkerView(DetailActivity.this,R.layout.custom_marker_view);
+        lineChart.setMarker(myMarkerView);
         LineData data = new LineData();
         data.setValueTextColor(Color.WHITE);
         lineChart.setData(data);
 
         Legend legend = lineChart.getLegend();
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setDrawInside(false);
         legend.setForm(Legend.LegendForm.LINE);
         legend.setTextColor(Color.WHITE);
+
+        HourAxisValueFormatter formatter = new HourAxisValueFormatter();
+        LimitLine temperateLimited = new LimitLine(50f, "…Ë∂®Œ¬∂»");
+        temperateLimited.setLineColor(Color.RED);
+        temperateLimited.setLineWidth(2f);
+        temperateLimited.setTextColor(Color.WHITE);
+        temperateLimited.setTextSize(10f);
+        LimitLine humidityLimited = new LimitLine(60f,"…Ë∂® ™∂»");
+        humidityLimited.setLineColor(Color.RED);
+        humidityLimited.setLineWidth(2f);
+        humidityLimited.setTextColor(Color.WHITE);
+        humidityLimited.setTextSize(10f);
 
         XAxis xl = lineChart.getXAxis();
         xl.setPosition(XAxis.XAxisPosition.BOTTOM);
         xl.setTextColor(Color.WHITE);
+        xl.setValueFormatter(formatter);
         xl.setAxisMinimum(0f);
         xl.setAxisMaximum(86400f);
-        xl.setDrawGridLines(false);
+        xl.setLabelCount(10);
+        xl.setDrawGridLines(true);
         xl.setAvoidFirstLastClipping(false);
+        xl.setDrawLabels(true);
+        xl.setDrawAxisLine(true);
         xl.setEnabled(true);
         YAxis leftAxis = lineChart.getAxisLeft();
         leftAxis.setTextColor(Color.WHITE);
+        leftAxis.addLimitLine(temperateLimited);
+        leftAxis.addLimitLine(humidityLimited);
         leftAxis.setAxisMaximum(100f);
+        leftAxis.setAxisMinimum(0f);
         leftAxis.setMinWidth(0f);
         leftAxis.setDrawGridLines(true);
         YAxis rightAxis = lineChart.getAxisRight();
@@ -148,30 +180,45 @@ public class DetailActivity extends AppCompatActivity {
 //                    Log.d(LOG_TAG,"completed");
 //                });
 
-        //ÂÅáÊï∞ÊçÆ
+
         ChartTypeEntity chartTypeEntity = new ChartTypeEntity();
-        chartTypeEntity.setField("temperature");
+        chartTypeEntity.setField("temperature1");
         ChartValueEntity chartValueEntity = new ChartValueEntity();
-        chartValueEntity.setStamp("2016-12-30 14:00:00");
+        chartValueEntity.setStamp("2017-01-14 14:00:00");
         chartValueEntity.setValue("46");
         List<ChartValueEntity> items = new ArrayList<>();
         items.add(chartValueEntity);
         List<HttpResult<ChartTypeEntity, ChartValueEntity>> list = new ArrayList<>();
         HttpResult<ChartTypeEntity, ChartValueEntity> result = new HttpResult<>();
         result.setCode("0");
-        result.setMessage("Ëé∑ÂèñÊï∞ÊçÆÊàêÂäü");
+        result.setMessage("œ˚œ¢Ω” ’≥…π¶");
         result.setItem(chartTypeEntity);
         result.setItems(items);
+        //TODO ≤¢≤ª «“ª∏ˆ∫√µƒ µœ÷∑Ω Ω
         String chartType = result.getItem().getField();
-        Stream.of(result.getItems()).map((r) -> {
-            return new ChartValueDTO(r, chartType);
-        }).map(r -> {
-                r.setStamp(r.getStamp() - r.getBeginOfTime());
-                return r;
-            }).forEach(r -> {
-                addToChart(r);
-            });
+        List<ChartValueEntity> valueList = result.getItems();
+        if (valueList.size() > 0) {
+            LocalDate localDate = TimeHelper.strTransfromLocalDateTime(valueList.get(0).getStamp()).toLocalDate();
+            if(localDate.equals(periorDate)) {
+                Stream.of(result.getItems()).map((r) -> {
+                    return new ChartValueDTO(r, chartType);
+                }).map(r -> {
+                    r.setStamp(r.getStamp() - r.getBeginOfTime());
+                    return r;
+                }).forEach(r -> {
+                    addToChart(r);
+                });
+            }else {
+                //TODO –Ë“™≤‚ ‘
+                periorDate = localDate;
+                LineData mData = mLineChart.getData();
+                mData.removeDataSet(ConstantChart.chartTypeAndIndex.get(chartType));
+                mData.notifyDataChanged();
+                mLineChart.notifyDataSetChanged();
+                mLineChart.invalidate();
+            }
         }
+    }
 
 
 
@@ -189,10 +236,10 @@ public class DetailActivity extends AppCompatActivity {
             lineData.addEntry(new Entry(dto.getStamp(),dto.getValue()),ConstantChart.chartTypeAndIndex.get(dto.getChartType()));
             lineData.notifyDataChanged();
             mLineChart.notifyDataSetChanged();
-            //ÂΩìÈúÄË¶Å‰∏ÄÂÆöÂæóÊó∂ÂÄôË∞ÉÁî®
-//            mLineChart.moveViewToX(lineData.getEntryCount());
+            mLineChart.moveViewToX(lineData.getEntryCount());
         }
     }
+
 
     private LineDataSet createSet(String dataSetLabel) {
 

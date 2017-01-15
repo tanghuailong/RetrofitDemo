@@ -36,7 +36,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(5,StaggeredGridLayoutManager.VERTICAL));
         List<StoveItem> list = initData();
         StoveAdapter adapter = new StoveAdapter(list,this);
+        //TODO 比较丑的实现方式
+        adapter.setRecyclerViewListener((v,p) -> {
+            System.out.println(list.get(0));
+        });
         recyclerView.setAdapter(adapter);
+        list.add(new StoveItem());
+
 
 
 

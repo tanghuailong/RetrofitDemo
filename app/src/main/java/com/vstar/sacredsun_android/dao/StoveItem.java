@@ -3,7 +3,7 @@ package com.vstar.sacredsun_android.dao;
 /**
  * Created by tangh on 2017/1/9.
  */
-
+@Deprecated
 public class StoveItem {
     //炉子编号
     private String stoveNum;

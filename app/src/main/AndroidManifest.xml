@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
         android:name=".App">
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.DetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

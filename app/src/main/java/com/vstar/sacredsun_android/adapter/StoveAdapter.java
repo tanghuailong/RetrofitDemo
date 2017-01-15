@@ -20,11 +20,16 @@ import butterknife.ButterKnife;
  * Created by tangh on 2017/1/9.
  */
 
-public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder> {
+public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder> implements View.OnClickListener{
 
 
     private List<StoveItem> lists;
     private Context context;
+    private OnRecyclerViewItemClickListener listener;
+
+    public void setRecyclerViewListener(OnRecyclerViewItemClickListener listener) {
+        this.listener = listener;
+    }
 
     public StoveAdapter(List<StoveItem> lists, Context context) {
         this.lists = lists;
@@ -35,7 +40,11 @@ public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>
     public StoveHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.item_stove, parent, false);
-        return new StoveHolder(view);
+        StoveHolder holder = new StoveHolder(view);
+        view.setOnClickListener(v ->  {
+            listener.onItemClick(v,holder.getAdapterPosition());
+        });
+        return holder;
     }
 
     @Override
@@ -107,5 +116,10 @@ public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>
             productModel.setText(stoveItem.getProductModel());
             orderNum.setText(stoveItem.getOrderNum());
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

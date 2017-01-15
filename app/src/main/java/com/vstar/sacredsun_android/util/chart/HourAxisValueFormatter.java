@@ -18,4 +18,6 @@ public class HourAxisValueFormatter implements IAxisValueFormatter {
         return localTime.getHour()+":"+localTime.getMinute();
     }
 
+
+
 }
