@@ -49,6 +49,7 @@
             android:textSize="30sp"
             android:text="@string/device_num"/>
         <TextView
+            android:id="@+id/device_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/status_bar_txt_color"

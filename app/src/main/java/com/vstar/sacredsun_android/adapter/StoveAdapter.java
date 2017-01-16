@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vstar.sacredsun_android.R;
-import com.vstar.sacredsun_android.dao.StoveItem;
+import com.vstar.sacredsun_android.entity.DeviceEntity;
+import com.vstar.sacredsun_android.util.StatusMap;
 
 import java.util.List;
 
@@ -20,20 +21,17 @@ import butterknife.ButterKnife;
  * Created by tangh on 2017/1/9.
  */
 
-public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder> implements View.OnClickListener{
+public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>{
 
 
-    private List<StoveItem> lists;
+    private List<DeviceEntity> lists;
     private Context context;
     private OnRecyclerViewItemClickListener listener;
 
-    public void setRecyclerViewListener(OnRecyclerViewItemClickListener listener) {
-        this.listener = listener;
-    }
-
-    public StoveAdapter(List<StoveItem> lists, Context context) {
+    public StoveAdapter(List<DeviceEntity> lists, Context context,OnRecyclerViewItemClickListener listener) {
         this.lists = lists;
         this.context = context;
+        this.listener = listener;
     }
 
     @Override
@@ -42,14 +40,14 @@ public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>
         View view = layoutInflater.inflate(R.layout.item_stove, parent, false);
         StoveHolder holder = new StoveHolder(view);
         view.setOnClickListener(v ->  {
-            listener.onItemClick(v,holder.getAdapterPosition());
+            listener.onItemClick(v,lists.get(holder.getAdapterPosition()).getAssetsCode());
         });
         return holder;
     }
 
     @Override
     public void onBindViewHolder(StoveHolder holder, int position) {
-        StoveItem stoveItem = lists.get(position);
+        DeviceEntity stoveItem = lists.get(position);
         if(stoveItem != null) {
             holder.bindStoveItem(stoveItem);
         }
@@ -91,35 +89,29 @@ public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>
         @BindView(R.id.four_actual)
         public CircleProgressView fourActual;
 
-        private StoveItem mStoveItem;
+        private DeviceEntity mStoveItem;
 
         public StoveHolder(View view){
             super(view);
             ButterKnife.bind(this,view);
         }
 
-        public void bindStoveItem(StoveItem stoveItem) {
+        public void bindStoveItem(DeviceEntity stoveItem) {
             mStoveItem = stoveItem;
-            stoveNum.setText(stoveItem.getStoveNum());
-            runState.setText(stoveItem.getRunState());
-//            runStateBlock.setBackgroundResource(StatusMap.statusAndView.get(stoveItem.getRunState()));
-            runStateBlock.setBackgroundResource(R.drawable.status_bar_dry);
-            timeLeft.setText(String.valueOf(stoveItem.getTimeLeft()));
-            firstSetting.setText(String.valueOf(stoveItem.getFirstSetting()));
-            firstActual.setValue(stoveItem.getFirstAcutal());
-            secondSetting.setText(String.valueOf(stoveItem.getFirstSetting()));
-            secondActual.setValue(stoveItem.getSecondActual());
-            thirdSetting.setText(String.valueOf(stoveItem.getThirdSetting()));
-            thirdActual.setValue(stoveItem.getThirdActual());
-            fourSetting.setText(String.valueOf(stoveItem.getFourSetting()));
-            fourActual.setValue(stoveItem.getFourActual());
-            productModel.setText(stoveItem.getProductModel());
-            orderNum.setText(stoveItem.getOrderNum());
+            stoveNum.setText(stoveItem.getAssetsCode());
+            runState.setText(stoveItem.getStatus().name());
+            runStateBlock.setBackgroundResource(StatusMap.statusAndView.get(stoveItem.getStatus().name()));
+            timeLeft.setText(stoveItem.getRedidualTime());
+            firstSetting.setText(stoveItem.getTemperature());
+            firstActual.setValue(Float.parseFloat(stoveItem.getTemperature1()));
+            secondSetting.setText(stoveItem.getTemperature());
+            secondActual.setValue(Float.parseFloat(stoveItem.getTemperature2()));
+            thirdSetting.setText(stoveItem.getHumidity());
+            thirdActual.setValue(Float.parseFloat(stoveItem.getHumidity1()));
+            fourSetting.setText(stoveItem.getHumidity());
+            fourActual.setValue(Float.parseFloat(stoveItem.getHumidity2()));
+            productModel.setText(stoveItem.getMaterialCode());
+            orderNum.setText(stoveItem.getQuantity());
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 }

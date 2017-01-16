@@ -24,11 +24,13 @@
     <string name="dry">干燥</string>
     <string name="warning">告警</string>
     <string name="device_num">设备编号 :&#160;</string>
-    <string name="reduce_humidity">降湿风门</string>
+    <string name="reduce_humidity">降温风门</string>
     <string name="exhaust_humidity">排湿风门</string>
     <string name="cycle_blower">循环风机</string>
     <string name="stream_humidity">蒸汽加湿</string>
     <string name="stream_heating">蒸汽加热</string>
     <string name="water_valve">雾化水阀</string>
     <string name="order_unit">块</string>
+    <string name="previous">前进</string>
+    <string name="next">后退</string>
 </resources>

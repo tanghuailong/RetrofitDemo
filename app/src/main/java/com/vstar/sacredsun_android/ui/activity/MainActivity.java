@@ -1,31 +1,44 @@
 package com.vstar.sacredsun_android.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 
 import com.vstar.sacredsun_android.R;
 import com.vstar.sacredsun_android.adapter.StoveAdapter;
-import com.vstar.sacredsun_android.dao.StoveItem;
+import com.vstar.sacredsun_android.entity.DeviceEntity;
+import com.vstar.sacredsun_android.service.SacredsunService;
+import com.vstar.sacredsun_android.util.rest.HttpMethods;
+import com.vstar.sacredsun_android.util.rxjava.RxHelper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.jemos.podam.api.PodamFactory;
-import uk.co.jemos.podam.api.PodamFactoryImpl;
+import rx.Observable;
+import rx.Subscription;
 
 /**
- *
+ *看板的主界面
  */
 public class MainActivity extends AppCompatActivity {
+
     @BindView(R.id.all_stove)
     RecyclerView recyclerView;
 
+    private static List<DeviceEntity> list = new ArrayList<>();
+    private Subscription subscription;
+    private static final String WORK_SHOP_NAME = "极板正区";
+    private StoveAdapter adapter;
+
     private static final String LOG_TAG = "MainActivity";
+    private static final String TAG = "assetsCode";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,29 +47,61 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(5,StaggeredGridLayoutManager.VERTICAL));
-        List<StoveItem> list = initData();
-        StoveAdapter adapter = new StoveAdapter(list,this);
-        //TODO 比较丑的实现方式
-        adapter.setRecyclerViewListener((v,p) -> {
-            System.out.println(list.get(0));
+        adapter = new StoveAdapter(list,this, (view,code) -> {
+            //跳转到详细页面
+            Intent intent = new Intent(MainActivity.this,DetailActivity.class);
+            intent.putExtra(TAG,code);
+            startActivity(intent);
         });
         recyclerView.setAdapter(adapter);
-        list.add(new StoveItem());
-
-
-
-
     }
 
-    private List<StoveItem> initData(){
-        PodamFactory factory = new PodamFactoryImpl();
-        StoveItem myPojo = factory.manufacturePojo(StoveItem.class);
-        myPojo.setFirstAcutal(12);
-        myPojo.setSecondActual(89);
-        myPojo.setThirdActual(42);
-        myPojo.setFourActual(69);
-        List<StoveItem> list = new ArrayList<>();
-        list.addAll(Arrays.asList(myPojo,myPojo,myPojo,myPojo,myPojo,myPojo,myPojo,myPojo,myPojo,myPojo));
-        return list;
+    private void initData(){
+
+        //轮询获取数据
+         subscription = HttpMethods.getInstance().getService(SacredsunService.class)
+                .getDeviceBasicData(WORK_SHOP_NAME)
+                .compose(RxHelper.io_main())
+                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(5, TimeUnit.SECONDS)))
+                .repeatWhen(completed -> completed.delay(5, TimeUnit.SECONDS))
+                .subscribe((r) -> {
+                    //清空list里面的数据
+                    list.clear();
+                    list.addAll(r.getItems());
+                },(e) -> {
+                    e.printStackTrace();
+                },() -> {
+                    //通知数据改变
+                    adapter.notifyDataSetChanged();
+                    Log.d(LOG_TAG,"completed");
+                });
     }
+
+    //进入的时候订阅，并且更新数据
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(subscription == null || subscription.isUnsubscribed()) {
+            initData();
+        }
+    }
+
+    //退出时候解除订阅
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //解除订阅
+        if(subscription!=null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
+    }
+
+    /**
+     * 制造随机数据用来测试，random-beans是一个更好的选择，
+     * 但无奈何Android N只支持java8部分功能,而random-bean要求java8
+     */
+//    private List<DeviceEntity> initData(){
+//        PodamFactory factory = new PodamFactoryImpl();
+//        StoveItem myPojo = factory.manufacturePojo(StoveItem.class);
+//    }
 }

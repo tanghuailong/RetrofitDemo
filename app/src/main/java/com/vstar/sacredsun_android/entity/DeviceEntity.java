@@ -10,7 +10,7 @@ public class DeviceEntity {
 
     private String assetsCode;
     private String materialCode;
-    private String orderQuantity;
+    private String quantity;
     private String redidualTime;
     private Status status;
     private String temperature;
@@ -36,12 +36,12 @@ public class DeviceEntity {
         this.materialCode = materialCode;
     }
 
-    public String getOrderQuantity() {
-        return orderQuantity;
+    public String getQuantity() {
+        return quantity;
     }
 
-    public void setOrderQuantity(String orderQuantity) {
-        this.orderQuantity = orderQuantity;
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
     public String getRedidualTime() {
@@ -113,7 +113,7 @@ public class DeviceEntity {
         return "DeviceEntity{" +
                 "assetsCode='" + assetsCode + '\'' +
                 ", materialCode='" + materialCode + '\'' +
-                ", orderQuantity='" + orderQuantity + '\'' +
+                ", quantity='" + quantity + '\'' +
                 ", redidualTime='" + redidualTime + '\'' +
                 ", status=" + status +
                 ", temperature='" + temperature + '\'' +

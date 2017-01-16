@@ -1,10 +1,14 @@
 package com.vstar.sacredsun_android.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.annimon.stream.Stream;
 import com.github.mikephil.charting.charts.LineChart;
@@ -22,20 +26,27 @@ import com.vstar.sacredsun_android.R;
 import com.vstar.sacredsun_android.dao.ChartValueDTO;
 import com.vstar.sacredsun_android.entity.ChartTypeEntity;
 import com.vstar.sacredsun_android.entity.ChartValueEntity;
+import com.vstar.sacredsun_android.entity.DeviceDetailEntity;
 import com.vstar.sacredsun_android.entity.HttpResult;
+import com.vstar.sacredsun_android.service.SacredsunService;
 import com.vstar.sacredsun_android.util.chart.ConstantChart;
 import com.vstar.sacredsun_android.util.chart.HourAxisValueFormatter;
 import com.vstar.sacredsun_android.util.chart.MyMarkerView;
 import com.vstar.sacredsun_android.util.chart.TimeHelper;
+import com.vstar.sacredsun_android.util.rest.HttpMethods;
+import com.vstar.sacredsun_android.util.rxjava.RxHelper;
 
 import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.Subscription;
 
 /**
  * Created by tanghuailong on 2017/1/10.
@@ -44,24 +55,71 @@ import butterknife.OnClick;
 public class DetailActivity extends AppCompatActivity {
 
     @BindView(R.id.detail_chart)
-    LineChart mLineChart;
-    @BindView(R.id.start_mock)
-    Button startMock;
-    @BindView(R.id.add_mock)
-    Button addMock;
+    LineChart mLineChart;                      //折线图
+    @BindView(R.id.device_code)
+    TextView deviceCode;                       //设备编号
+    @BindView(R.id.detail_product_model)
+    TextView detailProductModel;               //产品型号
+    @BindView(R.id.detail_order_num_value)
+    TextView detailOrderNumValue;              //订单数量
+    @BindView(R.id.stove_left_time)
+    TextView stoveLeftTime;                   //剩余时间
+    @BindView(R.id.detail_run_value)
+    TextView detailRunValue;                  //运行状态
+    @BindView(R.id.detail_product_stage_title)
+    TextView detailProductStageTitle;         //生产阶段
+    @BindView(R.id.detail_program_num_value)
+    TextView detailProgramNumValue;           //程序号
+    @BindView(R.id.first_setting)
+    TextView firstSetting;                    //温度一设定值
+    @BindView(R.id.first_actual)
+    TextView firstActual;                     //温度一实际值
+    @BindView(R.id.second_setting)
+    TextView secondSetting;                   //温度二设定值
+    @BindView(R.id.second_actual)
+    TextView secondActual;                    //温度二实际值
+    @BindView(R.id.third_setting)
+    TextView thirdSetting;                    //湿度一设定值
+    @BindView(R.id.third_actual)
+    TextView thirdActual;                     //湿度一实际值
+    @BindView(R.id.four_setting)
+    TextView fourSetting;                     //湿度二的设定值
+    @BindView(R.id.four_actual)
+    TextView fourActual;                      //湿度二的实际值
+    @BindView(R.id.detail_left_img)
+    ImageView detailLeftImg;                  //向前
+    @BindView(R.id.detail_right_img)
+    ImageView detailRightImg;                 //向后
+    @BindView(R.id.detail_reduce_temperate_value)
+    TextView detailReduceTemperateValue;      //降温风门
+    @BindView(R.id.detail_stream_heating_value)
+    TextView detailStreamHeatingValue;        //蒸汽加热
+    @BindView(R.id.detail_exhaust_humidity_value)
+    TextView detailExhaustHumidityValue;      //排湿风门
+    @BindView(R.id.detail_stream_humidity_value)
+    TextView deatailStreamHumidityValue;      //蒸汽加湿
+    @BindView(R.id.detail_cycle_blower_value)
+    TextView detailCycleBlowerValue;          //循环风机
+    @BindView(R.id.detail_water_valve)
+    TextView detailWaterValve;                //雾化水阀
 
-    private float currentPosition = 0f;
-
-    private Thread thread;
 
     private static final String LOG_TAG = "DetailActivity";
+    private static final String TAG = "assetsCode";
+
     private LocalDate periorDate = null;
+    private Subscription subscription;
+    private String assertsCode = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_stove);
         ButterKnife.bind(this);
+
+        Intent intent = getIntent();
+        assertsCode = intent.getStringExtra(TAG);
+
         initChart(mLineChart);
     }
 
@@ -127,59 +185,67 @@ public class DetailActivity extends AppCompatActivity {
         rightAxis.setEnabled(false);
     }
 
-//    private void addEntry(float currentX) {
-//        LineData data = mLineChart.getData();
-//        if (data != null) {
-//            ILineDataSet set = data.getDataSetByIndex(0);
-//            if (set == null) {
-//                set = createSet();
-//                data.addDataSet(set);
-//            }
-//            data.addEntry(new Entry(currentX, (float) (Math.random() * 40) + 30f), 0);
-//            if (set.getEntryCount() > 20) {
-//                set.removeFirst();
-//            }
-//            data.notifyDataChanged();
-//            mLineChart.notifyDataSetChanged();
-//            mLineChart.moveViewToX(data.getEntryCount());
-//        }
-//    }
-//
-//    private LineDataSet createSet() {
-//        LineDataSet set = new LineDataSet(null, "娓╁害");
-//        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-//        set.setAxisDependency(YAxis.AxisDependency.LEFT);
-//        set.setColor(Color.WHITE);
-//        set.setLineWidth(2f);
-//        set.setCircleRadius(4f);
-//        set.setFillAlpha(65);
-//        set.setFillColor(ColorTemplate.getHoloBlue());
-//        set.setHighLightColor(Color.rgb(244, 117, 117));
-//        set.setValueTextColor(Color.WHITE);
-//        set.setValueTextSize(9f);
-//        set.setDrawValues(false);
-//        return set;
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (subscription == null || subscription.isUnsubscribed()) {
+            if(!TextUtils.isEmpty(assertsCode)) {
+                //轮询获取数据
+                subscription = HttpMethods.getInstance().getService(SacredsunService.class)
+                        .getDeviceDetailData(assertsCode)
+                        .compose(RxHelper.io_main())
+                        .retryWhen(errors -> errors.flatMap(error -> Observable.timer(5, TimeUnit.SECONDS)))
+                        .repeatWhen(completed -> completed.delay(5, TimeUnit.SECONDS))
+                        .subscribe((r) -> {
+                            initDetailPage(r.getItem());
+                        },(e) -> {
+                            e.printStackTrace();
+                        },() -> {
+                            //通知数据改变
+                            Log.d(LOG_TAG,"completed");
+                        });
+            }
+        }
+    }
 
-    private void feedMultiple() {
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //解除订阅
+        if(subscription!=null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
 
+    }
+
+    //初始化设备信息的界面
+    private void initDetailPage(DeviceDetailEntity entity) {
+
+        deviceCode.setText(entity.getAssetsCode());
+        detailOrderNumValue.setText(entity.getOrderQuantity());
+        detailProductModel.setText(entity.getMaterialCode());
+        stoveLeftTime.setText(entity.getResidualTime());
+        detailRunValue.setText(entity.getAssetsState().name());
+        firstSetting.setText(entity.getTemperature());
+        firstActual.setText(entity.getTemperature1());
+        secondSetting.setText(entity.getTemperature());
+        secondActual.setText(entity.getTemperature2());
+        thirdSetting.setText(entity.getHumidity());
+        thirdActual.setText(entity.getHumidity1());
+        fourSetting.setText(entity.getHumidity());
+        fourActual.setText(entity.getHumidity2());
+        detailProductStageTitle.setText(entity.getAssetsState() +" "+entity.getProductionStage() +"阶段");
+        detailProgramNumValue.setText(entity.getProgramNumber());
+        detailCycleBlowerValue.setText(entity.getCirculatingFan());
+        detailWaterValve.setText(entity.getWaterValve());
+        detailReduceTemperateValue.setText(entity.getCoolingDamper());
+        detailExhaustHumidityValue.setText(entity.getHumidityDamper());
+        detailStreamHeatingValue.setText(entity.getSteamHeating());
+        deatailStreamHumidityValue.setText(entity.getStreamHumidity());
     }
 
     @OnClick(R.id.start_mock)
     public void startMOck() {
-//        Subscription subscription = HttpMethods.getInstance().getService(MovieService.class)
-//                .getTopMovie(1, 12)
-//                .compose(RxHelper.io_main())
-//                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(5, TimeUnit.SECONDS)))
-//                .repeatWhen(completed -> completed.delay(5, TimeUnit.SECONDS))
-//                .subscribe((r) -> {
-//                    Log.d(LOG_TAG,r.toString());
-//                },(e) -> {
-//                    e.printStackTrace();
-//                },() -> {
-//                    Log.d(LOG_TAG,"completed");
-//                });
-
 
         ChartTypeEntity chartTypeEntity = new ChartTypeEntity();
         chartTypeEntity.setField("temperature1");

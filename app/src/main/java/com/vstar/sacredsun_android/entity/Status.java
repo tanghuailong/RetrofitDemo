@@ -11,5 +11,6 @@ public enum Status {
     UNUSED,                   //闲置
     PRE_SOLIDIFICATION,       //预固化
     SOLIDIFICATION,           //固化
-    DRYING                    //干燥
+    DRYING,                   //干燥
+    WARNING                   //告警
 }

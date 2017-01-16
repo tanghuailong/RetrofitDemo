@@ -9,6 +9,29 @@ package com.vstar.sacredsun_android.entity;
  */
 public class DeviceDetailEntity {
 
+    /* "assetsCode":"G101",
+       "materialCode":"OPZV-120", ===> 产品型号
+       "orderQuantity":"31000", ===> 订单数量
+       "residualTime":"12000", ===> 剩余时间，单位分钟
+       "assetsState":"pre-solidification",
+       "temperature":"50" ===> 设定温度
+       "temperature1":"50", ===> 实际温度1
+        "temperature2":"52", ===> 实际温度2
+        "humidity":"60", ===> 设定湿度
+        "humidity1":"60", ===> 实际湿度1
+        "humidity2":"64", ===> 实际湿度2
+        "productionStage":"1", ===> 生产阶段，格式待定
+        "programNumber":"3", ===> 程序号
+        "beginTime":"2016-12-29 10:00", ===> 生产周期开始时间
+        "endTime":"2017-01-04 14:00", ===> 生产周期结束时间
+        "circulatingFan":"1" ===> 循环风机
+        "waterValve":"1" ===> 雾化水阀
+        "coolingDamper":"1" ===> 降温风门
+        "humidityDamper":"1" ===> 排湿风门
+        "steamHeating":"1" ===> 蒸汽加热
+        "streamHumidity":"1" ===> 蒸汽加湿*/
+
+
     private String assetsCode;
     private String materialCode;
     private String orderQuantity;
@@ -24,6 +47,12 @@ public class DeviceDetailEntity {
     private String programNumber;
     private String beginTime;
     private String endTime;
+    private String circulatingFan;
+    private String waterValve;
+    private String coolingDamper;
+    private String humidityDamper;
+    private String steamHeating;
+    private String streamHumidity;
 
     public String getEndTime() {
         return endTime;
@@ -145,6 +174,54 @@ public class DeviceDetailEntity {
         this.beginTime = beginTime;
     }
 
+    public String getCirculatingFan() {
+        return circulatingFan;
+    }
+
+    public void setCirculatingFan(String circulatingFan) {
+        this.circulatingFan = circulatingFan;
+    }
+
+    public String getStreamHumidity() {
+        return streamHumidity;
+    }
+
+    public void setStreamHumidity(String streamHumidity) {
+        this.streamHumidity = streamHumidity;
+    }
+
+    public String getHumidityDamper() {
+        return humidityDamper;
+    }
+
+    public void setHumidityDamper(String humidityDamper) {
+        this.humidityDamper = humidityDamper;
+    }
+
+    public String getCoolingDamper() {
+        return coolingDamper;
+    }
+
+    public void setCoolingDamper(String coolingDamper) {
+        this.coolingDamper = coolingDamper;
+    }
+
+    public String getSteamHeating() {
+        return steamHeating;
+    }
+
+    public void setSteamHeating(String steamHeating) {
+        this.steamHeating = steamHeating;
+    }
+
+    public String getWaterValve() {
+        return waterValve;
+    }
+
+    public void setWaterValve(String waterValve) {
+        this.waterValve = waterValve;
+    }
+
     @Override
     public String toString() {
         return "DeviceDetailEntity{" +
@@ -163,6 +240,12 @@ public class DeviceDetailEntity {
                 ", programNumber='" + programNumber + '\'' +
                 ", beginTime='" + beginTime + '\'' +
                 ", endTime='" + endTime + '\'' +
+                ", circulatingFan='" + circulatingFan + '\'' +
+                ", waterValve='" + waterValve + '\'' +
+                ", coolingDamper='" + coolingDamper + '\'' +
+                ", humidityDamper='" + humidityDamper + '\'' +
+                ", steamHeating='" + steamHeating + '\'' +
+                ", streamHumidity='" + streamHumidity + '\'' +
                 '}';
     }
 }
