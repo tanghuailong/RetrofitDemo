@@ -49,7 +49,20 @@ public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>
     public void onBindViewHolder(StoveHolder holder, int position) {
         DeviceEntity stoveItem = lists.get(position);
         if(stoveItem != null) {
-            holder.bindStoveItem(stoveItem);
+            holder.stoveNum.setText(stoveItem.getAssetsCode());
+            holder.runState.setText(stoveItem.getStatus().name());
+            holder.runStateBlock.setBackgroundResource(StatusMap.statusAndView.get(stoveItem.getStatus().name()));
+            holder.timeLeft.setText(stoveItem.getResidualTime());
+            holder.firstSetting.setText(stoveItem.getTemperature());
+            holder.firstActual.setValue(Float.parseFloat(stoveItem.getTemperature1()));
+            holder.secondSetting.setText(stoveItem.getTemperature());
+            holder.secondActual.setValue(Float.parseFloat(stoveItem.getTemperature2()));
+            holder.thirdSetting.setText(stoveItem.getHumidity());
+            holder.thirdActual.setValue(Float.parseFloat(stoveItem.getHumidity1()));
+            holder.fourSetting.setText(stoveItem.getHumidity());
+            holder.fourActual.setValue(Float.parseFloat(stoveItem.getHumidity2()));
+            holder.productModel.setText(stoveItem.getMaterialCode());
+            holder.orderNum.setText(stoveItem.getQuantity());
         }
     }
 
@@ -61,57 +74,41 @@ public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>
     public static class StoveHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.stove_num)
-        public TextView stoveNum;
+        TextView stoveNum;
         @BindView(R.id.stove_run_status)
-        public TextView runState;
+        TextView runState;
         @BindView(R.id.stove_run_status_block)
-        public View runStateBlock;
+        View runStateBlock;
         @BindView(R.id.stove_left_time)
-        public TextView timeLeft;
+        TextView timeLeft;
         @BindView(R.id.product_model)
-        public TextView productModel;
+        TextView productModel;
         @BindView(R.id.order_num)
-        public TextView orderNum;
+        TextView orderNum;
         @BindView(R.id.first_setting)
-        public TextView firstSetting;
+        TextView firstSetting;
         @BindView(R.id.first_actual)
-        public CircleProgressView firstActual;
+        CircleProgressView firstActual;
         @BindView(R.id.second_setting)
-        public TextView secondSetting;
+        TextView secondSetting;
         @BindView(R.id.second_actual)
-        public CircleProgressView secondActual;
+        CircleProgressView secondActual;
         @BindView(R.id.third_setting)
-        public TextView thirdSetting;
+        TextView thirdSetting;
         @BindView(R.id.third_actual)
-        public CircleProgressView thirdActual;
+        CircleProgressView thirdActual;
         @BindView(R.id.four_setting)
-        public TextView fourSetting;
+        TextView fourSetting;
         @BindView(R.id.four_actual)
-        public CircleProgressView fourActual;
+        CircleProgressView fourActual;
 
-        private DeviceEntity mStoveItem;
+
 
         public StoveHolder(View view){
             super(view);
             ButterKnife.bind(this,view);
         }
 
-        public void bindStoveItem(DeviceEntity stoveItem) {
-            mStoveItem = stoveItem;
-            stoveNum.setText(stoveItem.getAssetsCode());
-            runState.setText(stoveItem.getStatus().name());
-            runStateBlock.setBackgroundResource(StatusMap.statusAndView.get(stoveItem.getStatus().name()));
-            timeLeft.setText(stoveItem.getRedidualTime());
-            firstSetting.setText(stoveItem.getTemperature());
-            firstActual.setValue(Float.parseFloat(stoveItem.getTemperature1()));
-            secondSetting.setText(stoveItem.getTemperature());
-            secondActual.setValue(Float.parseFloat(stoveItem.getTemperature2()));
-            thirdSetting.setText(stoveItem.getHumidity());
-            thirdActual.setValue(Float.parseFloat(stoveItem.getHumidity1()));
-            fourSetting.setText(stoveItem.getHumidity());
-            fourActual.setValue(Float.parseFloat(stoveItem.getHumidity2()));
-            productModel.setText(stoveItem.getMaterialCode());
-            orderNum.setText(stoveItem.getQuantity());
-        }
+
     }
 }

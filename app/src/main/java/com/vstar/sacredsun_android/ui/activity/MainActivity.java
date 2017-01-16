@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     private static List<DeviceEntity> list = new ArrayList<>();
-    private Subscription subscription;
+    private Subscription subscription = null;
     private static final String WORK_SHOP_NAME = "极板正区";
     private StoveAdapter adapter;
 
@@ -59,20 +59,19 @@ public class MainActivity extends AppCompatActivity {
     private void initData(){
 
         //轮询获取数据
-         subscription = HttpMethods.getInstance().getService(SacredsunService.class)
+        subscription =  HttpMethods.getInstance().getService(SacredsunService.class)
                 .getDeviceBasicData(WORK_SHOP_NAME)
                 .compose(RxHelper.io_main())
                 .retryWhen(errors -> errors.flatMap(error -> Observable.timer(5, TimeUnit.SECONDS)))
                 .repeatWhen(completed -> completed.delay(5, TimeUnit.SECONDS))
                 .subscribe((r) -> {
-                    //清空list里面的数据
+                    Log.d(LOG_TAG,"onNext");
                     list.clear();
                     list.addAll(r.getItems());
+                    adapter.notifyDataSetChanged();
                 },(e) -> {
                     e.printStackTrace();
                 },() -> {
-                    //通知数据改变
-                    adapter.notifyDataSetChanged();
                     Log.d(LOG_TAG,"completed");
                 });
     }
@@ -90,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        //解除订阅
+//        解除订阅
         if(subscription!=null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }

@@ -3,7 +3,7 @@ package com.vstar.sacredsun_android.util.rest;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.vstar.sacredsun_android.entity.HttpResultTest;
+import com.vstar.sacredsun_android.entity.HttpResult;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -29,9 +29,8 @@ public class GsonResponseConvert<T> implements Converter<ResponseBody,T> {
     public T convert(ResponseBody value) throws IOException {
         String response = value.string();
         Log.d("NetWork","response"+response);
-        //TODO 测试的公共类
-        HttpResultTest httpResult = gson.fromJson(response,HttpResultTest.class);
-        if(httpResult.getCount() == 0) {
+        HttpResult httpResult = gson.fromJson(response,HttpResult.class);
+        if(!httpResult.getCode().equals("0")) {
             throw new ApiException("访问失败");
         }
         return gson.fromJson(response,type);

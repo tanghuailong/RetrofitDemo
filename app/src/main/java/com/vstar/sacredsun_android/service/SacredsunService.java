@@ -21,13 +21,16 @@ import rx.Observable;
 public interface SacredsunService {
 
     //获取设备的基本生产信息和工艺信息
+//  @POST("equipmentmgt/control/initKanban")
     @FormUrlEncoded
-    @POST("equipmentmgt/control/initKanban")
+    @POST("http://www.mocky.io/v2/587c89e31100000c1e8baa97")
      Observable<HttpResult<WorkShopName,DeviceEntity>> getDeviceBasicData(@Field("workshopCode") String workshopCode);
 
+
     //获取设备的详细信息初始化chart
+    //@POST("equipmentmgt/control/initChart")
     @FormUrlEncoded
-    @POST("equipmentmgt/control/initChart")
+    @POST("http://www.mocky.io/v2/587c77fa110000c31c8baa5f")
     Observable<HttpResult<DeviceDetailEntity,EmptyResult>> getDeviceDetailData(@Field("assetsCode") String assetsCode);
 
     //TODO 接口待修改

@@ -11,7 +11,7 @@ public class DeviceEntity {
     private String assetsCode;
     private String materialCode;
     private String quantity;
-    private String redidualTime;
+    private String residualTime;
     private Status status;
     private String temperature;
     private String temperature1;
@@ -44,12 +44,12 @@ public class DeviceEntity {
         this.quantity = quantity;
     }
 
-    public String getRedidualTime() {
-        return redidualTime;
+    public String getResidualTime() {
+        return residualTime;
     }
 
-    public void setRedidualTime(String redidualTime) {
-        this.redidualTime = redidualTime;
+    public void setResidualTime(String residualTime) {
+        this.residualTime = residualTime;
     }
 
     public Status getStatus() {
@@ -114,7 +114,7 @@ public class DeviceEntity {
                 "assetsCode='" + assetsCode + '\'' +
                 ", materialCode='" + materialCode + '\'' +
                 ", quantity='" + quantity + '\'' +
-                ", redidualTime='" + redidualTime + '\'' +
+                ", residualTime='" + residualTime + '\'' +
                 ", status=" + status +
                 ", temperature='" + temperature + '\'' +
                 ", temperature1='" + temperature1 + '\'' +
