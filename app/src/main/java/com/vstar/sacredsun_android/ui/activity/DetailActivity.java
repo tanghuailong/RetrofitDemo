@@ -242,11 +242,17 @@ public class DetailActivity extends AppCompatActivity {
         detailExhaustHumidityValue.setText(entity.getHumidityDamper());
         detailStreamHeatingValue.setText(entity.getSteamHeating());
         deatailStreamHumidityValue.setText(entity.getStreamHumidity());
+
     }
 
-    @OnClick(R.id.start_mock)
-    public void startMOck() {
+    //点击查看前一天图表数据
+    @OnClick(R.id.detail_left_img)
+    public void previousChart(){
 
+    }
+    //查看后一天图表数据
+    @OnClick(R.id.detail_right_img)
+    public void nextChart() {
         ChartTypeEntity chartTypeEntity = new ChartTypeEntity();
         chartTypeEntity.setField("temperature1");
         ChartValueEntity chartValueEntity = new ChartValueEntity();
@@ -265,7 +271,7 @@ public class DetailActivity extends AppCompatActivity {
         List<ChartValueEntity> valueList = result.getItems();
         if (valueList.size() > 0) {
             LocalDate localDate = TimeHelper.strTransfromLocalDateTime(valueList.get(0).getStamp()).toLocalDate();
-            if(localDate.equals(periorDate)) {
+            if (localDate.equals(periorDate)) {
                 Stream.of(result.getItems()).map((r) -> {
                     return new ChartValueDTO(r, chartType);
                 }).map(r -> {
@@ -274,7 +280,7 @@ public class DetailActivity extends AppCompatActivity {
                 }).forEach(r -> {
                     addToChart(r);
                 });
-            }else {
+            } else {
                 //TODO 需要测试
                 periorDate = localDate;
                 LineData mData = mLineChart.getData();
@@ -285,9 +291,6 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
 
     private void addToChart(ChartValueDTO dto) {
 
@@ -329,7 +332,4 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.add_mock)
-    public void addMock() {
-    }
 }
