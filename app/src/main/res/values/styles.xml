@@ -26,12 +26,16 @@
     </style>
     <style name="stove_item_txt">
         <item name="android:textColor">@color/desc_text_color</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">8sp</item>
         <item name="android:background">@drawable/form_border</item>
+    </style>
+    <style name="stove_item_txt_2">
+        <item name="android:textColor">@color/desc_text_color</item>
+        <item name="android:textSize">8sp</item>
     </style>
     <style name="stove_other_txt">
         <item name="android:textColor">@color/status_bar_txt_color</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">9sp</item>
     </style>
     <style name="stove_description">
         <item name="android:textColor">@color/status_bar_txt_color</item>
@@ -45,13 +49,13 @@
         <item name="cpv_barColor1">@color/transition_color_1</item>
         <item name="cpv_barColor2">@color/transition_color_2</item>
         <item name="cpv_barColor3">@color/transition_color_3</item>
-        <item name="cpv_barWidth">10dp</item>
+        <item name="cpv_barWidth">5dp</item>
         <item name="cpv_innerContourSize">0dp</item>
         <item name="cpv_outerContourSize">0dp</item>
         <item name="cpv_rimColor">@color/progress_bg_color</item>
-        <item name="cpv_rimWidth">12dp</item>
+        <item name="cpv_rimWidth">6dp</item>
         <item name="cpv_showUnit">false</item>
-        <item name="cpv_value">80</item>
+        <!--<item name="cpv_value">80</item>-->
     </style>
 
     <style name="detail_text_normal">

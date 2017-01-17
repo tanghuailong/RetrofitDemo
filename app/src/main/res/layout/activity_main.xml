@@ -10,15 +10,17 @@
     android:baselineAligned="false"
     android:orientation="vertical"
     >
+
     <include android:id="@+id/news_title"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.15"
+        android:layout_weight="0.07"
         layout="@layout/header"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.75">
+        android:layout_weight="0.88">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/all_stove"
             android:layout_width="match_parent"
@@ -32,7 +34,7 @@
     <include
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.05"
         layout="@layout/footer">
     </include>
 </LinearLayout>

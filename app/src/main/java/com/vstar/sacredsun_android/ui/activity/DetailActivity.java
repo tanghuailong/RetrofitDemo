@@ -29,6 +29,7 @@ import com.vstar.sacredsun_android.entity.ChartValueEntity;
 import com.vstar.sacredsun_android.entity.DeviceDetailEntity;
 import com.vstar.sacredsun_android.entity.HttpResult;
 import com.vstar.sacredsun_android.service.SacredsunService;
+import com.vstar.sacredsun_android.util.StatusMap;
 import com.vstar.sacredsun_android.util.chart.ConstantChart;
 import com.vstar.sacredsun_android.util.chart.HourAxisValueFormatter;
 import com.vstar.sacredsun_android.util.chart.MyMarkerView;
@@ -197,6 +198,7 @@ public class DetailActivity extends AppCompatActivity {
                         .retryWhen(errors -> errors.flatMap(error -> Observable.timer(5, TimeUnit.SECONDS)))
                         .repeatWhen(completed -> completed.delay(5, TimeUnit.SECONDS))
                         .subscribe((r) -> {
+                            Log.d(LOG_TAG,"onNext");
                             initDetailPage(r.getItem());
                         },(e) -> {
                             e.printStackTrace();
@@ -225,7 +227,7 @@ public class DetailActivity extends AppCompatActivity {
         detailOrderNumValue.setText(entity.getOrderQuantity());
         detailProductModel.setText(entity.getMaterialCode());
         stoveLeftTime.setText(entity.getResidualTime());
-        detailRunValue.setText(entity.getAssetsState().name());
+        detailRunValue.setText(StatusMap.abbreAndDesc.get(entity.getAssetsState().name()));
         firstSetting.setText(entity.getTemperature());
         firstActual.setText(entity.getTemperature1());
         secondSetting.setText(entity.getTemperature());
@@ -234,7 +236,8 @@ public class DetailActivity extends AppCompatActivity {
         thirdActual.setText(entity.getHumidity1());
         fourSetting.setText(entity.getHumidity());
         fourActual.setText(entity.getHumidity2());
-        detailProductStageTitle.setText(entity.getAssetsState() +" "+entity.getProductionStage() +"½×¶Î");
+        detailProductStageTitle.setText(entity.getProductionStage() +"½×¶Î");
+//        detailProductStageTitle.setText(entity.getAssetsState() +" "+entity.getProductionStage() +"½×¶Î");
         detailProgramNumValue.setText(entity.getProgramNumber());
         detailCycleBlowerValue.setText(entity.getCirculatingFan());
         detailWaterValve.setText(entity.getWaterValve());

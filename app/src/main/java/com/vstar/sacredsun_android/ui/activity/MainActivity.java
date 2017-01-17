@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(5,StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(6,StaggeredGridLayoutManager.VERTICAL));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         adapter = new StoveAdapter(list,this, (view,code) -> {
             //Ìø×ªµ½ÏêÏ¸Ò³Ãæ
             Intent intent = new Intent(MainActivity.this,DetailActivity.class);
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(LOG_TAG,"onNext");
                     list.clear();
                     list.addAll(r.getItems());
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyItemRangeChanged(0,list.size());
                 },(e) -> {
                     e.printStackTrace();
                 },() -> {

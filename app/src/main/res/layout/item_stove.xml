@@ -3,25 +3,25 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="650dp"
+    android:layout_height="310dp"
     android:background="@color/inner_bg_color"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/stove_device"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.9"
-        android:background="@color/status_bar_solidify"
         android:layout_margin="5dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="35dp"
+            android:layout_margin="15dp"
             android:background="@color/inner_bg_color"
             android:orientation="vertical"
-            android:paddingBottom="8dp"
+            android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="8dp">
@@ -32,21 +32,21 @@
 
                 <TextView
                     android:id="@+id/stove_run_status_title"
-                    style="@style/stove_item_txt"
+                    style="@style/stove_item_txt_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/run_status_title" />
 
                 <TextView
                     android:id="@+id/stove_run_status"
-                    style="@style/stove_item_txt"
+                    style="@style/stove_item_txt_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/stove_run_status_title"
                     tools:text="固化" />
 
                 <TextView
-                    style="@style/stove_item_txt"
+                    style="@style/stove_item_txt_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -59,8 +59,9 @@
 
                 <View
                     android:id="@+id/stove_run_status_block"
-                    android:layout_width="100dp"
-                    android:layout_height="20dp"
+                    android:layout_width="55dp"
+                    android:layout_height="12dp"
+                    android:layout_marginTop="2dp"
                     tools:background="@drawable/status_bar_dry"
                     ></View>
 
@@ -78,10 +79,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/emphasize_txt_color"
+                        android:textSize="9sp"
                         tools:text="31" />
 
                     <TextView
-                        style="@style/stove_item_txt"
+                        style="@style/stove_item_txt_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/time_title" />
@@ -153,8 +155,8 @@
                         <at.grabner.circleprogress.CircleProgressView
                             android:id="@+id/first_actual"
                             style="@style/circle_progress"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             custom:cpv_maxValue="100"></at.grabner.circleprogress.CircleProgressView>
                     </LinearLayout>
                 </TableRow>
@@ -191,8 +193,8 @@
                         <at.grabner.circleprogress.CircleProgressView
                             android:id="@+id/second_actual"
                             style="@style/circle_progress"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             custom:cpv_maxValue="100"></at.grabner.circleprogress.CircleProgressView>
                     </LinearLayout>
                 </TableRow>
@@ -229,8 +231,8 @@
                         <at.grabner.circleprogress.CircleProgressView
                             android:id="@+id/third_actual"
                             style="@style/circle_progress"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             custom:cpv_maxValue="100"></at.grabner.circleprogress.CircleProgressView>
                     </LinearLayout>
                 </TableRow>
@@ -267,8 +269,8 @@
                         <at.grabner.circleprogress.CircleProgressView
                             android:id="@+id/four_actual"
                             style="@style/circle_progress"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             custom:cpv_maxValue="100"></at.grabner.circleprogress.CircleProgressView>
                     </LinearLayout>
                 </TableRow>

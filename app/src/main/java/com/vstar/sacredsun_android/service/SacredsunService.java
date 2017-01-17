@@ -23,14 +23,14 @@ public interface SacredsunService {
     //获取设备的基本生产信息和工艺信息
 //  @POST("equipmentmgt/control/initKanban")
     @FormUrlEncoded
-    @POST("http://www.mocky.io/v2/587c89e31100000c1e8baa97")
+    @POST("http://www.mocky.io/v2/587d8f210f000020125df65e")
      Observable<HttpResult<WorkShopName,DeviceEntity>> getDeviceBasicData(@Field("workshopCode") String workshopCode);
 
 
     //获取设备的详细信息初始化chart
     //@POST("equipmentmgt/control/initChart")
     @FormUrlEncoded
-    @POST("http://www.mocky.io/v2/587c77fa110000c31c8baa5f")
+    @POST("http://www.mocky.io/v2/587d6c660f0000b40f5df63f")
     Observable<HttpResult<DeviceDetailEntity,EmptyResult>> getDeviceDetailData(@Field("assetsCode") String assetsCode);
 
     //TODO 接口待修改

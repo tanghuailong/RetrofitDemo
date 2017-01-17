@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vstar.sacredsun_android.R;
@@ -49,6 +50,7 @@ public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>
     public void onBindViewHolder(StoveHolder holder, int position) {
         DeviceEntity stoveItem = lists.get(position);
         if(stoveItem != null) {
+            holder.stoveDevice.setBackgroundResource(StatusMap.statusAndView.get(stoveItem.getStatus().name()));
             holder.stoveNum.setText(stoveItem.getAssetsCode());
             holder.runState.setText(stoveItem.getStatus().name());
             holder.runStateBlock.setBackgroundResource(StatusMap.statusAndView.get(stoveItem.getStatus().name()));
@@ -73,6 +75,8 @@ public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>
 
     public static class StoveHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.stove_device)
+        LinearLayout stoveDevice;
         @BindView(R.id.stove_num)
         TextView stoveNum;
         @BindView(R.id.stove_run_status)

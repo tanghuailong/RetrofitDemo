@@ -18,4 +18,13 @@ public class StatusMap {
         put("DRYING",R.drawable.status_bar_dry);
         put("WARNING",R.drawable.status_bar_warning);
     }};
+
+    public static final Map<String,String> abbreAndDesc = new HashMap<String,String>(){{
+        put("UNUSED","闲置");
+//        put("preheating","预热");
+        put("PRE_SOLIDIFICATION","预固化");
+        put("SOLIDIFICATION","固化");
+        put("DRYING","干燥");
+        put("WARNING","告警");
+    }};
 }
