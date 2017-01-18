@@ -17,12 +17,16 @@ public class ConstantChart {
         put("temperature2", "温度二");
         put("humidity1", "湿度一");
         put("humidity2", "湿度二");
+        put("temperature","设定温度");
+        put("humidity","设定湿度");
     }};
     public static final Map<String,Integer> chartTypeAndIndex = new HashMap<String,Integer>(){{
         put("temperature1",0);
         put("temperature2",1);
         put("humidity1", 2);
         put("humidity2", 3);
+        put("temperature",4);
+        put("humidity",5);
     }};
 
 }

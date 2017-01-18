@@ -15,8 +15,8 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 public class HttpMethods {
 
     //测试使用
-    private static final String BASE_URL = "https://api.douban.com/v2/movie/";
-    //  private static final String BASE_URL = "";
+//    private static final String BASE_URL = "https://api.douban.com/v2/movie/";
+      private static final String BASE_URL = "10.100.172.187:8445/";
     private static final int DEFAULT_TIME = 5;
 
     Retrofit retrofit;

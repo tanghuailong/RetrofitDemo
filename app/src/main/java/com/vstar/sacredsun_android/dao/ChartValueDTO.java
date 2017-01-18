@@ -21,10 +21,10 @@ public class ChartValueDTO {
     public ChartValueDTO() {
 
     }
-    public ChartValueDTO(ChartValueEntity entity,String chartType) {
+    public ChartValueDTO(ChartValueEntity entity) {
         //TODO 时间处理上未找到更好的处理方式
         LocalDateTime temp = TimeHelper.strTransfromLocalDateTime(entity.getStamp());
-        this.chartType = chartType;
+        this.chartType = entity.getField();
         this.value = Float.parseFloat(entity.getValue());
         this.stamp = TimeHelper.dateTimeTransformSecond(temp);
         this.beginOfTime = TimeHelper.dateTimeTransformStartSecond(temp);

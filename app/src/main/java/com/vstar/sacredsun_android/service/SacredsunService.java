@@ -4,6 +4,7 @@ package com.vstar.sacredsun_android.service;
  * Created by tanghuailong on 2017/1/15.
  */
 
+import com.vstar.sacredsun_android.entity.ChartValueEntity;
 import com.vstar.sacredsun_android.entity.DeviceDetailEntity;
 import com.vstar.sacredsun_android.entity.DeviceEntity;
 import com.vstar.sacredsun_android.entity.EmptyResult;
@@ -33,9 +34,13 @@ public interface SacredsunService {
     @POST("http://www.mocky.io/v2/587d6c660f0000b40f5df63f")
     Observable<HttpResult<DeviceDetailEntity,EmptyResult>> getDeviceDetailData(@Field("assetsCode") String assetsCode);
 
-    //TODO 接口待修改
+    //获取图表的数据
     @FormUrlEncoded
     @POST("equipmentmgt/control/chartData")
-    Observable<HttpResult> getChartDate();
+    Observable<HttpResult<EmptyResult,ChartValueEntity>> getChartDate(@Field("assetsCode")String assetsCode,@Field("date")String date,@Field("refreshTime") String refreshTime );
 
+    //获取设定值
+    @FormUrlEncoded
+    @POST("equipmentmgt/control/enactmentValue")
+    Observable<HttpResult<EmptyResult,ChartValueEntity>> getPresetValue(@Field("assetsCode") String assetsCode,@Field("date")String date);
 }

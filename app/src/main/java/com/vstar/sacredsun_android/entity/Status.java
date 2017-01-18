@@ -12,5 +12,6 @@ public enum Status {
     PRE_SOLIDIFICATION,       //预固化
     SOLIDIFICATION,           //固化
     DRYING,                   //干燥
-    WARNING                   //告警
+    WARNING,                  //告警
+    ENDING                    //结束
 }

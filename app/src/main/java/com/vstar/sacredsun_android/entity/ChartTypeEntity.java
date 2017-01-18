@@ -7,6 +7,7 @@ package com.vstar.sacredsun_android.entity;
 /**
  * 折线图类型Entity
  */
+@Deprecated
 public class ChartTypeEntity {
 
     // temperature1  temperature2 humidity1 and humidity2

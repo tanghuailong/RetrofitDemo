@@ -12,7 +12,7 @@ import java.util.Map;
 public class StatusMap {
     public  static final Map<String, Integer> statusAndView = new HashMap<String,Integer>() {{
         put("UNUSED", R.drawable.status_bar_idle);
-//        put("preheating",R.drawable.status_bar_preheating);
+        put("ENDING",R.drawable.status_bar_preheating);
         put("PRE_SOLIDIFICATION",R.drawable.status_bar_presolidify);
         put("SOLIDIFICATION",R.drawable.status_bar_solidify);
         put("DRYING",R.drawable.status_bar_dry);
@@ -21,7 +21,7 @@ public class StatusMap {
 
     public static final Map<String,String> abbreAndDesc = new HashMap<String,String>(){{
         put("UNUSED","闲置");
-//        put("preheating","预热");
+        put("ENDING","结束");
         put("PRE_SOLIDIFICATION","预固化");
         put("SOLIDIFICATION","固化");
         put("DRYING","干燥");

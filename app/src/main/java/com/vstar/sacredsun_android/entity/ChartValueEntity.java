@@ -8,6 +8,8 @@ package com.vstar.sacredsun_android.entity;
  * chart 数据部分 entity
  */
 public class ChartValueEntity {
+
+    String field;
     String stamp;
     String value;
 
@@ -27,11 +29,21 @@ public class ChartValueEntity {
         this.stamp = stamp;
     }
 
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
+    }
+
     @Override
     public String toString() {
         return "ChartValueEntity{" +
-                "stamp='" + stamp + '\'' +
+                "field='" + field + '\'' +
+                ", stamp='" + stamp + '\'' +
                 ", value='" + value + '\'' +
                 '}';
     }
+
 }
