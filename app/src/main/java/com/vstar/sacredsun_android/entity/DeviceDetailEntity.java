@@ -34,7 +34,7 @@ public class DeviceDetailEntity {
 
     private String assetsCode;
     private String materialCode;
-    private String orderQuantity;
+    private int orderQuantity;
     private String residualTime;
     private Status assetsState;
     private String temperature;
@@ -78,11 +78,11 @@ public class DeviceDetailEntity {
         this.materialCode = materialCode;
     }
 
-    public String getOrderQuantity() {
+    public int getOrderQuantity() {
         return orderQuantity;
     }
 
-    public void setOrderQuantity(String orderQuantity) {
+    public void setOrderQuantity(int orderQuantity) {
         this.orderQuantity = orderQuantity;
     }
 
@@ -227,7 +227,7 @@ public class DeviceDetailEntity {
         return "DeviceDetailEntity{" +
                 "assetsCode='" + assetsCode + '\'' +
                 ", materialCode='" + materialCode + '\'' +
-                ", orderQuantity='" + orderQuantity + '\'' +
+                ", orderQuantity=" + orderQuantity +
                 ", residualTime='" + residualTime + '\'' +
                 ", assetsState=" + assetsState +
                 ", temperature='" + temperature + '\'' +

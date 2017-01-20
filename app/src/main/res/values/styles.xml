@@ -72,4 +72,9 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="setting_text_normal">
+        <item name="android:textColor">@color/status_bar_txt_color</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+
 </resources>

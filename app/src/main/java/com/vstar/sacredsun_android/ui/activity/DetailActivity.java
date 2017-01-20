@@ -1,6 +1,5 @@
 package com.vstar.sacredsun_android.ui.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -54,53 +53,53 @@ import rx.Subscription;
 public class DetailActivity extends AppCompatActivity {
 
     @BindView(R.id.detail_chart)
-    LineChart mLineChart;                      //ÕÛÏßÍ¼
+    LineChart mLineChart;                      //ï¿½ï¿½ï¿½ï¿½Í¼
     @BindView(R.id.device_code)
-    TextView deviceCode;                       //Éè±¸±àºÅ
+    TextView deviceCode;                       //ï¿½è±¸ï¿½ï¿½ï¿½
     @BindView(R.id.detail_product_model)
-    TextView detailProductModel;               //²úÆ·ÐÍºÅ
+    TextView detailProductModel;               //ï¿½ï¿½Æ·ï¿½Íºï¿½
     @BindView(R.id.detail_order_num_value)
-    TextView detailOrderNumValue;              //¶©µ¥ÊýÁ¿
+    TextView detailOrderNumValue;              //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @BindView(R.id.stove_left_time)
-    TextView stoveLeftTime;                   //Ê£ÓàÊ±¼ä
+    TextView stoveLeftTime;                   //Ê£ï¿½ï¿½Ê±ï¿½ï¿½
     @BindView(R.id.detail_run_value)
-    TextView detailRunValue;                  //ÔËÐÐ×´Ì¬
+    TextView detailRunValue;                  //ï¿½ï¿½ï¿½ï¿½×´Ì¬
     @BindView(R.id.detail_product_stage_title)
-    TextView detailProductStageTitle;         //Éú²ú½×¶Î
+    TextView detailProductStageTitle;         //ï¿½ï¿½ï¿½ï¿½ï¿½×¶ï¿½
     @BindView(R.id.detail_program_num_value)
-    TextView detailProgramNumValue;           //³ÌÐòºÅ
+    TextView detailProgramNumValue;           //ï¿½ï¿½ï¿½ï¿½ï¿½
     @BindView(R.id.first_setting)
-    TextView firstSetting;                    //ÎÂ¶ÈÒ»Éè¶¨Öµ
+    TextView firstSetting;                    //ï¿½Â¶ï¿½Ò»ï¿½è¶¨Öµ
     @BindView(R.id.first_actual)
-    TextView firstActual;                     //ÎÂ¶ÈÒ»Êµ¼ÊÖµ
+    TextView firstActual;                     //ï¿½Â¶ï¿½Ò»Êµï¿½ï¿½Öµ
     @BindView(R.id.second_setting)
-    TextView secondSetting;                   //ÎÂ¶È¶þÉè¶¨Öµ
+    TextView secondSetting;                   //ï¿½Â¶È¶ï¿½ï¿½è¶¨Öµ
     @BindView(R.id.second_actual)
-    TextView secondActual;                    //ÎÂ¶È¶þÊµ¼ÊÖµ
+    TextView secondActual;                    //ï¿½Â¶È¶ï¿½Êµï¿½ï¿½Öµ
     @BindView(R.id.third_setting)
-    TextView thirdSetting;                    //Êª¶ÈÒ»Éè¶¨Öµ
+    TextView thirdSetting;                    //Êªï¿½ï¿½Ò»ï¿½è¶¨Öµ
     @BindView(R.id.third_actual)
-    TextView thirdActual;                     //Êª¶ÈÒ»Êµ¼ÊÖµ
+    TextView thirdActual;                     //Êªï¿½ï¿½Ò»Êµï¿½ï¿½Öµ
     @BindView(R.id.four_setting)
-    TextView fourSetting;                     //Êª¶È¶þµÄÉè¶¨Öµ
+    TextView fourSetting;                     //Êªï¿½È¶ï¿½ï¿½ï¿½ï¿½è¶¨Öµ
     @BindView(R.id.four_actual)
-    TextView fourActual;                      //Êª¶È¶þµÄÊµ¼ÊÖµ
+    TextView fourActual;                      //Êªï¿½È¶ï¿½ï¿½ï¿½Êµï¿½ï¿½Öµ
     @BindView(R.id.detail_left_img)
-    ImageView detailLeftImg;                  //ÏòÇ°
+    ImageView detailLeftImg;                  //ï¿½ï¿½Ç°
     @BindView(R.id.detail_right_img)
-    ImageView detailRightImg;                 //Ïòºó
+    ImageView detailRightImg;                 //ï¿½ï¿½ï¿½
     @BindView(R.id.detail_reduce_temperate_value)
-    TextView detailReduceTemperateValue;      //½µÎÂ·çÃÅ
+    TextView detailReduceTemperateValue;      //ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½
     @BindView(R.id.detail_stream_heating_value)
-    TextView detailStreamHeatingValue;        //ÕôÆû¼ÓÈÈ
+    TextView detailStreamHeatingValue;        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @BindView(R.id.detail_exhaust_humidity_value)
-    TextView detailExhaustHumidityValue;      //ÅÅÊª·çÃÅ
+    TextView detailExhaustHumidityValue;      //ï¿½ï¿½Êªï¿½ï¿½ï¿½ï¿½
     @BindView(R.id.detail_stream_humidity_value)
-    TextView deatailStreamHumidityValue;      //ÕôÆû¼ÓÊª
+    TextView deatailStreamHumidityValue;      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êª
     @BindView(R.id.detail_cycle_blower_value)
-    TextView detailCycleBlowerValue;          //Ñ­»··ç»ú
+    TextView detailCycleBlowerValue;          //Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½
     @BindView(R.id.detail_water_valve)
-    TextView detailWaterValve;                //Îí»¯Ë®·§
+    TextView detailWaterValve;                //ï¿½ï¿½Ë®ï¿½ï¿½
 
 
     private static final String LOG_TAG = "DetailActivity";
@@ -115,14 +114,32 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detail_stove);
+        setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        assertsCode = intent.getStringExtra(TAG);
+        //TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òª
+//        Intent intent = getIntent();
+//        assertsCode = intent.getStringExtra(TAG);
 
         initChart(mLineChart);
+
+        if (deviceSubscription == null || deviceSubscription.isUnsubscribed()) {
+            initDeviceDetailInfo();
+        }
+
+        if (todaySubscription == null || todaySubscription.isUnsubscribed()) {
+            if (!TextUtils.isEmpty(assertsCode)) {
+                initTodayChart();
+            }
+        }
+        //ï¿½ï¿½Îªï¿½Õ»ï¿½ï¿½ß²ï¿½Îªï¿½Õ²ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½Äµï¿½Ê±ï¿½ï¿½,ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+        if (presetSubscription == null || presetSubscription.isUnsubscribed()) {
+            drawPresetInChart();
+        }
+
+
 
     }
 
@@ -135,7 +152,7 @@ public class DetailActivity extends AppCompatActivity {
         lineChart.setPinchZoom(true);
         Description description = new Description();
         description.setTextColor(Color.YELLOW);
-        description.setText("ÎÂÊª¶È±ä»¯");
+        description.setText("æ¸©æ¹¿åº¦å˜åŒ–");
         lineChart.setDescription(description);
         lineChart.setBackgroundResource(R.color.custom_bg_color);
         MyMarkerView myMarkerView = new MyMarkerView(DetailActivity.this, R.layout.custom_marker_view);
@@ -153,12 +170,12 @@ public class DetailActivity extends AppCompatActivity {
         legend.setTextColor(Color.WHITE);
 
         HourAxisValueFormatter formatter = new HourAxisValueFormatter();
-        LimitLine temperateLimited = new LimitLine(50f, "Éè¶¨ÎÂ¶È");
+        LimitLine temperateLimited = new LimitLine(50f, "è®¾å®šæ¸©åº¦");
         temperateLimited.setLineColor(Color.RED);
         temperateLimited.setLineWidth(2f);
         temperateLimited.setTextColor(Color.WHITE);
         temperateLimited.setTextSize(10f);
-        LimitLine humidityLimited = new LimitLine(60f, "Éè¶¨Êª¶È");
+        LimitLine humidityLimited = new LimitLine(60f, "è®¾å®šæ¹¿åº¦");
         humidityLimited.setLineColor(Color.RED);
         humidityLimited.setLineWidth(2f);
         humidityLimited.setTextColor(Color.WHITE);
@@ -188,29 +205,46 @@ public class DetailActivity extends AppCompatActivity {
         rightAxis.setEnabled(false);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //µ±Îª¿Õ»òÕß²»Îª¿Õ²¢ÇÒÎ´¶©ÔÄµÄÊ±ºò£¬¿ªÊ¼¶©ÔÄ
-        if (todaySubscription == null || todaySubscription.isUnsubscribed()) {
-            if (!TextUtils.isEmpty(assertsCode)) {
-                initTodayChart();
-            }
-        }
-        //µ±Îª¿Õ»òÕß²»Îª¿Õ²¢ÇÒÎ´¶©ÔÄµÄÊ±ºò,¿ªÊ¼¶©ÔÄ
-        if(presetSubscription == null || presetSubscription.isUnsubscribed()) {
-            drawPresetInChart();
-        }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        //ï¿½ï¿½Îªï¿½Õ»ï¿½ï¿½ß²ï¿½Îªï¿½Õ²ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½Äµï¿½Ê±ï¿½ò£¬¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+//        if (todaySubscription == null || todaySubscription.isUnsubscribed()) {
+//            if (!TextUtils.isEmpty(assertsCode)) {
+//                initTodayChart();
+//            }
+//        }
+//        //ï¿½ï¿½Îªï¿½Õ»ï¿½ï¿½ß²ï¿½Îªï¿½Õ²ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½Äµï¿½Ê±ï¿½ï¿½,ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+//        if (presetSubscription == null || presetSubscription.isUnsubscribed()) {
+//            drawPresetInChart();
+//        }
+//
+//        if (deviceSubscription == null || deviceSubscription.isUnsubscribed()) {
+//            initDeviceDetailInfo();
+//        }
+//    }
 
-        if(deviceSubscription == null || deviceSubscription.isUnsubscribed()) {
-            initDeviceDetailInfo();
-        }
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//        if (todaySubscription != null && !todaySubscription.isUnsubscribed()) {
+//            todaySubscription.unsubscribe();
+//        }
+//        if (presetSubscription != null && !presetSubscription.isUnsubscribed()) {
+//            presetSubscription.unsubscribe();
+//        }
+//        if (deviceSubscription != null && !deviceSubscription.isUnsubscribed()) {
+//            deviceSubscription.unsubscribe();
+//        }
+//
+//    }
+
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        //½â³ý¶©ÔÄ
+    protected void onDestroy() {
+        super.onDestroy();
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (todaySubscription != null && !todaySubscription.isUnsubscribed()) {
             todaySubscription.unsubscribe();
         }
@@ -220,31 +254,30 @@ public class DetailActivity extends AppCompatActivity {
         if (deviceSubscription != null && !deviceSubscription.isUnsubscribed()) {
             deviceSubscription.unsubscribe();
         }
-
     }
 
     private void initDeviceDetailInfo() {
 
-       deviceSubscription =  HttpMethods.getInstance().getService(SacredsunService.class)
+        deviceSubscription = HttpMethods.getInstance().getService(SacredsunService.class)
                 .getDeviceDetailData(assertsCode)
                 .compose(RxHelper.io_main())
                 .retryWhen(errors -> errors.flatMap(error -> Observable.timer(10, TimeUnit.SECONDS)))
                 .repeatWhen(completed -> completed.delay(10, TimeUnit.SECONDS))
                 .subscribe((r) -> {
-                    Log.d(LOG_TAG,"onNext");
+                    Log.d(LOG_TAG, "onNext");
                     initDetailPage(r.getItem());
-                },(e) -> {
+                }, (e) -> {
                     e.printStackTrace();
-                },() ->{
-                    Log.d(LOG_TAG,"onCompleted");
+                }, () -> {
+                    Log.d(LOG_TAG, "onCompleted");
                 });
     }
 
-    //³õÊ¼»¯Éè±¸ÐÅÏ¢µÄ½çÃæ
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½è±¸ï¿½ï¿½Ï¢ï¿½Ä½ï¿½ï¿½ï¿½
     private void initDetailPage(DeviceDetailEntity entity) {
 
         deviceCode.setText(entity.getAssetsCode());
-        detailOrderNumValue.setText(entity.getOrderQuantity());
+        detailOrderNumValue.setText(Integer.toString(entity.getOrderQuantity()));
         detailProductModel.setText(entity.getMaterialCode());
         stoveLeftTime.setText(entity.getResidualTime());
         detailRunValue.setText(StatusMap.abbreAndDesc.get(entity.getAssetsState().name()));
@@ -256,8 +289,8 @@ public class DetailActivity extends AppCompatActivity {
         thirdActual.setText(entity.getHumidity1());
         fourSetting.setText(entity.getHumidity());
         fourActual.setText(entity.getHumidity2());
-        detailProductStageTitle.setText(entity.getProductionStage() + "½×¶Î");
-//        detailProductStageTitle.setText(entity.getAssetsState() +" "+entity.getProductionStage() +"½×¶Î");
+        detailProductStageTitle.setText(entity.getProductionStage() + "ï¿½×¶ï¿½");
+//        detailProductStageTitle.setText(entity.getAssetsState() +" "+entity.getProductionStage() +"ï¿½×¶ï¿½");
         detailProgramNumValue.setText(entity.getProgramNumber());
         detailCycleBlowerValue.setText(entity.getCirculatingFan());
         detailWaterValve.setText(entity.getWaterValve());
@@ -267,11 +300,12 @@ public class DetailActivity extends AppCompatActivity {
         deatailStreamHumidityValue.setText(entity.getStreamHumidity());
     }
 
-    //µã»÷²é¿´Ç°Ò»ÌìÍ¼±íÊý¾Ý
+    //ï¿½ï¿½ï¿½ï¿½é¿´Ç°Ò»ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @OnClick(R.id.detail_left_img)
     public void previousChart() {
-        //»ñµÃµ±Ç°ÈÕÆÚ
-        currentDate = currentDate.minus(1,ChronoUnit.DAYS);
+        //TODO ï¿½ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½Ê±ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½
+        currentDate = currentDate.minus(1, ChronoUnit.DAYS);
         HttpMethods.getInstance().getService(SacredsunService.class)
                 .getChartDate(assertsCode, currentDate.toString(), "")
                 .compose(RxHelper.io_main())
@@ -285,14 +319,14 @@ public class DetailActivity extends AppCompatActivity {
                 });
     }
 
-    //²é¿´ºóÒ»ÌìÍ¼±íÊý¾Ý
+    //ï¿½é¿´ï¿½ï¿½Ò»ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @OnClick(R.id.detail_right_img)
     public void nextChart() {
 
         currentDate = currentDate.plus(1, ChronoUnit.DAYS);
-        if(currentDate.equals(LocalDate.now())) {
+        if (currentDate.equals(LocalDate.now())) {
             initTodayChart();
-        }else {
+        } else {
             HttpMethods.getInstance().getService(SacredsunService.class)
                     .getChartDate(assertsCode, currentDate.toString(), "")
                     .compose(RxHelper.io_main())
@@ -310,23 +344,23 @@ public class DetailActivity extends AppCompatActivity {
 
     private void initTodayChart() {
 
-        //»ñÈ¡½ñÈÕµÄÊý¾Ý
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½
         HttpMethods.getInstance().getService(SacredsunService.class)
-                .getChartDate(assertsCode,LocalDate.now().toString(),"")
+                .getChartDate(assertsCode, LocalDate.now().toString(), "")
                 .compose(RxHelper.io_main())
                 .subscribe((r) -> {
-                    Log.d(LOG_TAG,"onNext");
-                    if(!r.getItems().isEmpty()) {
+                    Log.d(LOG_TAG, "onNext");
+                    if (!r.getItems().isEmpty()) {
                         int lastIndex = r.getItems().size();
-                        //»æÖÆ½ñÈÕµÄÊý¾Ý
+                        //ï¿½ï¿½ï¿½Æ½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½
                         drawLineChart(r.getItems());
-                        //Ë¢ÐÂÊµÊ±µÄÊý¾Ý
+                        //Ë¢ï¿½ï¿½ÊµÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                         refreshTodayChart(r.getItems().get(lastIndex).getStamp());
                     }
-                },(e) -> {
+                }, (e) -> {
                     e.printStackTrace();
-                },() -> {
-                    Log.d(LOG_TAG,"completed");
+                }, () -> {
+                    Log.d(LOG_TAG, "completed");
                 });
 
     }
@@ -335,31 +369,31 @@ public class DetailActivity extends AppCompatActivity {
 
         stamp = realTime;
 
-        if(todaySubscription != null && !todaySubscription.isUnsubscribed()) {
+        if (todaySubscription != null && !todaySubscription.isUnsubscribed()) {
             todaySubscription.unsubscribe();
         }
 
         todaySubscription = HttpMethods.getInstance().getService(SacredsunService.class)
-                .getChartDate(assertsCode,LocalDate.now().toString(),stamp)
+                .getChartDate(assertsCode, LocalDate.now().toString(), stamp)
                 .compose(RxHelper.io_main())
                 .retryWhen(errors -> errors.flatMap(error -> Observable.timer(5, TimeUnit.SECONDS)))
                 .repeatWhen(completed -> completed.delay(5, TimeUnit.SECONDS))
                 .subscribe((r) -> {
-                    Log.d(LOG_TAG,"onNext");
-                    if(!r.getItems().isEmpty()) {
+                    Log.d(LOG_TAG, "onNext");
+                    if (!r.getItems().isEmpty()) {
                         int lastIndex = r.getItems().size();
-                        stamp = r.getItems().get(lastIndex).getStamp();
                         drawLineChart(r.getItems());
+                        stamp = r.getItems().get(lastIndex).getStamp();
                     }
-                },(e) -> {
+                }, (e) -> {
                     e.printStackTrace();
-                },() -> {
-                    Log.d(LOG_TAG,"onCompleted");
+                }, () -> {
+                    Log.d(LOG_TAG, "onCompleted");
                 });
 
     }
 
-    //ÔÚÕÛÏßÍ¼ÉÏ¿ªÊ¼»æÖÆÉè¶¨Öµ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ï¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½è¶¨Öµ
     private void drawPresetInChart() {
 
         presetSubscription = HttpMethods.getInstance().getService(SacredsunService.class)
@@ -377,7 +411,7 @@ public class DetailActivity extends AppCompatActivity {
                 });
     }
 
-    //×ª»»Êý¾Ý£¬²¢ÇÒ¿ªÊ¼»æÖÆÕÛÏßÍ¼
+    //×ªï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Ò¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
     private void drawLineChart(List<ChartValueEntity> valueList) {
 
         Stream.of(valueList).map(l -> new ChartValueDTO(l))
@@ -389,19 +423,19 @@ public class DetailActivity extends AppCompatActivity {
 
     private void addPresetValueToChart(List<ChartValueEntity> valueList) {
 
-       List<ChartValueDTO> dtoList =  Stream.of(valueList)
-               .map(l -> new ChartValueDTO(l))
-               .collect(Collectors.toList());
+        List<ChartValueDTO> dtoList = Stream.of(valueList)
+                .map(l -> new ChartValueDTO(l))
+                .collect(Collectors.toList());
 
         LineData lineData = mLineChart.getData();
-        if(lineData != null) {
+        if (lineData != null) {
             ILineDataSet dataSet1 = lineData.getDataSetByIndex(4);
             ILineDataSet dataSet2 = lineData.getDataSetByIndex(5);
             if (dataSet1 == null) {
                 dataSet1 = createSet(ConstantChart.chartTypeAndDesc.get("temperature"));
                 lineData.addDataSet(dataSet1);
             }
-            if(dataSet2 == null) {
+            if (dataSet2 == null) {
                 dataSet2 = createSet(ConstantChart.chartTypeAndDesc.get("humidity"));
                 lineData.addDataSet(dataSet2);
             }
@@ -413,25 +447,44 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    //ÍùÕÛÏßÍ¼ÉÏÌí¼Óµã
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Óµï¿½
     private void addToChart(ChartValueDTO dto) {
 
-        LineData lineData = mLineChart.getData();
-        if (lineData != null) {
-            int indexOfDateSet = ConstantChart.chartTypeAndIndex.get(dto.getChartType());
-            ILineDataSet dataSet = lineData.getDataSetByIndex(indexOfDateSet);
-            if (dataSet == null) {
-                dataSet = createSet(ConstantChart.chartTypeAndDesc.get(dto.getChartType()));
-                lineData.addDataSet(dataSet);
+        //ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ê±ï¿½ä²»Ò»ï¿½ï¿½Ê±ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        if (dto.getBeginOfDate().equals(LocalDate.now())) {
+            LineData lineData = mLineChart.getData();
+            if (lineData != null) {
+                int indexOfDateSet = ConstantChart.chartTypeAndIndex.get(dto.getChartType());
+                ILineDataSet dataSet = lineData.getDataSetByIndex(indexOfDateSet);
+                if (dataSet == null) {
+                    dataSet = createSet(ConstantChart.chartTypeAndDesc.get(dto.getChartType()));
+                    lineData.addDataSet(dataSet);
+                }
+                lineData.addEntry(new Entry(dto.getStamp(), dto.getValue()), indexOfDateSet);
+                lineData.notifyDataChanged();
+                mLineChart.notifyDataSetChanged();
+                mLineChart.moveViewToX(lineData.getEntryCount());
             }
-            lineData.addEntry(new Entry(dto.getStamp(), dto.getValue()), indexOfDateSet);
-            lineData.notifyDataChanged();
-            mLineChart.notifyDataSetChanged();
-            mLineChart.moveViewToX(lineData.getEntryCount());
+        }else {
+            LineData lineData = mLineChart.getData();
+            if(lineData != null) {
+                int indexOfDateSet = ConstantChart.chartTypeAndIndex.get(dto.getChartType());
+                ILineDataSet dataSet = lineData.getDataSetByIndex(indexOfDateSet);
+                if(dataSet == null) {
+                    dataSet = createSet(ConstantChart.chartTypeAndDesc.get(dto.getChartType()));
+                    lineData.addDataSet(dataSet);
+                }else {
+                    dataSet.clear();
+                }
+                lineData.addEntry(new Entry(dto.getStamp(), dto.getValue()), indexOfDateSet);
+                lineData.notifyDataChanged();
+                mLineChart.notifyDataSetChanged();
+                mLineChart.moveViewToX(lineData.getEntryCount());
+            }
         }
     }
 
-    //´´½¨ÕÛÏß
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private LineDataSet createSet(String dataSetLabel) {
 
         LineDataSet set = new LineDataSet(null, dataSetLabel);

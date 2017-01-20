@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.vstar.sacredsun_android.R;
 import com.vstar.sacredsun_android.entity.DeviceEntity;
 import com.vstar.sacredsun_android.util.StatusMap;
+import com.vstar.sacredsun_android.util.TextHelper;
 
 import java.util.List;
 
@@ -56,15 +57,16 @@ public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>
             holder.runStateBlock.setBackgroundResource(StatusMap.statusAndView.get(stoveItem.getStatus().name()));
             holder.timeLeft.setText(stoveItem.getResidualTime());
             holder.firstSetting.setText(stoveItem.getTemperature());
-            holder.firstActual.setValue(Float.parseFloat(stoveItem.getTemperature1()));
+            //TODO 要对数字进行检查
+            holder.firstActual.setValue(TextHelper.strTransFromFloat(stoveItem.getTemperature1()));
             holder.secondSetting.setText(stoveItem.getTemperature());
-            holder.secondActual.setValue(Float.parseFloat(stoveItem.getTemperature2()));
+            holder.secondActual.setValue(TextHelper.strTransFromFloat(stoveItem.getTemperature2()));
             holder.thirdSetting.setText(stoveItem.getHumidity());
-            holder.thirdActual.setValue(Float.parseFloat(stoveItem.getHumidity1()));
+            holder.thirdActual.setValue(TextHelper.strTransFromFloat(stoveItem.getHumidity1()));
             holder.fourSetting.setText(stoveItem.getHumidity());
-            holder.fourActual.setValue(Float.parseFloat(stoveItem.getHumidity2()));
+            holder.fourActual.setValue(TextHelper.strTransFromFloat(stoveItem.getHumidity2()));
             holder.productModel.setText(stoveItem.getMaterialCode());
-            holder.orderNum.setText(stoveItem.getQuantity());
+            holder.orderNum.setText(Integer.toString(stoveItem.getQuantity()));
         }
     }
 

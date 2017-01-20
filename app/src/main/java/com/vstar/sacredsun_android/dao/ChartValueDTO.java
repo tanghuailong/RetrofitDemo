@@ -3,6 +3,7 @@ package com.vstar.sacredsun_android.dao;
 import com.vstar.sacredsun_android.entity.ChartValueEntity;
 import com.vstar.sacredsun_android.util.chart.TimeHelper;
 
+import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 
 /**
@@ -13,6 +14,7 @@ import org.threeten.bp.LocalDateTime;
  * 图表 所需的数据
  */
 public class ChartValueDTO {
+    LocalDate beginOfDate;
     String chartType;
     long beginOfTime;
     long stamp;
@@ -28,6 +30,7 @@ public class ChartValueDTO {
         this.value = Float.parseFloat(entity.getValue());
         this.stamp = TimeHelper.dateTimeTransformSecond(temp);
         this.beginOfTime = TimeHelper.dateTimeTransformStartSecond(temp);
+        this.beginOfDate = temp.toLocalDate();
     }
 
     public long getBeginOfTime() {
@@ -62,10 +65,19 @@ public class ChartValueDTO {
         this.chartType = chartType;
     }
 
+    public LocalDate getBeginOfDate() {
+        return beginOfDate;
+    }
+
+    public void setBeginOfDate(LocalDate beginOfDate) {
+        this.beginOfDate = beginOfDate;
+    }
+
     @Override
     public String toString() {
         return "ChartValueDTO{" +
-                "chartType='" + chartType + '\'' +
+                "beginOfDate=" + beginOfDate +
+                ", chartType='" + chartType + '\'' +
                 ", beginOfTime=" + beginOfTime +
                 ", stamp=" + stamp +
                 ", value=" + value +

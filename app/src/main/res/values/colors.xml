@@ -45,4 +45,5 @@
     <color name="transition_color_3">#ff5050</color>
     <!--详细页面边框颜色-->
     <color name="detail_border">#00B7F0</color>
+    <color name="edittext_line">#FFFFFF</color>
 </resources>

@@ -5,6 +5,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
@@ -14,18 +15,21 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 /*处理网络访问的工具类*/
 public class HttpMethods {
 
-    //测试使用
-//    private static final String BASE_URL = "https://api.douban.com/v2/movie/";
-      private static final String BASE_URL = "10.100.172.187:8445/";
-    private static final int DEFAULT_TIME = 5;
+      private static final String BASE_URL = "http://10.100.172.187:8081/";
+      private static final int DEFAULT_TIME = 5;
+      private static final String TAG = "HttpMethods";
 
     Retrofit retrofit;
 
     private HttpMethods() {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        //开启网络调试
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+
+        //开启网络调试和日志记录
         OkHttpClient client = builder.addNetworkInterceptor(new StethoInterceptor())
+                .addNetworkInterceptor(interceptor)
                 .connectTimeout(DEFAULT_TIME, TimeUnit.SECONDS).build();
 
         retrofit = new Retrofit.Builder()
@@ -47,4 +51,6 @@ public class HttpMethods {
     public <T> T getService(Class<T> tClass) {
         return retrofit.create(tClass);
     }
+
+
 }

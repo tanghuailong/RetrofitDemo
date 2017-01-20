@@ -12,8 +12,8 @@ import com.vstar.sacredsun_android.entity.HttpResult;
 import com.vstar.sacredsun_android.entity.WorkShopName;
 
 import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -22,25 +22,22 @@ import rx.Observable;
 public interface SacredsunService {
 
     //获取设备的基本生产信息和工艺信息
-//  @POST("equipmentmgt/control/initKanban")
-    @FormUrlEncoded
-    @POST("http://www.mocky.io/v2/587d8f210f000020125df65e")
-     Observable<HttpResult<WorkShopName,DeviceEntity>> getDeviceBasicData(@Field("workshopCode") String workshopCode);
+     @GET("equipmentmgt/control/initKanban")
+     Observable<HttpResult<WorkShopName,DeviceEntity>> getDeviceBasicData(@Query("workshopCode") String workshopCode);
 
 
     //获取设备的详细信息初始化chart
-    //@POST("equipmentmgt/control/initChart")
-    @FormUrlEncoded
-    @POST("http://www.mocky.io/v2/587d6c660f0000b40f5df63f")
-    Observable<HttpResult<DeviceDetailEntity,EmptyResult>> getDeviceDetailData(@Field("assetsCode") String assetsCode);
+//    @GET("equipmentmgt/control/initChart")
+    @GET("http://www.mocky.io/v2/58807862270000031bf0de74")
+    Observable<HttpResult<DeviceDetailEntity,EmptyResult>> getDeviceDetailData(@Query("assetsCode") String assetsCode);
 
     //获取图表的数据
-    @FormUrlEncoded
-    @POST("equipmentmgt/control/chartData")
-    Observable<HttpResult<EmptyResult,ChartValueEntity>> getChartDate(@Field("assetsCode")String assetsCode,@Field("date")String date,@Field("refreshTime") String refreshTime );
+//    @GET("equipmentmgt/control/chartData")
+    @GET("http://www.mocky.io/v2/588079d3270000271bf0de78")
+    Observable<HttpResult<EmptyResult,ChartValueEntity>> getChartDate(@Query("assetsCode") String assetsCode,@Query("date") String date,@Field("refreshTime") String refreshTime );
 
     //获取设定值
-    @FormUrlEncoded
-    @POST("equipmentmgt/control/enactmentValue")
-    Observable<HttpResult<EmptyResult,ChartValueEntity>> getPresetValue(@Field("assetsCode") String assetsCode,@Field("date")String date);
+//    @GET("equipmentmgt/control/enactmentValue")
+    @GET("http://www.mocky.io/v2/588079d3270000271bf0de78")
+    Observable<HttpResult<EmptyResult,ChartValueEntity>> getPresetValue(@Query("assetsCode") String assetsCode,@Query("date") String date);
 }

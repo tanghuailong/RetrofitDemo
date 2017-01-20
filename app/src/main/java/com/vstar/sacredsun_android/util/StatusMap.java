@@ -20,11 +20,11 @@ public class StatusMap {
     }};
 
     public static final Map<String,String> abbreAndDesc = new HashMap<String,String>(){{
-        put("UNUSED","œ–÷√");
-        put("ENDING","Ω· ¯");
-        put("PRE_SOLIDIFICATION","‘§πÃªØ");
-        put("SOLIDIFICATION","πÃªØ");
-        put("DRYING","∏…‘Ô");
-        put("WARNING","∏ÊæØ");
+        put("UNUSED","Èó≤ÁΩÆ");
+        put("ENDING","ÁªìÊùü");
+        put("PRE_SOLIDIFICATION","È¢ÑÂõ∫Âåñ");
+        put("SOLIDIFICATION","Âõ∫Âåñ");
+        put("DRYING","Âπ≤Áá•");
+        put("WARNING","ÂëäË≠¶");
     }};
 }

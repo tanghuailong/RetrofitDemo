@@ -19,6 +19,7 @@
     <string name="form_item_4">湿度二</string>
     <string name="idle">闲置</string>
     <string name="preheating">预热</string>
+    <string name="ending">结束</string>
     <string name="presolidify">预固化</string>
     <string name="solidify">固化</string>
     <string name="dry">干燥</string>
@@ -33,4 +34,5 @@
     <string name="order_unit">块</string>
     <string name="previous">前进</string>
     <string name="next">后退</string>
+    <string name="work_shop_name">车间编号</string>
 </resources>
