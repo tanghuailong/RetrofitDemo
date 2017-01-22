@@ -3,6 +3,7 @@ package com.vstar.sacredsun_android.dao;
 /**
  * Created by tanghuailong on 2017/1/9.
  */
+
 public class FormItem {
     //设定值
     private String settingValue;
