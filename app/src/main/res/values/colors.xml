@@ -22,7 +22,7 @@
     <!--状态闲置-->
     <color name="status_bar_idle">#346E7c</color>
     <!--状态预热-->
-    <color name="status_bar_preheating">#FDE3A8</color>
+    <color name="status_bar_preheating">#778899</color>
     <!--状态预固化-->
     <color name="status_bar_presolidify">#36D7B6</color>
     <!--状态固化-->
@@ -46,4 +46,12 @@
     <!--详细页面边框颜色-->
     <color name="detail_border">#00B7F0</color>
     <color name="edittext_line">#FFFFFF</color>
+
+    <!--折线图的颜色-->
+    <color name="temperature">#8B008B</color>
+    <color name="temperature1">#00FFFF</color>
+    <color name="temperature2">#B8860B</color>
+    <color name="humidity">#FF8C00</color>
+    <color name="humidity1">#8FBC8F</color>
+    <color name="humidity2">#00BFFF</color>
 </resources>

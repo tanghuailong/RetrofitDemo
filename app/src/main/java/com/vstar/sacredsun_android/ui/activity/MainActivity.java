@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
         subscription =  HttpMethods.getInstance().getService(SacredsunService.class)
                 .getDeviceBasicData(workShopCode)
                 .compose(RxHelper.io_main())
-                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(5, TimeUnit.SECONDS)))
-                .repeatWhen(completed -> completed.delay(5, TimeUnit.SECONDS))
+                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(5, TimeUnit.MINUTES)))
+                .repeatWhen(completed -> completed.delay(5, TimeUnit.MINUTES))
                 .subscribe((r) -> {
                     Log.d(LOG_TAG,"onNext");
                     kanbanName.setText(r.getItem().getWorkshopName());

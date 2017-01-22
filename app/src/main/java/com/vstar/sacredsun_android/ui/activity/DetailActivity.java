@@ -1,5 +1,6 @@
 package com.vstar.sacredsun_android.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +15,6 @@ import com.annimon.stream.Stream;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -120,21 +120,21 @@ public class DetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //TODO ������Ҫ
-//        Intent intent = getIntent();
-//        assertsCode = intent.getStringExtra(TAG);
+        Intent intent = getIntent();
+        assertsCode = intent.getStringExtra(TAG);
 
         initChart(mLineChart);
 
         if (deviceSubscription == null || deviceSubscription.isUnsubscribed()) {
             initDeviceDetailInfo();
         }
-
+//
         if (todaySubscription == null || todaySubscription.isUnsubscribed()) {
             if (!TextUtils.isEmpty(assertsCode)) {
                 initTodayChart();
             }
         }
-        //��Ϊ�ջ��߲�Ϊ�ղ���δ���ĵ�ʱ��,��ʼ����
+//        //��Ϊ�ջ��߲�Ϊ�ղ���δ���ĵ�ʱ��,��ʼ����
         if (presetSubscription == null || presetSubscription.isUnsubscribed()) {
             drawPresetInChart();
         }
@@ -170,16 +170,16 @@ public class DetailActivity extends AppCompatActivity {
         legend.setTextColor(Color.WHITE);
 
         HourAxisValueFormatter formatter = new HourAxisValueFormatter();
-        LimitLine temperateLimited = new LimitLine(50f, "设定温度");
-        temperateLimited.setLineColor(Color.RED);
-        temperateLimited.setLineWidth(2f);
-        temperateLimited.setTextColor(Color.WHITE);
-        temperateLimited.setTextSize(10f);
-        LimitLine humidityLimited = new LimitLine(60f, "设定湿度");
-        humidityLimited.setLineColor(Color.RED);
-        humidityLimited.setLineWidth(2f);
-        humidityLimited.setTextColor(Color.WHITE);
-        humidityLimited.setTextSize(10f);
+//        LimitLine temperateLimited = new LimitLine(50f, "设定温度");
+//        temperateLimited.setLineColor(Color.RED);
+//        temperateLimited.setLineWidth(2f);
+//        temperateLimited.setTextColor(Color.WHITE);
+//        temperateLimited.setTextSize(10f);
+//        LimitLine humidityLimited = new LimitLine(60f, "设定湿度");
+//        humidityLimited.setLineColor(Color.RED);
+//        humidityLimited.setLineWidth(2f);
+//        humidityLimited.setTextColor(Color.WHITE);
+//        humidityLimited.setTextSize(10f);
 
         XAxis xl = lineChart.getXAxis();
         xl.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -187,6 +187,7 @@ public class DetailActivity extends AppCompatActivity {
         xl.setValueFormatter(formatter);
         xl.setAxisMinimum(0f);
         xl.setAxisMaximum(86400f);
+//        xl.setAxisMaximum(65000);
         xl.setLabelCount(10);
         xl.setDrawGridLines(true);
         xl.setAvoidFirstLastClipping(false);
@@ -195,8 +196,8 @@ public class DetailActivity extends AppCompatActivity {
         xl.setEnabled(true);
         YAxis leftAxis = lineChart.getAxisLeft();
         leftAxis.setTextColor(Color.WHITE);
-        leftAxis.addLimitLine(temperateLimited);
-        leftAxis.addLimitLine(humidityLimited);
+//        leftAxis.addLimitLine(temperateLimited);
+//        leftAxis.addLimitLine(humidityLimited);
         leftAxis.setAxisMaximum(100f);
         leftAxis.setAxisMinimum(0f);
         leftAxis.setMinWidth(0f);
@@ -289,8 +290,8 @@ public class DetailActivity extends AppCompatActivity {
         thirdActual.setText(entity.getHumidity1());
         fourSetting.setText(entity.getHumidity());
         fourActual.setText(entity.getHumidity2());
-        detailProductStageTitle.setText(entity.getProductionStage() + "�׶�");
-//        detailProductStageTitle.setText(entity.getAssetsState() +" "+entity.getProductionStage() +"�׶�");
+//        detailProductStageTitle.setText(entity.getProductionStage()+"阶段");
+        detailProductStageTitle.setText(StatusMap.abbreAndDesc.get(entity.getAssetsState().name()) +" "+entity.getProductionStage()+"阶段");
         detailProgramNumValue.setText(entity.getProgramNumber());
         detailCycleBlowerValue.setText(entity.getCirculatingFan());
         detailWaterValve.setText(entity.getWaterValve());
@@ -355,7 +356,7 @@ public class DetailActivity extends AppCompatActivity {
                         //���ƽ��յ�����
                         drawLineChart(r.getItems());
                         //ˢ��ʵʱ������
-                        refreshTodayChart(r.getItems().get(lastIndex).getStamp());
+                        refreshTodayChart(r.getItems().get(lastIndex-1).getStamp());
                     }
                 }, (e) -> {
                     e.printStackTrace();
@@ -376,14 +377,14 @@ public class DetailActivity extends AppCompatActivity {
         todaySubscription = HttpMethods.getInstance().getService(SacredsunService.class)
                 .getChartDate(assertsCode, LocalDate.now().toString(), stamp)
                 .compose(RxHelper.io_main())
-                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(5, TimeUnit.SECONDS)))
-                .repeatWhen(completed -> completed.delay(5, TimeUnit.SECONDS))
+                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(10, TimeUnit.SECONDS)))
+                .repeatWhen(completed -> completed.delay(10, TimeUnit.SECONDS))
                 .subscribe((r) -> {
                     Log.d(LOG_TAG, "onNext");
                     if (!r.getItems().isEmpty()) {
                         int lastIndex = r.getItems().size();
                         drawLineChart(r.getItems());
-                        stamp = r.getItems().get(lastIndex).getStamp();
+                        stamp = r.getItems().get(lastIndex-1).getStamp();
                     }
                 }, (e) -> {
                     e.printStackTrace();
@@ -399,8 +400,8 @@ public class DetailActivity extends AppCompatActivity {
         presetSubscription = HttpMethods.getInstance().getService(SacredsunService.class)
                 .getPresetValue(assertsCode, LocalDate.now().toString())
                 .compose(RxHelper.io_main())
-                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(10, TimeUnit.MINUTES)))
-                .repeatWhen(completed -> completed.delay(10, TimeUnit.MINUTES))
+                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(2, TimeUnit.MINUTES)))
+                .repeatWhen(completed -> completed.delay(2, TimeUnit.MINUTES))
                 .subscribe((r) -> {
                     Log.d(LOG_TAG, "onNext");
                     addPresetValueToChart(r.getItems());
@@ -454,12 +455,14 @@ public class DetailActivity extends AppCompatActivity {
         if (dto.getBeginOfDate().equals(LocalDate.now())) {
             LineData lineData = mLineChart.getData();
             if (lineData != null) {
-                int indexOfDateSet = ConstantChart.chartTypeAndIndex.get(dto.getChartType());
-                ILineDataSet dataSet = lineData.getDataSetByIndex(indexOfDateSet);
+                String label = ConstantChart.chartTypeAndDesc.get(dto.getChartType());
+//                ILineDataSet dataSet = lineData.getDataSetByIndex(indexOfDateSet);
+                ILineDataSet dataSet = lineData.getDataSetByLabel(label,false);
                 if (dataSet == null) {
                     dataSet = createSet(ConstantChart.chartTypeAndDesc.get(dto.getChartType()));
                     lineData.addDataSet(dataSet);
                 }
+                int indexOfDateSet = lineData.getIndexOfDataSet(dataSet);
                 lineData.addEntry(new Entry(dto.getStamp(), dto.getValue()), indexOfDateSet);
                 lineData.notifyDataChanged();
                 mLineChart.notifyDataSetChanged();
@@ -468,14 +471,17 @@ public class DetailActivity extends AppCompatActivity {
         }else {
             LineData lineData = mLineChart.getData();
             if(lineData != null) {
-                int indexOfDateSet = ConstantChart.chartTypeAndIndex.get(dto.getChartType());
-                ILineDataSet dataSet = lineData.getDataSetByIndex(indexOfDateSet);
+                String label = ConstantChart.chartTypeAndDesc.get(dto.getChartType());
+                ILineDataSet dataSet = lineData.getDataSetByLabel(label,false);
+//                int indexOfDateSet = ConstantChart.chartTypeAndIndex.get(dto.getChartType());
+//                ILineDataSet dataSet = lineData.getDataSetByIndex(indexOfDateSet);
                 if(dataSet == null) {
                     dataSet = createSet(ConstantChart.chartTypeAndDesc.get(dto.getChartType()));
                     lineData.addDataSet(dataSet);
                 }else {
                     dataSet.clear();
                 }
+                int indexOfDateSet = lineData.getIndexOfDataSet(dataSet);
                 lineData.addEntry(new Entry(dto.getStamp(), dto.getValue()), indexOfDateSet);
                 lineData.notifyDataChanged();
                 mLineChart.notifyDataSetChanged();
@@ -497,6 +503,8 @@ public class DetailActivity extends AppCompatActivity {
         set.setFillColor(ColorTemplate.getHoloBlue());
         set.setHighLightColor(Color.rgb(244, 117, 117));
         set.setValueTextColor(Color.WHITE);
+        set.setColor(ConstantChart.abbreAndColor.get(dataSetLabel));
+//        set.setColor(Color.RED);
         set.setValueTextSize(9f);
         set.setDrawValues(false);
         return set;

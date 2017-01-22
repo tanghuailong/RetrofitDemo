@@ -77,4 +77,10 @@
         <item name="android:textSize">50sp</item>
     </style>
 
+    <style name="stove_form_normal">
+        <item name="android:textColor">@color/desc_text_color</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/form_border</item>
+    </style>
+
 </resources>

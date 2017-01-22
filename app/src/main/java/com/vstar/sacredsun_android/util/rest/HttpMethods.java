@@ -15,7 +15,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 /*处理网络访问的工具类*/
 public class HttpMethods {
 
-      private static final String BASE_URL = "http://10.100.172.187:8081/";
+      private static final String BASE_URL = "http://192.168.0.9:8081/";
       private static final int DEFAULT_TIME = 5;
       private static final String TAG = "HttpMethods";
 

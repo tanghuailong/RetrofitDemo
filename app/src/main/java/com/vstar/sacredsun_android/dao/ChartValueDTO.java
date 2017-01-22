@@ -28,8 +28,8 @@ public class ChartValueDTO {
         LocalDateTime temp = TimeHelper.strTransfromLocalDateTime(entity.getStamp());
         this.chartType = entity.getField();
         this.value = Float.parseFloat(entity.getValue());
-        this.stamp = TimeHelper.dateTimeTransformSecond(temp);
         this.beginOfTime = TimeHelper.dateTimeTransformStartSecond(temp);
+        this.stamp = TimeHelper.dateTimeTransformSecond(temp) - beginOfTime;
         this.beginOfDate = temp.toLocalDate();
     }
 

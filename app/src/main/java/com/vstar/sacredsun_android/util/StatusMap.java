@@ -27,4 +27,5 @@ public class StatusMap {
         put("DRYING","干燥");
         put("WARNING","告警");
     }};
+
 }

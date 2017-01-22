@@ -10,14 +10,14 @@
         layout="@layout/header_detail"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.15"></include>
+        android:layout_weight="0.07"></include>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        android:layout_weight="0.75"
+        android:layout_weight="0.89"
         android:background="@drawable/border_detail"
         android:orientation="horizontal"
         android:padding="20dp">
@@ -41,6 +41,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 >
 
                 <TextView
@@ -120,7 +121,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="50dp">
 
                 <TextView
                     android:id="@+id/detail_run_title"
@@ -173,7 +174,7 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="50dp"
                 android:stretchColumns="*">
 
                 <TableRow
@@ -336,6 +337,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <ImageView
@@ -361,7 +363,7 @@
                     android:text="@string/next"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -488,5 +490,5 @@
         layout="@layout/footer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"></include>
+        android:layout_weight="0.04"></include>
 </LinearLayout>
