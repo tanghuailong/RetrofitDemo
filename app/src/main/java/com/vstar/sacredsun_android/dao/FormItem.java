@@ -10,6 +10,7 @@ public class FormItem {
     //实际值
     private String actualValue;
 
+
     public String getSettingValue() {
         return settingValue;
     }
