@@ -23,7 +23,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.vstar.sacredsun_android.R;
-import com.vstar.sacredsun_android.dao.ChartValueDTO;
+import com.vstar.sacredsun_android.dao.ChartValueDTOBefore;
 import com.vstar.sacredsun_android.entity.ChartValueEntity;
 import com.vstar.sacredsun_android.entity.DeviceDetailEntity;
 import com.vstar.sacredsun_android.service.SacredsunService;
@@ -415,7 +415,7 @@ public class DetailActivity extends AppCompatActivity {
     //ת�����ݣ����ҿ�ʼ��������ͼ
     private void drawLineChart(List<ChartValueEntity> valueList) {
 
-        Stream.of(valueList).map(l -> new ChartValueDTO(l))
+        Stream.of(valueList).map(l -> new ChartValueDTOBefore(l))
                 .forEach(dto -> {
                     addToChart(dto);
                 });
@@ -424,8 +424,8 @@ public class DetailActivity extends AppCompatActivity {
 
     private void addPresetValueToChart(List<ChartValueEntity> valueList) {
 
-        List<ChartValueDTO> dtoList = Stream.of(valueList)
-                .map(l -> new ChartValueDTO(l))
+        List<ChartValueDTOBefore> dtoList = Stream.of(valueList)
+                .map(l -> new ChartValueDTOBefore(l))
                 .collect(Collectors.toList());
 
         LineData lineData = mLineChart.getData();
@@ -449,7 +449,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     //������ͼ����ӵ�
-    private void addToChart(ChartValueDTO dto) {
+    private void addToChart(ChartValueDTOBefore dto) {
 
         //�� ��ǰ��ʱ������ڵ�ʱ�䲻һ��ʱ��Ҫ�������
         if (dto.getBeginOfDate().equals(LocalDate.now())) {

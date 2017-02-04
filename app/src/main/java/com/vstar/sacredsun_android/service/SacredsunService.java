@@ -36,4 +36,7 @@ public interface SacredsunService {
     //获取设定值
     @GET("equipmentmgt/control/enactmentValue")
     Observable<HttpResult<EmptyResult,ChartValueEntity>> getPresetValue(@Query("assetsCode") String assetsCode,@Query("date") String date);
+
+    @GET("equipmentmgt/control/chartData")
+    Observable<HttpResult<EmptyResult,ChartValueEntity>> getLineChartData(@Query("assetsCode")String assetsCode,@Query("beginTime") String beginTime,@Query("endTime") String endTime);
 }
