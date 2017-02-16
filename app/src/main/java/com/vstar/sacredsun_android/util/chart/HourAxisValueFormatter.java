@@ -22,9 +22,9 @@ public class HourAxisValueFormatter implements IAxisValueFormatter {
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
 
-        String minute = String.valueOf(value / 60);
-        String second = String.valueOf(value % 60);
-        return hour + ":" + minute + ":" + second;
+        String minute = String.valueOf(Math.round(value/60));
+        minute = String.format("%-2s",minute).replace(' ','0');
+        return hour + ":" + minute;
 
     }
 

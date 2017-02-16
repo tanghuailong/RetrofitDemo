@@ -71,6 +71,14 @@ public class TestActivity extends AppCompatActivity{
         ButterKnife.bind(this);
         initChart();
 
+        List<ChartValueEntity> testlist = new ArrayList<>();
+        testlist.add(new ChartValueEntity("temperature1","2017-02-15 15:10:00","10"));
+        testlist.add(new ChartValueEntity("temperature1","2017-02-15 15:20:00","20"));
+        testlist.add(new ChartValueEntity("temperature1","2017-02-15 15:30:00","30"));
+        testlist.add(new ChartValueEntity("temperature1","2017-02-15 15:40:00","40"));
+        testlist.add(new ChartValueEntity("temperature1","2017-02-15 15:50:00","50"));
+        drawLineChart(testlist);
+
     }
 
     private void initChart(){
@@ -108,7 +116,7 @@ public class TestActivity extends AppCompatActivity{
         xl.setValueFormatter(formatter);
         xl.setAxisMinimum(0f);
         xl.setAxisMaximum(3600);
-        xl.setLabelCount(6);
+        xl.setLabelCount(10);
         xl.setDrawGridLines(true);
         xl.setAvoidFirstLastClipping(false);
         xl.setDrawLabels(true);
@@ -132,7 +140,7 @@ public class TestActivity extends AppCompatActivity{
         Map<String,String> beginAndEnd = TimeHelper.getBeginAndEndTime(currentTime);
 
         HttpMethods.getInstance().getService(SacredsunService.class)
-                .getChartDate("G102",beginAndEnd.get("begin"),beginAndEnd.get("end"))
+                .getLineChartData("G102",beginAndEnd.get("begin"),beginAndEnd.get("end"))
                 .compose(RxHelper.io_main())
                 .subscribe((r) -> {
                     Log.d(LOG_TAG, "onNext");
@@ -148,6 +156,14 @@ public class TestActivity extends AppCompatActivity{
                 }, () -> {
                     Log.d(LOG_TAG, "completed");
                 });
+
+
+        lineChart.clearValues();
+        currentHour = currentHour + 1;
+        HourAxisValueFormatter newFormatter = new HourAxisValueFormatter(currentHour);
+        XAxis xl = lineChart.getXAxis();
+        xl.setValueFormatter(newFormatter);
+        lineChart.invalidate();
     }
 
     //依据数据绘制折线图

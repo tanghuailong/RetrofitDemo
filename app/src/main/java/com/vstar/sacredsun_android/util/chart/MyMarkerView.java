@@ -10,6 +10,7 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.vstar.sacredsun_android.R;
 
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalTime;
 
 /**
  * Created by tanghuailong on 2017/1/15.
@@ -29,7 +30,7 @@ public class MyMarkerView extends MarkerView {
     // content (user-interface)
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        tvContent.setText(e.getY() + " at " + getDateTime(e.getX()));
+        tvContent.setText(e.getY() + " 在 " + getDateTime(e.getX()));
         super.refreshContent(e, highlight);
     }
 
@@ -47,8 +48,12 @@ public class MyMarkerView extends MarkerView {
     }
 
     public String getDateTime(float xValue) {
-        String  localTime = TimeHelper.secondTransformStr((long) xValue);
+//        String  localTime = TimeHelper.secondTransformStr((long) xValue);
+        String minute = String.valueOf(((int) xValue/60));
+        minute = String.format("%-2s",minute).replace(' ','0');
+        String second = String.valueOf((int) xValue % 60);
+        second = String.format("%-2s",second).replace(' ','0');
         String localDate = TimeHelper.localDateTransformStr(LocalDate.now());
-        return localDate+" "+localTime;
+        return localDate+" "+ LocalTime.now().getHour()+":"+minute+":"+second;
     }
 }

@@ -13,6 +13,15 @@ public class ChartValueEntity {
     String stamp;
     String value;
 
+    public ChartValueEntity() {
+    }
+
+    public ChartValueEntity(String field, String stamp, String value) {
+        this.field = field;
+        this.stamp = stamp;
+        this.value = value;
+    }
+
     public String getValue() {
         return value;
     }

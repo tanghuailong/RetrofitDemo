@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
             workShopCode = sharedPreferences.getString(TAG2,"01");
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(10, StaggeredGridLayoutManager.VERTICAL));
+            recyclerView.getItemAnimator().setChangeDuration(0);
             adapter = new StoveAdapter(list, this, (view, code) -> {
                 //Ìø×ªµ½ÏêÏ¸Ò³Ãæ
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
@@ -95,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
         subscription =  HttpMethods.getInstance().getService(SacredsunService.class)
                 .getDeviceBasicData(workShopCode)
                 .compose(RxHelper.io_main())
-                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(5, TimeUnit.MINUTES)))
-                .repeatWhen(completed -> completed.delay(5, TimeUnit.MINUTES))
+                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(10, TimeUnit.SECONDS)))
+                .repeatWhen(completed -> completed.delay(10, TimeUnit.SECONDS))
                 .subscribe((r) -> {
                     Log.d(LOG_TAG,"onNext");
                     kanbanName.setText(r.getItem().getWorkshopName());

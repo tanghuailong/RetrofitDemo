@@ -53,7 +53,7 @@ public class DeviceEntity {
     }
 
     public Status getStatus() {
-        return status;
+        return status==null?Status.UNUSED:status;
     }
 
     public void setStatus(Status status) {

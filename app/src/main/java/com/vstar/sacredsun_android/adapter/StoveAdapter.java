@@ -30,6 +30,10 @@ public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>
     private Context context;
     private OnRecyclerViewItemClickListener listener;
 
+    public StoveAdapter(List<DeviceEntity> lists,Context context) {
+        this(lists,context,null);
+    }
+
     public StoveAdapter(List<DeviceEntity> lists, Context context,OnRecyclerViewItemClickListener listener) {
         this.lists = lists;
         this.context = context;
@@ -51,6 +55,7 @@ public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>
     public void onBindViewHolder(StoveHolder holder, int position) {
         DeviceEntity stoveItem = lists.get(position);
         if(stoveItem != null) {
+
             holder.stoveDevice.setBackgroundResource(StatusMap.statusAndView.get(stoveItem.getStatus().name()));
             holder.stoveNum.setText(stoveItem.getAssetsCode());
             holder.runState.setText(stoveItem.getStatus().name());

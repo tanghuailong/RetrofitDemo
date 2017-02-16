@@ -117,7 +117,34 @@
                         android:text="@string/time_title" />
                 </LinearLayout>
             </RelativeLayout>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/detail_left_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/left"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/detail_text_normal"
+                    android:text="@string/previous"/>
+                <ImageView
+                    android:id="@+id/detail_right_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@drawable/right"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/detail_text_normal"
+                    android:text="@string/next"/>
+            </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -334,34 +361,7 @@
                         tools:text="60"></TextView>
                 </TableRow>
             </TableLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <ImageView
-                android:id="@+id/detail_left_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/left"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/detail_text_normal"
-                    android:text="@string/previous"/>
-                <ImageView
-                    android:id="@+id/detail_right_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:src="@drawable/right"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/detail_text_normal"
-                    android:text="@string/next"/>
-            </LinearLayout>
+
             <LinearLayout
                 android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
@@ -378,13 +378,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/reduce_humidity" />
+                    <ImageView
+                        android:id="@+id/detail_reduce_humidity_img"
+                        android:layout_width="@dimen/status_small_icon"
+                        android:layout_height="@dimen/status_small_icon"
+                        android:layout_toRightOf="@id/detail_reduce_humidity_title"
+                        tools:src="@drawable/door_able"
+                        />
 
                     <TextView
                         android:id="@+id/detail_reduce_temperate_value"
                         style="@style/detail_text_emphasiz"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/detail_reduce_humidity_title"
+                        android:layout_toRightOf="@id/detail_reduce_humidity_img"
                         android:textColor="@color/disable_text_color"
                         tools:text="关" />
 
@@ -396,11 +403,17 @@
                         android:layout_alignParentRight="true"
                         android:textColor="@color/disable_text_color"
                         tools:text="关" />
+                    <ImageView
+                        android:id="@+id/detail_stream_heating_img"
+                        android:layout_width="@dimen/status_small_icon"
+                        android:layout_height="@dimen/status_small_icon"
+                        android:layout_toLeftOf="@id/detail_stream_heating_value"
+                        android:src="@drawable/stream_heating"/>
                     <TextView
                         style="@style/detail_text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/detail_stream_heating_value"
+                        android:layout_toLeftOf="@id/detail_stream_heating_img"
                         android:text="@string/stream_heating" />
 
 
@@ -416,13 +429,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/exhaust_humidity" />
+                    <ImageView
+                        android:id="@+id/detail_exhaust_humidity_img"
+                        android:layout_width="@dimen/status_small_icon"
+                        android:layout_height="@dimen/status_small_icon"
+                        android:layout_toRightOf="@id/detail_exhaust_humidity"
+                        android:src="@drawable/door_disable"/>
 
                     <TextView
                         android:id="@+id/detail_exhaust_humidity_value"
                         style="@style/detail_text_emphasiz"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/detail_exhaust_humidity"
+                        android:layout_toRightOf="@id/detail_exhaust_humidity_img"
                         android:textColor="@color/disable_text_color"
                         tools:text="关" />
 
@@ -434,11 +453,17 @@
                         android:layout_alignParentRight="true"
                         android:textColor="@color/disable_text_color"
                         tools:text="关" />
+                    <ImageView
+                        android:id="@+id/detail_stream_humidity_img"
+                        android:layout_width="@dimen/status_small_icon"
+                        android:layout_height="@dimen/status_small_icon"
+                        android:src="@drawable/steam_humidity"
+                        android:layout_toLeftOf="@id/detail_stream_humidity_value"/>
                     <TextView
                         style="@style/detail_text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/detail_stream_humidity_value"
+                        android:layout_toLeftOf="@id/detail_stream_humidity_img"
                         android:text="@string/stream_humidity" />
 
 
@@ -453,13 +478,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cycle_blower" />
+                    <ImageView
+                        android:id="@+id/detail_cycle_blower_img"
+                        android:layout_width="@dimen/status_small_icon"
+                        android:layout_height="@dimen/status_small_icon"
+                        android:layout_toRightOf="@id/detail_cycle_blower"
+                        android:src="@drawable/fan_able"/>
 
                     <TextView
                         android:id="@+id/detail_cycle_blower_value"
                         style="@style/detail_text_emphasiz"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/detail_cycle_blower"
+                        android:layout_toRightOf="@id/detail_cycle_blower_img"
                         android:textColor="@color/disable_text_color"
                         tools:text="关" />
 
@@ -471,11 +502,17 @@
                         android:layout_alignParentRight="true"
                         android:textColor="@color/disable_text_color"
                         tools:text="关" />
+                    <ImageView
+                        android:id="@+id/detail_water_valve_img"
+                        android:layout_width="@dimen/status_small_icon"
+                        android:layout_height="@dimen/status_small_icon"
+                        android:src="@drawable/water_able"
+                        android:layout_toLeftOf="@id/detail_water_valve"/>
                     <TextView
                         style="@style/detail_text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/detail_water_valve"
+                        android:layout_toLeftOf="@id/detail_water_valve_img"
                         android:text="@string/water_valve" />
 
 

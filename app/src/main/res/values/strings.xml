@@ -35,4 +35,6 @@
     <string name="previous">前进</string>
     <string name="next">后退</string>
     <string name="work_shop_name">车间编号</string>
+    <string name="status_valve_able">开</string>
+    <string name="status_valve_disable">关</string>
 </resources>

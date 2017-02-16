@@ -63,6 +63,10 @@ public class TimeHelper {
         return localDate.format(formatter2);
     }
 
+    public static String localDateTimeTransFormStr(LocalDateTime localDateTime) {
+        return localDateTime.format(formatter);
+    }
+
     //把 秒数转换为 时间格式 HH:mm:ss
     public static String secondTransformStr(long localTime) {
         return LocalTime.ofSecondOfDay(localTime).format(formatter3);
@@ -74,7 +78,7 @@ public class TimeHelper {
     public static Map<String,String> getBeginAndEndTime(LocalDateTime dateTime){
 
         LocalDateTime begin = dateTime.withMinute(0).withSecond(0);
-        LocalDateTime end = dateTime.plusHours(1).withMinute(0).withSecond(0);
+        LocalDateTime end = begin.plusHours(1);
         Map<String,String> range = new HashMap<>();
         range.put("begin",begin.format(formatter));
         range.put("end",end.format(formatter));

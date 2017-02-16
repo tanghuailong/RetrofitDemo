@@ -10,7 +10,6 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -23,21 +22,24 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.vstar.sacredsun_android.R;
-import com.vstar.sacredsun_android.dao.ChartValueDTOBefore;
+import com.vstar.sacredsun_android.dao.ChartValueDTO;
 import com.vstar.sacredsun_android.entity.ChartValueEntity;
 import com.vstar.sacredsun_android.entity.DeviceDetailEntity;
 import com.vstar.sacredsun_android.service.SacredsunService;
 import com.vstar.sacredsun_android.util.StatusMap;
+import com.vstar.sacredsun_android.util.TextHelper;
 import com.vstar.sacredsun_android.util.chart.ConstantChart;
 import com.vstar.sacredsun_android.util.chart.HourAxisValueFormatter;
 import com.vstar.sacredsun_android.util.chart.MyMarkerView;
+import com.vstar.sacredsun_android.util.chart.TimeHelper;
 import com.vstar.sacredsun_android.util.rest.HttpMethods;
 import com.vstar.sacredsun_android.util.rxjava.RxHelper;
 
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.temporal.ChronoUnit;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalTime;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -53,53 +55,65 @@ import rx.Subscription;
 public class DetailActivity extends AppCompatActivity {
 
     @BindView(R.id.detail_chart)
-    LineChart mLineChart;                      //����ͼ
+    LineChart mLineChart;
     @BindView(R.id.device_code)
-    TextView deviceCode;                       //�豸���
+    TextView deviceCode;
     @BindView(R.id.detail_product_model)
-    TextView detailProductModel;               //��Ʒ�ͺ�
+    TextView detailProductModel;
     @BindView(R.id.detail_order_num_value)
-    TextView detailOrderNumValue;              //��������
+    TextView detailOrderNumValue;
     @BindView(R.id.stove_left_time)
-    TextView stoveLeftTime;                   //ʣ��ʱ��
+    TextView stoveLeftTime;
     @BindView(R.id.detail_run_value)
-    TextView detailRunValue;                  //����״̬
+    TextView detailRunValue;
     @BindView(R.id.detail_product_stage_title)
-    TextView detailProductStageTitle;         //�����׶�
+    TextView detailProductStageTitle;
     @BindView(R.id.detail_program_num_value)
-    TextView detailProgramNumValue;           //�����
+    TextView detailProgramNumValue;
     @BindView(R.id.first_setting)
-    TextView firstSetting;                    //�¶�һ�趨ֵ
+    TextView firstSetting;
     @BindView(R.id.first_actual)
-    TextView firstActual;                     //�¶�һʵ��ֵ
+    TextView firstActual;
     @BindView(R.id.second_setting)
-    TextView secondSetting;                   //�¶ȶ��趨ֵ
+    TextView secondSetting;
     @BindView(R.id.second_actual)
-    TextView secondActual;                    //�¶ȶ�ʵ��ֵ
+    TextView secondActual;
     @BindView(R.id.third_setting)
-    TextView thirdSetting;                    //ʪ��һ�趨ֵ
+    TextView thirdSetting;
     @BindView(R.id.third_actual)
-    TextView thirdActual;                     //ʪ��һʵ��ֵ
+    TextView thirdActual;
     @BindView(R.id.four_setting)
-    TextView fourSetting;                     //ʪ�ȶ����趨ֵ
+    TextView fourSetting;
     @BindView(R.id.four_actual)
-    TextView fourActual;                      //ʪ�ȶ���ʵ��ֵ
+    TextView fourActual;
     @BindView(R.id.detail_left_img)
-    ImageView detailLeftImg;                  //��ǰ
+    ImageView detailLeftImg;
     @BindView(R.id.detail_right_img)
-    ImageView detailRightImg;                 //���
+    ImageView detailRightImg;
     @BindView(R.id.detail_reduce_temperate_value)
-    TextView detailReduceTemperateValue;      //���·���
+    TextView detailReduceTemperateValue;
     @BindView(R.id.detail_stream_heating_value)
-    TextView detailStreamHeatingValue;        //��������
+    TextView detailStreamHeatingValue;
     @BindView(R.id.detail_exhaust_humidity_value)
-    TextView detailExhaustHumidityValue;      //��ʪ����
+    TextView detailExhaustHumidityValue;
     @BindView(R.id.detail_stream_humidity_value)
-    TextView deatailStreamHumidityValue;      //������ʪ
+    TextView deatailStreamHumidityValue;
     @BindView(R.id.detail_cycle_blower_value)
-    TextView detailCycleBlowerValue;          //ѭ�����
+    TextView detailCycleBlowerValue;
     @BindView(R.id.detail_water_valve)
-    TextView detailWaterValve;                //��ˮ��
+    TextView detailWaterValve;
+    @BindView(R.id.detail_reduce_humidity_img)
+    ImageView reduceTemperatureImg;
+    @BindView(R.id.detail_exhaust_humidity_img)
+    ImageView exhaustHumidityImg;
+    @BindView(R.id.detail_cycle_blower_img)
+    ImageView fanImg;
+    @BindView(R.id.detail_stream_heating_img)
+    ImageView streamHeatingImg;
+    @BindView(R.id.detail_stream_humidity_img)
+    ImageView streamHumidityImg;
+    @BindView(R.id.detail_water_valve_img)
+    ImageView waterValveImg;
 
 
     private static final String LOG_TAG = "DetailActivity";
@@ -108,9 +122,13 @@ public class DetailActivity extends AppCompatActivity {
     private Subscription presetSubscription = null;
     private Subscription todaySubscription = null;
     private Subscription deviceSubscription = null;
-    private String stamp = "";
+    private String beginStamp = "";
     private String assertsCode = "";
-    private LocalDate currentDate = LocalDate.now();
+
+    //现在的时间
+    private LocalDateTime currentTime = LocalDateTime.now();
+    //当前处在哪个小时
+    private int currentHour = LocalTime.now().getHour();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,28 +137,14 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
-        //TODO ������Ҫ
+
         Intent intent = getIntent();
         assertsCode = intent.getStringExtra(TAG);
 
         initChart(mLineChart);
 
-        if (deviceSubscription == null || deviceSubscription.isUnsubscribed()) {
-            initDeviceDetailInfo();
-        }
-//
-        if (todaySubscription == null || todaySubscription.isUnsubscribed()) {
-            if (!TextUtils.isEmpty(assertsCode)) {
-                initTodayChart();
-            }
-        }
-//        //��Ϊ�ջ��߲�Ϊ�ղ���δ���ĵ�ʱ��,��ʼ����
-        if (presetSubscription == null || presetSubscription.isUnsubscribed()) {
-            drawPresetInChart();
-        }
-
-
-
+//        //TODO 测试使用删除
+//        assertsCode = "G101";
     }
 
     private void initChart(LineChart lineChart) {
@@ -169,25 +173,15 @@ public class DetailActivity extends AppCompatActivity {
         legend.setForm(Legend.LegendForm.LINE);
         legend.setTextColor(Color.WHITE);
 
-        HourAxisValueFormatter formatter = new HourAxisValueFormatter();
-//        LimitLine temperateLimited = new LimitLine(50f, "设定温度");
-//        temperateLimited.setLineColor(Color.RED);
-//        temperateLimited.setLineWidth(2f);
-//        temperateLimited.setTextColor(Color.WHITE);
-//        temperateLimited.setTextSize(10f);
-//        LimitLine humidityLimited = new LimitLine(60f, "设定湿度");
-//        humidityLimited.setLineColor(Color.RED);
-//        humidityLimited.setLineWidth(2f);
-//        humidityLimited.setTextColor(Color.WHITE);
-//        humidityLimited.setTextSize(10f);
+        HourAxisValueFormatter formatter = new HourAxisValueFormatter(LocalTime.now().getHour());
+
 
         XAxis xl = lineChart.getXAxis();
         xl.setPosition(XAxis.XAxisPosition.BOTTOM);
         xl.setTextColor(Color.WHITE);
         xl.setValueFormatter(formatter);
         xl.setAxisMinimum(0f);
-        xl.setAxisMaximum(86400f);
-//        xl.setAxisMaximum(65000);
+        xl.setAxisMaximum(3600);
         xl.setLabelCount(10);
         xl.setDrawGridLines(true);
         xl.setAvoidFirstLastClipping(false);
@@ -196,8 +190,6 @@ public class DetailActivity extends AppCompatActivity {
         xl.setEnabled(true);
         YAxis leftAxis = lineChart.getAxisLeft();
         leftAxis.setTextColor(Color.WHITE);
-//        leftAxis.addLimitLine(temperateLimited);
-//        leftAxis.addLimitLine(humidityLimited);
         leftAxis.setAxisMaximum(100f);
         leftAxis.setAxisMinimum(0f);
         leftAxis.setMinWidth(0f);
@@ -206,51 +198,35 @@ public class DetailActivity extends AppCompatActivity {
         rightAxis.setEnabled(false);
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        //��Ϊ�ջ��߲�Ϊ�ղ���δ���ĵ�ʱ�򣬿�ʼ����
-//        if (todaySubscription == null || todaySubscription.isUnsubscribed()) {
-//            if (!TextUtils.isEmpty(assertsCode)) {
-//                initTodayChart();
-//            }
-//        }
-//        //��Ϊ�ջ��߲�Ϊ�ղ���δ���ĵ�ʱ��,��ʼ����
-//        if (presetSubscription == null || presetSubscription.isUnsubscribed()) {
-//            drawPresetInChart();
-//        }
-//
-//        if (deviceSubscription == null || deviceSubscription.isUnsubscribed()) {
-//            initDeviceDetailInfo();
-//        }
-//    }
-
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        //�������
-//        if (todaySubscription != null && !todaySubscription.isUnsubscribed()) {
-//            todaySubscription.unsubscribe();
-//        }
-//        if (presetSubscription != null && !presetSubscription.isUnsubscribed()) {
-//            presetSubscription.unsubscribe();
-//        }
-//        if (deviceSubscription != null && !deviceSubscription.isUnsubscribed()) {
-//            deviceSubscription.unsubscribe();
-//        }
-//
-//    }
-
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //�������
+    protected void onStart() {
+        super.onStart();
+        openSubscribe();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        closeSubscribe();
+    }
+
+    private void openSubscribe() {
+        if (deviceSubscription == null || deviceSubscription.isUnsubscribed()) {
+            if (!TextUtils.isEmpty(assertsCode)) {
+                initDeviceDetailInfo();
+            }
+        }
+        if (todaySubscription == null || todaySubscription.isUnsubscribed()) {
+            if (!TextUtils.isEmpty(assertsCode)) {
+                initTodayChart();
+            }
+        }
+    }
+
+    private void closeSubscribe() {
         if (todaySubscription != null && !todaySubscription.isUnsubscribed()) {
             todaySubscription.unsubscribe();
-        }
-        if (presetSubscription != null && !presetSubscription.isUnsubscribed()) {
-            presetSubscription.unsubscribe();
         }
         if (deviceSubscription != null && !deviceSubscription.isUnsubscribed()) {
             deviceSubscription.unsubscribe();
@@ -274,7 +250,6 @@ public class DetailActivity extends AppCompatActivity {
                 });
     }
 
-    //��ʼ���豸��Ϣ�Ľ���
     private void initDetailPage(DeviceDetailEntity entity) {
 
         deviceCode.setText(entity.getAssetsCode());
@@ -290,25 +265,36 @@ public class DetailActivity extends AppCompatActivity {
         thirdActual.setText(entity.getHumidity1());
         fourSetting.setText(entity.getHumidity());
         fourActual.setText(entity.getHumidity2());
-//        detailProductStageTitle.setText(entity.getProductionStage()+"阶段");
-        detailProductStageTitle.setText(StatusMap.abbreAndDesc.get(entity.getAssetsState().name()) +" "+entity.getProductionStage()+"阶段");
+        detailProductStageTitle.setText(StatusMap.abbreAndDesc.get(entity.getAssetsState().name()) + " " + entity.getProductionStage() + "阶段");
         detailProgramNumValue.setText(entity.getProgramNumber());
-        detailCycleBlowerValue.setText(entity.getCirculatingFan());
-        detailWaterValve.setText(entity.getWaterValve());
-        detailReduceTemperateValue.setText(entity.getCoolingDamper());
-        detailExhaustHumidityValue.setText(entity.getHumidityDamper());
-        detailStreamHeatingValue.setText(entity.getSteamHeating());
-        deatailStreamHumidityValue.setText(entity.getStreamHumidity());
+
+        setTextStatusValve(entity.getCirculatingFan(), detailCycleBlowerValue);
+        setTextStatusValve(entity.getWaterValve(), detailWaterValve);
+        setTextStatusValve(entity.getCoolingDamper(), detailReduceTemperateValue);
+        setTextStatusValve(entity.getHumidityDamper(), detailExhaustHumidityValue);
+        setTextStatusValve(entity.getSteamHeating(), detailStreamHeatingValue);
+        setTextStatusValve(entity.getStreamHumidity(), deatailStreamHumidityValue);
+
+        setImgStatusValve(reduceTemperatureImg, entity.getCoolingDamper(), R.drawable.door_able, R.drawable.door_disable);
+        setImgStatusValve(exhaustHumidityImg, entity.getHumidityDamper(), R.drawable.door_able, R.drawable.door_disable);
+        setImgStatusValve(fanImg, entity.getCirculatingFan(), R.drawable.fan_able, R.drawable.fan_disable);
+        setImgStatusValve(streamHeatingImg, entity.getStreamHumidity(), R.drawable.stream_heating, R.drawable.stream_disable);
+        setImgStatusValve(streamHumidityImg, entity.getStreamHumidity(), R.drawable.steam_humidity, R.drawable.stream_disable);
+        setImgStatusValve(waterValveImg, entity.getWaterValve(), R.drawable.water_able, R.drawable.water_disable);
     }
 
-    //����鿴ǰһ��ͼ������
     @OnClick(R.id.detail_left_img)
     public void previousChart() {
-        //TODO �����֮ǰ�����ݵ�ʱ����Ҫ�������
-        //��õ�ǰ����
-        currentDate = currentDate.minus(1, ChronoUnit.DAYS);
+
+        closeSubscribe();
+        currentHour = currentHour - 1;
+
+        redrawChart(mLineChart, currentHour);
+        LocalDateTime previousBegin = LocalDateTime.now().withHour(currentHour).withMinute(0).withSecond(0);
+        LocalDateTime previousEnd = previousBegin.plusHours(1);
+
         HttpMethods.getInstance().getService(SacredsunService.class)
-                .getChartDate(assertsCode, currentDate.toString(), "")
+                .getLineChartData(assertsCode, TimeHelper.localDateTimeTransFormStr(previousBegin), TimeHelper.localDateTimeTransFormStr(previousEnd))
                 .compose(RxHelper.io_main())
                 .subscribe((r) -> {
                     Log.d(LOG_TAG, "onNext");
@@ -320,16 +306,23 @@ public class DetailActivity extends AppCompatActivity {
                 });
     }
 
-    //�鿴��һ��ͼ������
     @OnClick(R.id.detail_right_img)
     public void nextChart() {
 
-        currentDate = currentDate.plus(1, ChronoUnit.DAYS);
-        if (currentDate.equals(LocalDate.now())) {
+        if (currentHour + 1 > LocalTime.now().getHour()) {
+            return;
+        }
+        closeSubscribe();
+        currentHour = currentHour + 1;
+        redrawChart(mLineChart, currentHour);
+        if (currentHour == LocalTime.now().getHour()) {
             initTodayChart();
         } else {
+            LocalDateTime previousBegin = LocalDateTime.now().withHour(currentHour).withMinute(0).withSecond(0);
+            LocalDateTime previousEnd = previousBegin.plusHours(1);
+
             HttpMethods.getInstance().getService(SacredsunService.class)
-                    .getChartDate(assertsCode, currentDate.toString(), "")
+                    .getLineChartData(assertsCode, TimeHelper.localDateTimeTransFormStr(previousBegin), TimeHelper.localDateTimeTransFormStr(previousEnd))
                     .compose(RxHelper.io_main())
                     .subscribe((r) -> {
                         Log.d(LOG_TAG, "onNext");
@@ -345,18 +338,19 @@ public class DetailActivity extends AppCompatActivity {
 
     private void initTodayChart() {
 
-        //��ȡ���յ�����
+        Map<String, String> beginAndEnd = TimeHelper.getBeginAndEndTime(LocalDateTime.now());
+
         HttpMethods.getInstance().getService(SacredsunService.class)
-                .getChartDate(assertsCode, LocalDate.now().toString(), "")
+                .getLineChartData(assertsCode, beginAndEnd.get("begin"), beginAndEnd.get("end"))
                 .compose(RxHelper.io_main())
                 .subscribe((r) -> {
                     Log.d(LOG_TAG, "onNext");
                     if (!r.getItems().isEmpty()) {
                         int lastIndex = r.getItems().size();
-                        //���ƽ��յ�����
+
                         drawLineChart(r.getItems());
-                        //ˢ��ʵʱ������
-                        refreshTodayChart(r.getItems().get(lastIndex-1).getStamp());
+
+                        refreshTodayChart(r.getItems().get(lastIndex - 1).getStamp());
                     }
                 }, (e) -> {
                     e.printStackTrace();
@@ -366,25 +360,23 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    private void refreshTodayChart(String realTime) {
+    private void refreshTodayChart(String stamp) {
 
-        stamp = realTime;
+        beginStamp = stamp;
 
-        if (todaySubscription != null && !todaySubscription.isUnsubscribed()) {
-            todaySubscription.unsubscribe();
-        }
-
-        todaySubscription = HttpMethods.getInstance().getService(SacredsunService.class)
-                .getChartDate(assertsCode, LocalDate.now().toString(), stamp)
+        HttpMethods.getInstance().getService(SacredsunService.class)
+                .getLineChartData(assertsCode, beginStamp, TimeHelper.getEndTime(beginStamp))
                 .compose(RxHelper.io_main())
-                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(10, TimeUnit.SECONDS)))
-                .repeatWhen(completed -> completed.delay(10, TimeUnit.SECONDS))
+                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(1, TimeUnit.MINUTES)))
+                .repeatWhen(completed -> completed.delay(1, TimeUnit.MINUTES))
                 .subscribe((r) -> {
                     Log.d(LOG_TAG, "onNext");
                     if (!r.getItems().isEmpty()) {
                         int lastIndex = r.getItems().size();
                         drawLineChart(r.getItems());
-                        stamp = r.getItems().get(lastIndex-1).getStamp();
+                        beginStamp = r.getItems().get(lastIndex - 1).getStamp();
+                        //在需要的时候重新绘制
+                        redrawChartWhenNeed(beginStamp, mLineChart);
                     }
                 }, (e) -> {
                     e.printStackTrace();
@@ -392,105 +384,45 @@ public class DetailActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, "onCompleted");
                 });
 
-    }
-
-    //������ͼ�Ͽ�ʼ�����趨ֵ
-    private void drawPresetInChart() {
-
-        presetSubscription = HttpMethods.getInstance().getService(SacredsunService.class)
-                .getPresetValue(assertsCode, LocalDate.now().toString())
-                .compose(RxHelper.io_main())
-                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(2, TimeUnit.MINUTES)))
-                .repeatWhen(completed -> completed.delay(2, TimeUnit.MINUTES))
-                .subscribe((r) -> {
-                    Log.d(LOG_TAG, "onNext");
-                    addPresetValueToChart(r.getItems());
-                }, (e) -> {
-                    e.printStackTrace();
-                }, () -> {
-                    Log.d(LOG_TAG, "completed");
-                });
-    }
-
-    //ת�����ݣ����ҿ�ʼ��������ͼ
-    private void drawLineChart(List<ChartValueEntity> valueList) {
-
-        Stream.of(valueList).map(l -> new ChartValueDTOBefore(l))
-                .forEach(dto -> {
-                    addToChart(dto);
-                });
 
     }
 
-    private void addPresetValueToChart(List<ChartValueEntity> valueList) {
 
-        List<ChartValueDTOBefore> dtoList = Stream.of(valueList)
-                .map(l -> new ChartValueDTOBefore(l))
-                .collect(Collectors.toList());
+    //依据数据绘制折线图
+    private void drawLineChart(List<ChartValueEntity> list) {
+        Stream.of(list).map(origin -> transformChartPoint(origin))
+                .forEach(result -> addToChart(mLineChart, result));
+    }
 
-        LineData lineData = mLineChart.getData();
+    private void addToChart(LineChart lineChart, ChartValueDTO dto) {
+
+        LineData lineData = lineChart.getData();
         if (lineData != null) {
-            ILineDataSet dataSet1 = lineData.getDataSetByIndex(4);
-            ILineDataSet dataSet2 = lineData.getDataSetByIndex(5);
-            if (dataSet1 == null) {
-                dataSet1 = createSet(ConstantChart.chartTypeAndDesc.get("temperature"));
-                lineData.addDataSet(dataSet1);
+            String label = ConstantChart.chartTypeAndDesc.get(dto.getType());
+            ILineDataSet dataSet = lineData.getDataSetByLabel(label, false);
+            if (dataSet == null) {
+                dataSet = createSet(ConstantChart.chartTypeAndDesc.get(dto.getType()));
+                lineData.addDataSet(dataSet);
             }
-            if (dataSet2 == null) {
-                dataSet2 = createSet(ConstantChart.chartTypeAndDesc.get("humidity"));
-                lineData.addDataSet(dataSet2);
-            }
-            dataSet1.clear();
-            dataSet2.clear();
-            Stream.of(dtoList).forEach(dto -> addToChart(dto));
-
-
+            int indexOfDateSet = lineData.getIndexOfDataSet(dataSet);
+            lineData.addEntry(new Entry(dto.getStamp(), dto.getValue()), indexOfDateSet);
+            lineData.notifyDataChanged();
+            lineChart.notifyDataSetChanged();
+            lineChart.moveViewToX(lineData.getEntryCount());
         }
+
     }
 
-    //������ͼ����ӵ�
-    private void addToChart(ChartValueDTOBefore dto) {
-
-        //�� ��ǰ��ʱ������ڵ�ʱ�䲻һ��ʱ��Ҫ�������
-        if (dto.getBeginOfDate().equals(LocalDate.now())) {
-            LineData lineData = mLineChart.getData();
-            if (lineData != null) {
-                String label = ConstantChart.chartTypeAndDesc.get(dto.getChartType());
-//                ILineDataSet dataSet = lineData.getDataSetByIndex(indexOfDateSet);
-                ILineDataSet dataSet = lineData.getDataSetByLabel(label,false);
-                if (dataSet == null) {
-                    dataSet = createSet(ConstantChart.chartTypeAndDesc.get(dto.getChartType()));
-                    lineData.addDataSet(dataSet);
-                }
-                int indexOfDateSet = lineData.getIndexOfDataSet(dataSet);
-                lineData.addEntry(new Entry(dto.getStamp(), dto.getValue()), indexOfDateSet);
-                lineData.notifyDataChanged();
-                mLineChart.notifyDataSetChanged();
-                mLineChart.moveViewToX(lineData.getEntryCount());
-            }
-        }else {
-            LineData lineData = mLineChart.getData();
-            if(lineData != null) {
-                String label = ConstantChart.chartTypeAndDesc.get(dto.getChartType());
-                ILineDataSet dataSet = lineData.getDataSetByLabel(label,false);
-//                int indexOfDateSet = ConstantChart.chartTypeAndIndex.get(dto.getChartType());
-//                ILineDataSet dataSet = lineData.getDataSetByIndex(indexOfDateSet);
-                if(dataSet == null) {
-                    dataSet = createSet(ConstantChart.chartTypeAndDesc.get(dto.getChartType()));
-                    lineData.addDataSet(dataSet);
-                }else {
-                    dataSet.clear();
-                }
-                int indexOfDateSet = lineData.getIndexOfDataSet(dataSet);
-                lineData.addEntry(new Entry(dto.getStamp(), dto.getValue()), indexOfDateSet);
-                lineData.notifyDataChanged();
-                mLineChart.notifyDataSetChanged();
-                mLineChart.moveViewToX(lineData.getEntryCount());
-            }
-        }
+    private ChartValueDTO transformChartPoint(ChartValueEntity entity) {
+        //获得当前日期
+        LocalDateTime nowTime = TimeHelper.strTransfromLocalDateTime(entity.getStamp());
+        //获得当前时间的秒数(只包括分钟和秒)
+        long currentSecond = (long) (nowTime.getMinute() * 60 + nowTime.getSecond());
+        ChartValueDTO dto = new ChartValueDTO(currentSecond, TextHelper.strTransFromFloat(entity.getValue()), entity.getField());
+        return dto;
     }
 
-    //��������
+
     private LineDataSet createSet(String dataSetLabel) {
 
         LineDataSet set = new LineDataSet(null, dataSetLabel);
@@ -504,11 +436,54 @@ public class DetailActivity extends AppCompatActivity {
         set.setHighLightColor(Color.rgb(244, 117, 117));
         set.setValueTextColor(Color.WHITE);
         set.setColor(ConstantChart.abbreAndColor.get(dataSetLabel));
-//        set.setColor(Color.RED);
         set.setValueTextSize(9f);
         set.setDrawValues(false);
         return set;
 
     }
 
+    private void redrawChartWhenNeed(String beginStamp, LineChart lineChart) {
+
+        LocalDateTime localDateTime = TimeHelper.strTransfromLocalDateTime(beginStamp);
+        //需要检测时间是否超过当前小时
+        if (localDateTime.getHour() != currentHour) {
+            currentHour = localDateTime.getHour();
+            redrawChart(lineChart, currentHour);
+        }
+    }
+
+    private void redrawChart(LineChart lineChart, int mHours) {
+        lineChart.clearValues();
+        HourAxisValueFormatter newFormatter = new HourAxisValueFormatter(mHours);
+        XAxis xl = lineChart.getXAxis();
+        xl.setValueFormatter(newFormatter);
+        lineChart.invalidate();
+    }
+
+    /**
+     * 设置阀门状态
+     */
+    private void setTextStatusValve(String status, TextView mText) {
+        if (status.trim().equals("0")) {
+            mText.setText(getString(R.string.status_valve_disable));
+        } else if (status.trim().equals("1")) {
+            mText.setText(getString(R.string.status_valve_able));
+        }
+    }
+
+    /**
+     * 设置阀门状态
+     *
+     * @param status
+     * @param imageView
+     * @param ableRes
+     * @param disableRes
+     */
+    private void setImgStatusValve(ImageView imageView, String status, int ableRes, int disableRes) {
+        if (status.trim().equals("0")) {
+            imageView.setImageResource(disableRes);
+        } else if (status.trim().equals("1")) {
+            imageView.setImageResource(ableRes);
+        }
+    }
 }
