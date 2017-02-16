@@ -257,6 +257,7 @@ public class DetailActivity extends AppCompatActivity {
         detailProductModel.setText(entity.getMaterialCode());
         stoveLeftTime.setText(entity.getResidualTime());
         detailRunValue.setText(StatusMap.abbreAndDesc.get(entity.getAssetsState().name()));
+        detailRunValue.setBackgroundResource(StatusMap.statusAndView.get(entity.getAssetsState().name()));
         firstSetting.setText(entity.getTemperature());
         firstActual.setText(entity.getTemperature1());
         secondSetting.setText(entity.getTemperature());

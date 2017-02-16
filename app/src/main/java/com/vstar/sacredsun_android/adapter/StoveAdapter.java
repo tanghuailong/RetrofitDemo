@@ -58,11 +58,10 @@ public class StoveAdapter extends RecyclerView.Adapter<StoveAdapter.StoveHolder>
 
             holder.stoveDevice.setBackgroundResource(StatusMap.statusAndView.get(stoveItem.getStatus().name()));
             holder.stoveNum.setText(stoveItem.getAssetsCode());
-            holder.runState.setText(stoveItem.getStatus().name());
+            holder.runState.setText(StatusMap.abbreAndDesc.get(stoveItem.getStatus().name()));
             holder.runStateBlock.setBackgroundResource(StatusMap.statusAndView.get(stoveItem.getStatus().name()));
             holder.timeLeft.setText(stoveItem.getResidualTime());
             holder.firstSetting.setText(stoveItem.getTemperature());
-            //TODO 要对数字进行检查
             holder.firstActual.setValue(TextHelper.strTransFromFloat(stoveItem.getTemperature1()));
             holder.secondSetting.setText(stoveItem.getTemperature());
             holder.secondActual.setValue(TextHelper.strTransFromFloat(stoveItem.getTemperature2()));
