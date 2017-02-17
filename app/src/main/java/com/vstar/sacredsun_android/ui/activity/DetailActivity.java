@@ -404,6 +404,7 @@ public class DetailActivity extends AppCompatActivity {
      * 初始化 温度的设定值
      */
     private void initTodaySettingValue(){
+        //TODO 做一些处理，添加设定值
 //        presetSubscription = HttpMethods.getInstance()
 //                .getService(SacredsunService.class)
 //                .getPresetValue("","")
@@ -411,7 +412,6 @@ public class DetailActivity extends AppCompatActivity {
 //                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(1, TimeUnit.MINUTES)))
 //                .repeatWhen(completed -> completed.delay(1, TimeUnit.MINUTES))
 //                .subscribe((r) -> {
-//                    //TODO 做一些处理，添加设定值
 //                    if(!r.getItems().isEmpty()) {
 //                        resetSettingChart(mLineChart);
 //                        drawLineChart(r.getItems());
