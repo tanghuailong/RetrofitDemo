@@ -141,6 +141,7 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         assertsCode = intent.getStringExtra(TAG);
 
+        Log.d(LOG_TAG,"onCreate");
         initChart(mLineChart);
 
 //        //TODO 测试使用删除
@@ -202,13 +203,21 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d(LOG_TAG,"onStart");
         openSubscribe();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        Log.d(LOG_TAG,"onStop");
         closeSubscribe();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(LOG_TAG,"onDestory");
     }
 
     private void openSubscribe() {
@@ -222,6 +231,24 @@ public class DetailActivity extends AppCompatActivity {
                 initTodayChart();
             }
         }
+        if (todaySubscription == null || todaySubscription.isUnsubscribed()) {
+            if (!TextUtils.isEmpty(assertsCode)) {
+                initTodaySettingValue();
+            }
+        }
+    }
+
+    private void openTodaySubscribe() {
+        if (todaySubscription == null || todaySubscription.isUnsubscribed()) {
+            if (!TextUtils.isEmpty(assertsCode)) {
+                initTodayChart();
+            }
+        }
+        if (presetSubscription == null || presetSubscription.isUnsubscribed()) {
+            if (!TextUtils.isEmpty(assertsCode)) {
+                initTodaySettingValue();
+            }
+        }
     }
 
     private void closeSubscribe() {
@@ -230,6 +257,18 @@ public class DetailActivity extends AppCompatActivity {
         }
         if (deviceSubscription != null && !deviceSubscription.isUnsubscribed()) {
             deviceSubscription.unsubscribe();
+        }
+        if (presetSubscription != null && !presetSubscription.isUnsubscribed()) {
+            presetSubscription.unsubscribe();
+        }
+    }
+
+    private void closeTodaySubscribe() {
+        if (todaySubscription != null && !todaySubscription.isUnsubscribed()) {
+            todaySubscription.unsubscribe();
+        }
+        if(presetSubscription != null && !presetSubscription.isUnsubscribed()) {
+            presetSubscription.unsubscribe();
         }
     }
 
@@ -287,7 +326,7 @@ public class DetailActivity extends AppCompatActivity {
     @OnClick(R.id.detail_left_img)
     public void previousChart() {
 
-        closeSubscribe();
+        closeTodaySubscribe();
         currentHour = currentHour - 1;
 
         redrawChart(mLineChart, currentHour);
@@ -313,11 +352,11 @@ public class DetailActivity extends AppCompatActivity {
         if (currentHour + 1 > LocalTime.now().getHour()) {
             return;
         }
-        closeSubscribe();
+        closeTodaySubscribe();
         currentHour = currentHour + 1;
         redrawChart(mLineChart, currentHour);
         if (currentHour == LocalTime.now().getHour()) {
-            initTodayChart();
+            openTodaySubscribe();
         } else {
             LocalDateTime previousBegin = LocalDateTime.now().withHour(currentHour).withMinute(0).withSecond(0);
             LocalDateTime previousEnd = previousBegin.plusHours(1);
@@ -361,11 +400,32 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * 初始化 温度的设定值
+     */
+    private void initTodaySettingValue(){
+//        presetSubscription = HttpMethods.getInstance()
+//                .getService(SacredsunService.class)
+//                .getPresetValue("","")
+//                .compose(RxHelper.io_main())
+//                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(1, TimeUnit.MINUTES)))
+//                .repeatWhen(completed -> completed.delay(1, TimeUnit.MINUTES))
+//                .subscribe((r) -> {
+//                    //TODO 做一些处理，添加设定值
+//                    if(!r.getItems().isEmpty()) {
+//                        resetSettingChart(mLineChart);
+//                        drawLineChart(r.getItems());
+//                    }
+//                },(e) -> {
+//
+//                });
+    }
+
     private void refreshTodayChart(String stamp) {
 
         beginStamp = stamp;
 
-        HttpMethods.getInstance().getService(SacredsunService.class)
+        todaySubscription = HttpMethods.getInstance().getService(SacredsunService.class)
                 .getLineChartData(assertsCode, beginStamp, TimeHelper.getEndTime(beginStamp))
                 .compose(RxHelper.io_main())
                 .retryWhen(errors -> errors.flatMap(error -> Observable.timer(1, TimeUnit.MINUTES)))
@@ -388,6 +448,20 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    private void resetSettingChart(LineChart lineChart){
+        LineData lineData = lineChart.getLineData();
+        if(lineData != null) {
+            String labelT = ConstantChart.chartTypeAndDesc.get("temperature");
+            String labelH = ConstantChart.chartTypeAndDesc.get("humidity");
+            ILineDataSet dataSetT = lineData.getDataSetByLabel(labelT,false);
+            ILineDataSet dataSetH = lineData.getDataSetByLabel(labelH,false);
+
+            dataSetT.clear();
+            dataSetH.clear();
+
+            lineChart.invalidate();
+        }
+    }
 
     //依据数据绘制折线图
     private void drawLineChart(List<ChartValueEntity> list) {
