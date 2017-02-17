@@ -6,7 +6,8 @@
 
     <!--自定义大小-->
 
-    <dimen name="pre_next">10dp</dimen>
+    <dimen name="pre_next_margin">10dp</dimen>
     <dimen name="average_distant">18dp</dimen>
+    <dimen name="pre_next_distant">20dp</dimen>
 
 </resources>
