@@ -100,8 +100,8 @@
         <item name="progress_reached_color">#E74C3C</item>
         <item name="progress_text_size">10sp</item>
         <item name="progress_text_color">#E74C3C</item>
-        <item name="progress_reached_bar_height">1.5dp</item>
-        <item name="progress_unreached_bar_height">0.75dp</item>
+        <item name="progress_reached_bar_height">2.5dp</item>
+        <item name="progress_unreached_bar_height">1.75dp</item>
     </style>
 
 </resources>

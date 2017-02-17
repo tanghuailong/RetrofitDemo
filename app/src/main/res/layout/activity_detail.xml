@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/inner_bg_color"
@@ -27,24 +27,22 @@
             android:id="@+id/detail_chart"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.7"
             android:layout_marginRight="15dp"
+            android:layout_weight="0.7"
             android:background="@color/custom_bg_color" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:orientation="vertical"
-            android:paddingRight="4dp"
             android:layout_marginLeft="5dp"
+            android:layout_weight="0.3"
             android:gravity="center"
-          >
+            android:orientation="vertical"
+            android:paddingRight="4dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/detail_product_model_title"
@@ -127,36 +125,46 @@
                 android:layout_marginTop="@dimen/average_distant"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="进度一"
                     android:textColor="@color/desc_text_color"
-                    android:textSize="12sp"
-                    tools:text="进度一"/>
+                    android:layout_marginRight="5dp"
+                    android:textSize="12sp" />
+
                 <com.daimajia.numberprogressbar.NumberProgressBar
                     android:id="@+id/progress_bar_one"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
                     style="@style/progress_style_yellow"
-                    app:progress="80"
-                    />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:progress="80" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/average_distant"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="进度二"
                     android:textColor="@color/desc_text_color"
-                    android:layout_marginLeft="15dp"
-                    android:textSize="12sp"
-                    tools:text="进度二"/>
+                    android:layout_marginRight="5dp"
+                    android:textSize="12sp" />
+
                 <com.daimajia.numberprogressbar.NumberProgressBar
                     android:id="@+id/progress_bar_two"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
                     style="@style/progress_style_red"
-                    android:layout_weight="0.5"
-                    app:progress="50"
-                    />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:progress="50" />
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -170,26 +178,25 @@
                     android:text="@string/run_status_title" />
 
                 <TextView
-                android:id="@+id/detail_run_value"
-                style="@style/detail_text_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/detail_run_title"
-                android:paddingLeft="5dp"
-                android:paddingRight="6dp"
-                android:gravity="center"
-                tools:background="@drawable/status_bar_solidify"
-                tools:text="干燥" />
-
+                    android:id="@+id/detail_run_value"
+                    style="@style/detail_text_normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/detail_run_title"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="6dp"
+                    tools:background="@drawable/status_bar_solidify"
+                    tools:text="干燥" />
 
 
                 <TextView
                     android:id="@+id/detail_program_num_title"
-                    android:layout_marginTop="@dimen/average_distant"
                     style="@style/detail_text_normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/detail_run_title"
+                    android:layout_marginTop="@dimen/average_distant"
                     android:text="@string/program_num" />
 
                 <TextView
@@ -214,8 +221,8 @@
                     style="@style/detail_text_normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/detail_product_stage_title"
                     android:layout_alignTop="@id/detail_program_num_title"
+                    android:layout_toLeftOf="@id/detail_product_stage_title"
                     android:text="@string/production_stage" />
             </RelativeLayout>
 
@@ -391,8 +398,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/average_distant"
-                    >
+                    android:layout_marginTop="@dimen/average_distant">
 
                     <TextView
                         android:id="@+id/detail_reduce_humidity_title"
@@ -400,13 +406,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/reduce_humidity" />
+
                     <ImageView
                         android:id="@+id/detail_reduce_humidity_img"
                         android:layout_width="@dimen/status_small_icon"
                         android:layout_height="@dimen/status_small_icon"
                         android:layout_toRightOf="@id/detail_reduce_humidity_title"
-                        tools:src="@drawable/door_able"
-                        />
+                        tools:src="@drawable/door_able" />
 
                     <TextView
                         android:id="@+id/detail_reduce_temperate_value"
@@ -425,12 +431,14 @@
                         android:layout_alignParentRight="true"
                         android:textColor="@color/disable_text_color"
                         tools:text="关" />
+
                     <ImageView
                         android:id="@+id/detail_stream_heating_img"
                         android:layout_width="@dimen/status_small_icon"
                         android:layout_height="@dimen/status_small_icon"
                         android:layout_toLeftOf="@id/detail_stream_heating_value"
-                        android:src="@drawable/stream_heating"/>
+                        android:src="@drawable/stream_heating" />
+
                     <TextView
                         style="@style/detail_text_normal"
                         android:layout_width="wrap_content"
@@ -444,20 +452,21 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/average_distant"
-                    >
+                    android:layout_marginTop="@dimen/average_distant">
+
                     <TextView
                         android:id="@+id/detail_exhaust_humidity"
                         style="@style/detail_text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/exhaust_humidity" />
+
                     <ImageView
                         android:id="@+id/detail_exhaust_humidity_img"
                         android:layout_width="@dimen/status_small_icon"
                         android:layout_height="@dimen/status_small_icon"
                         android:layout_toRightOf="@id/detail_exhaust_humidity"
-                        android:src="@drawable/door_disable"/>
+                        android:src="@drawable/door_disable" />
 
                     <TextView
                         android:id="@+id/detail_exhaust_humidity_value"
@@ -476,12 +485,14 @@
                         android:layout_alignParentRight="true"
                         android:textColor="@color/disable_text_color"
                         tools:text="关" />
+
                     <ImageView
                         android:id="@+id/detail_stream_humidity_img"
                         android:layout_width="@dimen/status_small_icon"
                         android:layout_height="@dimen/status_small_icon"
-                        android:src="@drawable/steam_humidity"
-                        android:layout_toLeftOf="@id/detail_stream_humidity_value"/>
+                        android:layout_toLeftOf="@id/detail_stream_humidity_value"
+                        android:src="@drawable/steam_humidity" />
+
                     <TextView
                         style="@style/detail_text_normal"
                         android:layout_width="wrap_content"
@@ -491,6 +502,7 @@
 
 
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -502,12 +514,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cycle_blower" />
+
                     <ImageView
                         android:id="@+id/detail_cycle_blower_img"
                         android:layout_width="@dimen/status_small_icon"
                         android:layout_height="@dimen/status_small_icon"
                         android:layout_toRightOf="@id/detail_cycle_blower"
-                        android:src="@drawable/fan_able"/>
+                        android:src="@drawable/fan_able" />
 
                     <TextView
                         android:id="@+id/detail_cycle_blower_value"
@@ -526,12 +539,14 @@
                         android:layout_alignParentRight="true"
                         android:textColor="@color/disable_text_color"
                         tools:text="关" />
+
                     <ImageView
                         android:id="@+id/detail_water_valve_img"
                         android:layout_width="@dimen/status_small_icon"
                         android:layout_height="@dimen/status_small_icon"
-                        android:src="@drawable/water_able"
-                        android:layout_toLeftOf="@id/detail_water_valve"/>
+                        android:layout_toLeftOf="@id/detail_water_valve"
+                        android:src="@drawable/water_able" />
+
                     <TextView
                         style="@style/detail_text_normal"
                         android:layout_width="wrap_content"
@@ -548,31 +563,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/average_distant"
-                android:gravity="center_vertical"
-                >
+                android:gravity="center_vertical">
+
                 <ImageView
                     android:id="@+id/detail_left_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/pre_next_margin"
-                    android:src="@drawable/left"/>
+                    android:src="@drawable/left" />
 
                 <ImageView
                     android:id="@+id/detail_right_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/detail_left_img"
                     android:layout_marginLeft="@dimen/pre_next_distant"
                     android:layout_marginRight="@dimen/pre_next_margin"
-                    android:src="@drawable/right"/>
+                    android:layout_toRightOf="@id/detail_left_img"
+                    android:src="@drawable/right" />
 
 
                 <android.support.v7.widget.SwitchCompat
                     android:id="@+id/compatSwitch"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
         </LinearLayout>
