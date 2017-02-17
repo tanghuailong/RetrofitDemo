@@ -52,6 +52,8 @@ dependencies {
     provided 'org.projectlombok:lombok:1.16.10'
     //圆形进度条
     compile 'com.github.jakob-grabner:Circle-Progress-View:v1.3'
+    //长块进度条
+    compile 'com.daimajia.numberprogressbar:library:1.2@aar'
     //ButterKnife
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'

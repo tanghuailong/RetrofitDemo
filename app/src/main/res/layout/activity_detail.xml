@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/inner_bg_color"
@@ -120,6 +121,42 @@
                 </LinearLayout>
             </RelativeLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/average_distant"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/desc_text_color"
+                    android:textSize="12sp"
+                    tools:text="进度一"/>
+                <com.daimajia.numberprogressbar.NumberProgressBar
+                    android:id="@+id/progress_bar_one"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    style="@style/progress_style_yellow"
+                    app:progress="80"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/desc_text_color"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="12sp"
+                    tools:text="进度二"/>
+                <com.daimajia.numberprogressbar.NumberProgressBar
+                    android:id="@+id/progress_bar_two"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    style="@style/progress_style_red"
+                    android:layout_weight="0.5"
+                    app:progress="50"
+                    />
+            </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,20 +181,7 @@
                 tools:background="@drawable/status_bar_solidify"
                 tools:text="干燥" />
 
-                <TextView
-                    android:id="@+id/detail_product_stage_title"
-                    style="@style/detail_text_normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    tools:text="干燥1阶段" />
 
-                <TextView
-                    style="@style/detail_text_normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/detail_product_stage_title"
-                    android:text="@string/production_stage" />
 
                 <TextView
                     android:id="@+id/detail_program_num_title"
@@ -176,6 +200,23 @@
                     android:layout_alignTop="@id/detail_program_num_title"
                     android:layout_toRightOf="@id/detail_program_num_title"
                     tools:text="第九套" />
+
+                <TextView
+                    android:id="@+id/detail_product_stage_title"
+                    style="@style/detail_text_normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@id/detail_program_num_title"
+                    tools:text="干燥1阶段" />
+
+                <TextView
+                    style="@style/detail_text_normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/detail_product_stage_title"
+                    android:layout_alignTop="@id/detail_program_num_title"
+                    android:text="@string/production_stage" />
             </RelativeLayout>
 
             <TableLayout
@@ -524,6 +565,7 @@
                     android:layout_marginLeft="@dimen/pre_next_distant"
                     android:layout_marginRight="@dimen/pre_next_margin"
                     android:src="@drawable/right"/>
+
 
                 <android.support.v7.widget.SwitchCompat
                     android:id="@+id/compatSwitch"
