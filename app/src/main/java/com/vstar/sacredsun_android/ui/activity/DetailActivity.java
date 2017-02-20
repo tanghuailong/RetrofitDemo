@@ -404,21 +404,21 @@ public class DetailActivity extends AppCompatActivity {
      * 初始化 温度的设定值
      */
     private void initTodaySettingValue(){
-        //TODO 做一些处理，添加设定值
-//        presetSubscription = HttpMethods.getInstance()
-//                .getService(SacredsunService.class)
-//                .getPresetValue("","")
-//                .compose(RxHelper.io_main())
-//                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(1, TimeUnit.MINUTES)))
-//                .repeatWhen(completed -> completed.delay(1, TimeUnit.MINUTES))
-//                .subscribe((r) -> {
-//                    if(!r.getItems().isEmpty()) {
-//                        resetSettingChart(mLineChart);
-//                        drawLineChart(r.getItems());
-//                    }
-//                },(e) -> {
-//
-//                });
+        Map<String,String> beginAndEnd = TimeHelper.getBeginAndEndTime(LocalDateTime.now());
+        presetSubscription = HttpMethods.getInstance()
+                .getService(SacredsunService.class)
+                .getPresetValue(assertsCode,beginAndEnd.get("begin"),beginAndEnd.get("end"))
+                .compose(RxHelper.io_main())
+                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(10, TimeUnit.MINUTES)))
+                .repeatWhen(completed -> completed.delay(10, TimeUnit.MINUTES))
+                .subscribe((r) -> {
+                    if(!r.getItems().isEmpty()) {
+                        resetSettingChart(mLineChart);
+                        drawLineChart(r.getItems());
+                    }
+                },(e) -> {
+
+                });
     }
 
     private void refreshTodayChart(String stamp) {
