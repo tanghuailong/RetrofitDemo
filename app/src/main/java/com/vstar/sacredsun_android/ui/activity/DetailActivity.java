@@ -5,12 +5,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.annimon.stream.Stream;
+import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -114,6 +118,12 @@ public class DetailActivity extends AppCompatActivity {
     ImageView streamHumidityImg;
     @BindView(R.id.detail_water_valve_img)
     ImageView waterValveImg;
+    @BindView(R.id.progress_bar_one)
+    NumberProgressBar progressBarOne;
+    @BindView(R.id.progress_bar_two)
+    NumberProgressBar progressBarTwo;
+    @BindView(R.id.compatSwitch)
+    SwitchCompat compatSwitch;
 
 
     private static final String LOG_TAG = "DetailActivity";
@@ -141,7 +151,7 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         assertsCode = intent.getStringExtra(TAG);
 
-        Log.d(LOG_TAG,"onCreate");
+        Log.d(LOG_TAG, "onCreate");
         initChart(mLineChart);
 
 //        //TODO 测试使用删除
@@ -203,21 +213,21 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(LOG_TAG,"onStart");
+        Log.d(LOG_TAG, "onStart");
         openSubscribe();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(LOG_TAG,"onStop");
+        Log.d(LOG_TAG, "onStop");
         closeSubscribe();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(LOG_TAG,"onDestory");
+        Log.d(LOG_TAG, "onDestory");
     }
 
     private void openSubscribe() {
@@ -267,7 +277,7 @@ public class DetailActivity extends AppCompatActivity {
         if (todaySubscription != null && !todaySubscription.isUnsubscribed()) {
             todaySubscription.unsubscribe();
         }
-        if(presetSubscription != null && !presetSubscription.isUnsubscribed()) {
+        if (presetSubscription != null && !presetSubscription.isUnsubscribed()) {
             presetSubscription.unsubscribe();
         }
     }
@@ -294,7 +304,7 @@ public class DetailActivity extends AppCompatActivity {
         deviceCode.setText(entity.getAssetsCode());
         detailOrderNumValue.setText(Integer.toString(entity.getOrderQuantity()));
         detailProductModel.setText(entity.getMaterialCode());
-        stoveLeftTime.setText(entity.getResidualTime());
+        stoveLeftTime.setText(String.valueOf(entity.getStageTotalTime() == 0 ? 0 : entity.getStageRemainingTime()));
         detailRunValue.setText(StatusMap.abbreAndDesc.get(entity.getAssetsState().name()));
         detailRunValue.setBackgroundResource(StatusMap.statusAndView.get(entity.getAssetsState().name()));
         firstSetting.setText(entity.getTemperature());
@@ -307,6 +317,12 @@ public class DetailActivity extends AppCompatActivity {
         fourActual.setText(entity.getHumidity2());
         detailProductStageTitle.setText(StatusMap.abbreAndDesc.get(entity.getAssetsState().name()) + " " + entity.getProductionStage() + "阶段");
         detailProgramNumValue.setText(entity.getProgramNumber());
+        progressBarOne.setMax(entity.getTotalTime());
+        progressBarOne.setProgress(entity.getTotalTime() == 0 ? 0 : entity.getRemainingTime());
+        progressBarTwo.setMax(entity.getStageTotalTime());
+        progressBarTwo.setProgress(entity.getStageTotalTime() == 0 ? 0 : entity.getStageRemainingTime());
+        //警报大于零都为开，否则为关
+        compatSwitch.setChecked(entity.getIsWarning() > 0);
 
         setTextStatusValve(entity.getCirculatingFan(), detailCycleBlowerValue);
         setTextStatusValve(entity.getWaterValve(), detailWaterValve);
@@ -403,20 +419,20 @@ public class DetailActivity extends AppCompatActivity {
     /**
      * 初始化 温度的设定值
      */
-    private void initTodaySettingValue(){
-        Map<String,String> beginAndEnd = TimeHelper.getBeginAndEndTime(LocalDateTime.now());
+    private void initTodaySettingValue() {
+        Map<String, String> beginAndEnd = TimeHelper.getBeginAndEndTime(LocalDateTime.now());
         presetSubscription = HttpMethods.getInstance()
                 .getService(SacredsunService.class)
-                .getPresetValue(assertsCode,beginAndEnd.get("begin"),beginAndEnd.get("end"))
+                .getPresetValue(assertsCode, beginAndEnd.get("begin"), beginAndEnd.get("end"))
                 .compose(RxHelper.io_main())
                 .retryWhen(errors -> errors.flatMap(error -> Observable.timer(10, TimeUnit.MINUTES)))
                 .repeatWhen(completed -> completed.delay(10, TimeUnit.MINUTES))
                 .subscribe((r) -> {
-                    if(!r.getItems().isEmpty()) {
+                    if (!r.getItems().isEmpty()) {
                         resetSettingChart(mLineChart);
                         drawLineChart(r.getItems());
                     }
-                },(e) -> {
+                }, (e) -> {
 
                 });
     }
@@ -448,13 +464,13 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    private void resetSettingChart(LineChart lineChart){
+    private void resetSettingChart(LineChart lineChart) {
         LineData lineData = lineChart.getLineData();
-        if(lineData != null) {
+        if (lineData != null) {
             String labelT = ConstantChart.chartTypeAndDesc.get("temperature");
             String labelH = ConstantChart.chartTypeAndDesc.get("humidity");
-            ILineDataSet dataSetT = lineData.getDataSetByLabel(labelT,false);
-            ILineDataSet dataSetH = lineData.getDataSetByLabel(labelH,false);
+            ILineDataSet dataSetT = lineData.getDataSetByLabel(labelT, false);
+            ILineDataSet dataSetH = lineData.getDataSetByLabel(labelH, false);
 
             dataSetT.clear();
             dataSetH.clear();
@@ -560,5 +576,26 @@ public class DetailActivity extends AppCompatActivity {
         } else if (status.trim().equals("1")) {
             imageView.setImageResource(ableRes);
         }
+    }
+
+    /**
+     * 监听
+     *
+     * @param view
+     */
+    @OnClick(R.id.compatSwitch)
+    public void clickSwitchButton(View view) {
+        boolean isWarning = compatSwitch.isChecked();
+        int signal = (!isWarning) ? 0 : 1;
+        HttpMethods.getInstance().getService(SacredsunService.class)
+                .controlWarningSwitch(assertsCode, String.valueOf(signal))
+                .compose(RxHelper.io_main())
+                .subscribe((r) -> {
+                    Log.d(LOG_TAG,"clickSwitchButton");
+                }, (e) -> {
+                    Log.e(LOG_TAG, "some error happen in switch warning", e);
+                    Toast.makeText(DetailActivity.this, "控制警报发生某些错误", Toast.LENGTH_SHORT).show();
+                });
+
     }
 }

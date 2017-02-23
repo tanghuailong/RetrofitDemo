@@ -88,20 +88,29 @@
         <item name="progress">0</item>
         <item name="progress_unreached_color">#CCCCCC</item>
         <item name="progress_reached_color">#FFC73B</item>
-        <item name="progress_text_size">10sp</item>
+        <item name="progress_text_size">13sp</item>
         <item name="progress_text_color">#FFC73B</item>
-        <item name="progress_reached_bar_height">2.5dp</item>
-        <item name="progress_unreached_bar_height">1.75dp</item>
+        <item name="progress_reached_bar_height">3.5dp</item>
+        <item name="progress_unreached_bar_height">2.75dp</item>
+    </style>
+    <style name="progress_style_yellow_big">
+        <item name="progress_unreached_color">#CCCCCC</item>
+        <item name="progress_reached_color">#FFC73B</item>
+        <item name="progress_text_size">13sp</item>
+        <item name="progress_text_color">#FFC73B</item>
+        <item name="progress_reached_bar_height">5.5dp</item>
+        <item name="progress_unreached_bar_height">4.75dp</item>
+        <item name="progress_text_visibility">invisible</item>
     </style>
     <style name="progress_style_red">
         <item name="max">100</item>
         <item name="progress">0</item>
         <item name="progress_unreached_color">#CCCCCC</item>
         <item name="progress_reached_color">#E74C3C</item>
-        <item name="progress_text_size">10sp</item>
+        <item name="progress_text_size">13sp</item>
         <item name="progress_text_color">#E74C3C</item>
-        <item name="progress_reached_bar_height">2.5dp</item>
-        <item name="progress_unreached_bar_height">1.75dp</item>
+        <item name="progress_reached_bar_height">3.5dp</item>
+        <item name="progress_unreached_bar_height">2.75dp</item>
     </style>
 
 </resources>

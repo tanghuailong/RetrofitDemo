@@ -45,6 +45,15 @@
                     android:layout_toRightOf="@id/stove_run_status_title"
                     tools:text="固化" />
 
+                <ImageView
+                    android:id="@+id/warning_status"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/alarmclose"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/stove_run_status"
+                    android:layout_toEndOf="@+id/stove_run_status" />
+
                 <TextView
                     style="@style/stove_item_txt_2"
                     android:layout_width="wrap_content"
@@ -57,13 +66,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <View
+                <!--<View-->
+                    <!--android:id="@+id/stove_run_status_block"-->
+                    <!--android:layout_width="80dp"-->
+                    <!--android:layout_height="12dp"-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--tools:background="@drawable/status_bar_dry"-->
+                    <!--&gt;</View>-->
+
+                <com.daimajia.numberprogressbar.NumberProgressBar
                     android:id="@+id/stove_run_status_block"
-                    android:layout_width="55dp"
-                    android:layout_height="12dp"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    tools:background="@drawable/status_bar_dry"
-                    ></View>
+                    style="@style/progress_style_yellow_big"
+                    custom:max="100"
+                    custom:progress="0"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"

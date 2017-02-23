@@ -11,7 +11,8 @@ public class DeviceEntity {
     private String assetsCode;
     private String materialCode;
     private int quantity;
-    private String residualTime;
+    private int remainingTime;
+    private int totalTime;
     private Status status;
     private String temperature;
     private String temperature1;
@@ -19,6 +20,7 @@ public class DeviceEntity {
     private String humidity;
     private String humidity1;
     private String humidity2;
+    private int isWarning;
 
     public String getAssetsCode() {
         return assetsCode;
@@ -44,12 +46,20 @@ public class DeviceEntity {
         this.quantity = quantity;
     }
 
-    public String getResidualTime() {
-        return residualTime;
+    public int getRemainingTime() {
+        return remainingTime;
     }
 
-    public void setResidualTime(String residualTime) {
-        this.residualTime = residualTime;
+    public void setRemainingTime(int remainingTime) {
+        this.remainingTime = remainingTime;
+    }
+
+    public int getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(int totalTime) {
+        this.totalTime = totalTime;
     }
 
     public Status getStatus() {
@@ -108,13 +118,22 @@ public class DeviceEntity {
         this.humidity2 = humidity2;
     }
 
+    public int getIsWarning() {
+        return isWarning;
+    }
+
+    public void setIsWarning(int isWarning) {
+        this.isWarning = isWarning;
+    }
+
     @Override
     public String toString() {
         return "DeviceEntity{" +
                 "assetsCode='" + assetsCode + '\'' +
                 ", materialCode='" + materialCode + '\'' +
                 ", quantity=" + quantity +
-                ", residualTime='" + residualTime + '\'' +
+                ", remainingTime=" + remainingTime +
+                ", totalTime=" + totalTime +
                 ", status=" + status +
                 ", temperature='" + temperature + '\'' +
                 ", temperature1='" + temperature1 + '\'' +
@@ -122,6 +141,7 @@ public class DeviceEntity {
                 ", humidity='" + humidity + '\'' +
                 ", humidity1='" + humidity1 + '\'' +
                 ", humidity2='" + humidity2 + '\'' +
+                ", isWarning=" + isWarning +
                 '}';
     }
 }

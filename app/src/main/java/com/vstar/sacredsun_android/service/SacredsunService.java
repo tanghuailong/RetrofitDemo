@@ -39,4 +39,7 @@ public interface SacredsunService {
 
     @GET("equipmentmgt/control/chartData")
     Observable<HttpResult<EmptyResult,ChartValueEntity>> getLineChartData(@Query("assetsCode")String assetsCode,@Query("beginTime") String beginTime,@Query("endTime") String endTime);
+
+    @GET("equipmentmgt/control/modifyWaring")
+    Observable<HttpResult> controlWarningSwitch(@Query("assetsCode") String assetsCode,@Query("isWarning") String isWarning);
 }

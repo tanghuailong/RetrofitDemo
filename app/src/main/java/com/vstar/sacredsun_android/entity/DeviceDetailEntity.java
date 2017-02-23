@@ -35,7 +35,6 @@ public class DeviceDetailEntity {
     private String assetsCode;
     private String materialCode;
     private int orderQuantity;
-    private String residualTime;
     private Status assetsState;
     private String temperature;
     private String temperature1;
@@ -53,6 +52,11 @@ public class DeviceDetailEntity {
     private String humidityDamper;
     private String steamHeating;
     private String streamHumidity;
+    private int remainingTime;
+    private int totalTime;
+    private int stageRemainingTime;
+    private int stageTotalTime;
+    private int isWarning;
 
     public String getEndTime() {
         return endTime;
@@ -84,14 +88,6 @@ public class DeviceDetailEntity {
 
     public void setOrderQuantity(int orderQuantity) {
         this.orderQuantity = orderQuantity;
-    }
-
-    public String getResidualTime() {
-        return residualTime;
-    }
-
-    public void setResidualTime(String residualTime) {
-        this.residualTime = residualTime;
     }
 
     public Status getAssetsState() {
@@ -222,13 +218,52 @@ public class DeviceDetailEntity {
         this.waterValve = waterValve;
     }
 
+    public int getRemainingTime() {
+        return remainingTime;
+    }
+
+    public void setRemainingTime(int remainingTime) {
+        this.remainingTime = remainingTime;
+    }
+
+    public int getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(int totalTime) {
+        this.totalTime = totalTime;
+    }
+
+    public int getStageRemainingTime() {
+        return stageRemainingTime;
+    }
+
+    public void setStageRemainingTime(int stageRemainingTime) {
+        this.stageRemainingTime = stageRemainingTime;
+    }
+
+    public int getStageTotalTime() {
+        return stageTotalTime;
+    }
+
+    public void setStageTotalTime(int stageTotalTime) {
+        this.stageTotalTime = stageTotalTime;
+    }
+
+    public int getIsWarning() {
+        return isWarning;
+    }
+
+    public void setIsWarning(int isWarning) {
+        this.isWarning = isWarning;
+    }
+
     @Override
     public String toString() {
         return "DeviceDetailEntity{" +
                 "assetsCode='" + assetsCode + '\'' +
                 ", materialCode='" + materialCode + '\'' +
                 ", orderQuantity=" + orderQuantity +
-                ", residualTime='" + residualTime + '\'' +
                 ", assetsState=" + assetsState +
                 ", temperature='" + temperature + '\'' +
                 ", temperature1='" + temperature1 + '\'' +
@@ -246,6 +281,11 @@ public class DeviceDetailEntity {
                 ", humidityDamper='" + humidityDamper + '\'' +
                 ", steamHeating='" + steamHeating + '\'' +
                 ", streamHumidity='" + streamHumidity + '\'' +
+                ", remainingTime=" + remainingTime +
+                ", totalTime=" + totalTime +
+                ", stageRemainingTime=" + stageRemainingTime +
+                ", stageTotalTime=" + stageTotalTime +
+                ", isWarning=" + isWarning +
                 '}';
     }
 }

@@ -129,7 +129,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="进度一"
+                    android:text="@string/overall_time"
                     android:textColor="@color/desc_text_color"
                     android:layout_marginRight="5dp"
                     android:textSize="12sp" />
@@ -139,7 +139,7 @@
                     style="@style/progress_style_yellow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:progress="80" />
+                     />
             </LinearLayout>
 
             <LinearLayout
@@ -152,7 +152,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="进度二"
+                    android:text="@string/product_stage_time"
                     android:textColor="@color/desc_text_color"
                     android:layout_marginRight="5dp"
                     android:textSize="12sp" />
@@ -162,7 +162,7 @@
                     style="@style/progress_style_red"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:progress="50" />
+                     />
             </LinearLayout>
 
             <RelativeLayout
