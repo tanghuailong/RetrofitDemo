@@ -10,8 +10,3 @@
 * 图表的时间处理(完成)
 
 #### 运行效果
-
-* **主页面**
-![主页面](screenshot/main.png)
-* **详细页面**
-![详细页面](screenshot/detail.png)
