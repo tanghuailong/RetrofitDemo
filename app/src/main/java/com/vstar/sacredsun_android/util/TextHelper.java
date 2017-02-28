@@ -19,4 +19,11 @@ public class TextHelper {
         }
     }
 
+
+    public static String minuteTransFormTimeStr(int totalMinutes){
+        int hours = totalMinutes / 60;
+        int minutes = totalMinutes % 60;
+        return hours+"时"+minutes+"分";
+    }
+
 }

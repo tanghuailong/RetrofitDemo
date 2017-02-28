@@ -2,7 +2,7 @@
     <string name="app_name">圣阳电源</string>
     <string name="sun_sign_name">正区</string>
     <!--特殊字符为空格-->
-    <string name="time_title">分钟</string>
+    <string name="time_title">小时</string>
     <string name="run_status_title">运行状态 :&#160;</string>
     <string name="time_left_title">剩余时间</string>
     <string name="set_value_title">设定值</string>
@@ -37,6 +37,10 @@
     <string name="work_shop_name">车间编号</string>
     <string name="status_valve_able">开</string>
     <string name="status_valve_disable">关</string>
-    <string name="product_stage_time">生产阶段</string>
-    <string name="overall_time">总体阶段</string>
+    <string name="product_stage_time">段剩余时间</string>
+    <string name="overall_time">总剩余时间</string>
+
+    <string name="WORK_SHOP_CODE">work_shop_code</string>
+    <string name="FIRST_START">first_start</string>
+    <string name="KANBAN_NAME">kanban_name</string>
 </resources>

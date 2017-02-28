@@ -30,6 +30,7 @@ import com.vstar.sacredsun_android.dao.ChartValueDTO;
 import com.vstar.sacredsun_android.entity.ChartValueEntity;
 import com.vstar.sacredsun_android.entity.DeviceDetailEntity;
 import com.vstar.sacredsun_android.service.SacredsunService;
+import com.vstar.sacredsun_android.util.SPHelper;
 import com.vstar.sacredsun_android.util.StatusMap;
 import com.vstar.sacredsun_android.util.TextHelper;
 import com.vstar.sacredsun_android.util.chart.ConstantChart;
@@ -66,8 +67,6 @@ public class DetailActivity extends AppCompatActivity {
     TextView detailProductModel;
     @BindView(R.id.detail_order_num_value)
     TextView detailOrderNumValue;
-    @BindView(R.id.stove_left_time)
-    TextView stoveLeftTime;
     @BindView(R.id.detail_run_value)
     TextView detailRunValue;
     @BindView(R.id.detail_product_stage_title)
@@ -124,6 +123,13 @@ public class DetailActivity extends AppCompatActivity {
     NumberProgressBar progressBarTwo;
     @BindView(R.id.compatSwitch)
     SwitchCompat compatSwitch;
+    @BindView(R.id.kanban_name)
+    TextView kanBanName;
+    @BindView(R.id.total_last_time)
+    TextView totalLastTime;
+    @BindView(R.id.stage_last_time)
+    TextView stageLastTime;
+
 
 
     private static final String LOG_TAG = "DetailActivity";
@@ -146,16 +152,15 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
-
+        //看板名称
+        String kanbenNameStr = (String) SPHelper.get(DetailActivity.this,getString(R.string.KANBAN_NAME),"");
+        kanBanName.setText(kanbenNameStr);
 
         Intent intent = getIntent();
         assertsCode = intent.getStringExtra(TAG);
 
-        Log.d(LOG_TAG, "onCreate");
         initChart(mLineChart);
-
-//        //TODO 测试使用删除
-//        assertsCode = "G101";
+        openSubscribe();
     }
 
     private void initChart(LineChart lineChart) {
@@ -210,24 +215,25 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(LOG_TAG, "onStart");
-        openSubscribe();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(LOG_TAG, "onStop");
-        closeSubscribe();
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        Log.d(LOG_TAG, "onStart");
+//        openSubscribe();
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        Log.d(LOG_TAG, "onStop");
+//        closeSubscribe();
+//    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d(LOG_TAG, "onDestory");
+        closeSubscribe();
     }
 
     private void openSubscribe() {
@@ -304,7 +310,6 @@ public class DetailActivity extends AppCompatActivity {
         deviceCode.setText(entity.getAssetsCode());
         detailOrderNumValue.setText(Integer.toString(entity.getOrderQuantity()));
         detailProductModel.setText(entity.getMaterialCode());
-        stoveLeftTime.setText(String.valueOf(entity.getStageTotalTime() == 0 ? 0 : entity.getStageRemainingTime()));
         detailRunValue.setText(StatusMap.abbreAndDesc.get(entity.getAssetsState().name()));
         detailRunValue.setBackgroundResource(StatusMap.statusAndView.get(entity.getAssetsState().name()));
         firstSetting.setText(entity.getTemperature());
@@ -317,6 +322,9 @@ public class DetailActivity extends AppCompatActivity {
         fourActual.setText(entity.getHumidity2());
         detailProductStageTitle.setText(StatusMap.abbreAndDesc.get(entity.getAssetsState().name()) + " " + entity.getProductionStage() + "阶段");
         detailProgramNumValue.setText(entity.getProgramNumber());
+        //设置剩余时间
+        totalLastTime.setText(TextHelper.minuteTransFormTimeStr(entity.getRemainingTime()));
+        stageLastTime.setText(TextHelper.minuteTransFormTimeStr(entity.getStageRemainingTime()));
         progressBarOne.setMax(entity.getTotalTime());
         progressBarOne.setProgress(entity.getTotalTime() == 0 ? 0 : entity.getRemainingTime());
         progressBarTwo.setMax(entity.getStageTotalTime());
@@ -365,6 +373,7 @@ public class DetailActivity extends AppCompatActivity {
     @OnClick(R.id.detail_right_img)
     public void nextChart() {
 
+        //查看增加一个小时之后，是否超过现如今的时间
         if (currentHour + 1 > LocalTime.now().getHour()) {
             return;
         }
@@ -467,14 +476,18 @@ public class DetailActivity extends AppCompatActivity {
     private void resetSettingChart(LineChart lineChart) {
         LineData lineData = lineChart.getLineData();
         if (lineData != null) {
+            //TODO 修改一下这个地方
             String labelT = ConstantChart.chartTypeAndDesc.get("temperature");
             String labelH = ConstantChart.chartTypeAndDesc.get("humidity");
             ILineDataSet dataSetT = lineData.getDataSetByLabel(labelT, false);
             ILineDataSet dataSetH = lineData.getDataSetByLabel(labelH, false);
 
-            dataSetT.clear();
-            dataSetH.clear();
-
+            if(dataSetH != null) {
+                dataSetH.clear();
+            }
+            if(dataSetT != null) {
+                dataSetT.clear();
+            }
             lineChart.invalidate();
         }
     }

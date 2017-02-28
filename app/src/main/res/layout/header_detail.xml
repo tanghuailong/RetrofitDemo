@@ -24,14 +24,15 @@
         android:layout_width="100dp"
         android:layout_height="55dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/sunsign" />
+        android:src="@drawable/sunsign_orange" />
 
     <TextView
+        android:id="@+id/kanban_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/sun_sign_name"
+        android:layout_marginTop="18dp"
+        tools:text="@string/sun_sign_name"
         android:textColor="@color/desc_text_color" />
 
     <LinearLayout

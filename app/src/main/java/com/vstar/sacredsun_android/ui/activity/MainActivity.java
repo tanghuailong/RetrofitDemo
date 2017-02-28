@@ -14,6 +14,7 @@ import com.vstar.sacredsun_android.R;
 import com.vstar.sacredsun_android.adapter.StoveAdapter;
 import com.vstar.sacredsun_android.entity.DeviceEntity;
 import com.vstar.sacredsun_android.service.SacredsunService;
+import com.vstar.sacredsun_android.util.SPHelper;
 import com.vstar.sacredsun_android.util.rest.HttpMethods;
 import com.vstar.sacredsun_android.util.rxjava.RxHelper;
 
@@ -26,9 +27,7 @@ import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscription;
 
-/**
- *¿´°åµÄÖ÷½çÃæ
- */
+
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.kanban_name)
@@ -61,16 +60,13 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(10, StaggeredGridLayoutManager.VERTICAL));
             recyclerView.getItemAnimator().setChangeDuration(0);
             adapter = new StoveAdapter(list, this, (view, code) -> {
-                //Ìø×ªµ½ÏêÏ¸Ò³Ãæ
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                 intent.putExtra(TAG, code);
                 startActivity(intent);
             });
             recyclerView.setAdapter(adapter);
 
-            if (subscription == null || subscription.isUnsubscribed()) {
-                initData();
-            }
+
         }
     }
 
@@ -81,26 +77,26 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         boolean firstStart = preferences.getBoolean(TAG3,false);
         if(!firstStart) {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean(TAG3,true);
-            editor.commit();
+//            SharedPreferences.Editor editor = preferences.edit();
+//            editor.putBoolean(TAG3,true);
+//            editor.commit();
+            SPHelper.putAndApply(MainActivity.this,getString(R.string.FIRST_START),true);
             Intent intent = new Intent(MainActivity.this,SettingActivity.class);
-            //½«»á½«ÏÖÔÚActivity É±ËÀ£¬È»ºó±£Ö¤ÏÂ´ÎÒ»¶¨µ÷ÓÃonCreate
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
     }
 
     private void initData(){
-        //ÂÖÑ¯»ñÈ¡Êý¾Ý
         subscription =  HttpMethods.getInstance().getService(SacredsunService.class)
                 .getDeviceBasicData(workShopCode)
                 .compose(RxHelper.io_main())
-                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(10, TimeUnit.SECONDS)))
-                .repeatWhen(completed -> completed.delay(10, TimeUnit.SECONDS))
+                .retryWhen(errors -> errors.flatMap(error -> Observable.timer(20, TimeUnit.SECONDS)))
+                .repeatWhen(completed -> completed.delay(20, TimeUnit.SECONDS))
                 .subscribe((r) -> {
                     Log.d(LOG_TAG,"onNext");
                     kanbanName.setText(r.getItem().getWorkshopName());
+                    SPHelper.putAndApply(MainActivity.this,getString(R.string.KANBAN_NAME),r.getItem().getWorkshopName());
                     list.clear();
                     list.addAll(r.getItems());
                     adapter.notifyItemRangeChanged(0,list.size());
@@ -115,32 +111,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d(LOG_TAG,"onDestory");
         if(subscription!=null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }
     }
 
-    //    //½øÈëµÄÊ±ºò¶©ÔÄ£¬²¢ÇÒ¸üÐÂÊý¾Ý
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(LOG_TAG,"onStart");
+        if (subscription == null || subscription.isUnsubscribed()) {
+            initData();
+            Log.d(LOG_TAG,"å¼€å§‹è®¢é˜…");
+        }
 
-//    //ÍË³öÊ±ºò½â³ý¶©ÔÄ
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-////        ½â³ý¶©ÔÄ
-//        if(subscription!=null && !subscription.isUnsubscribed()) {
-//            subscription.unsubscribe();
-//        }
-//    }
+    }
 
-    /**
-     * ÖÆÔìËæ»úÊý¾ÝÓÃÀ´²âÊÔ£¬random-beansÊÇÒ»¸ö¸üºÃµÄÑ¡Ôñ£¬
-     * µ«ÎÞÄÎºÎAndroid NÖ»Ö§³Öjava8²¿·Ö¹¦ÄÜ,¶ørandom-beanÒªÇójava8
-     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(LOG_TAG,"onStop");
+        if(subscription!=null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+            Log.d(LOG_TAG,"è§£é™¤è®¢é˜…");
+        }
+    }
+
 //    private List<DeviceEntity> initData(){
 //        PodamFactory factory = new PodamFactoryImpl();
 //        StoveItem myPojo = factory.manufacturePojo(StoveItem.class);

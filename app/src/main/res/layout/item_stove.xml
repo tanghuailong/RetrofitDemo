@@ -24,7 +24,7 @@
             android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:paddingTop="8dp">
+            android:paddingTop="7dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -47,10 +47,10 @@
 
                 <ImageView
                     android:id="@+id/warning_status"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/alarmclose"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="2dp"
                     android:layout_toRightOf="@id/stove_run_status"
                     android:layout_toEndOf="@+id/stove_run_status" />
 
@@ -78,7 +78,6 @@
                     android:id="@+id/stove_run_status_block"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     style="@style/progress_style_yellow_big"
                     custom:max="100"
                     custom:progress="0"/>
@@ -89,8 +88,8 @@
                     android:layout_alignParentRight="true"
                     android:background="@drawable/textlines"
                     android:orientation="horizontal"
-                    android:paddingBottom="3dp"
-                    android:paddingTop="3dp">
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp">
 
                     <TextView
                         android:id="@+id/stove_left_time"

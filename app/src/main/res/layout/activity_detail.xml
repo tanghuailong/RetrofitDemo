@@ -58,13 +58,6 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/detail_product_model_title"
                     tools:text="OPZV-120" />
-
-                <TextView
-                    style="@style/detail_text_normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="@string/time_left_title" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -94,29 +87,7 @@
                     android:layout_toRightOf="@id/detail_order_num_value"
                     android:text="@string/order_unit" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:background="@drawable/textlines"
-                    android:orientation="horizontal"
-                    android:paddingBottom="3dp"
-                    android:paddingTop="3dp">
 
-                    <TextView
-                        android:id="@+id/stove_left_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/emphasize_txt_color"
-                        android:textSize="20sp"
-                        tools:text="31" />
-
-                    <TextView
-                        style="@style/detail_text_normal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/time_title" />
-                </LinearLayout>
             </RelativeLayout>
 
             <LinearLayout
@@ -127,19 +98,29 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.15"
                     android:text="@string/overall_time"
                     android:textColor="@color/desc_text_color"
-                    android:layout_marginRight="5dp"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <com.daimajia.numberprogressbar.NumberProgressBar
                     android:id="@+id/progress_bar_one"
                     style="@style/progress_style_yellow"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
                      />
+                <TextView
+                    android:id="@+id/total_last_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.15"
+                    android:textColor="@color/desc_text_color"
+                    android:textSize="14sp"
+                    tools:text="(30时56分)"/>
             </LinearLayout>
 
             <LinearLayout
@@ -150,19 +131,30 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.15"
                     android:text="@string/product_stage_time"
                     android:textColor="@color/desc_text_color"
                     android:layout_marginRight="5dp"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <com.daimajia.numberprogressbar.NumberProgressBar
                     android:id="@+id/progress_bar_two"
                     style="@style/progress_style_red"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
                      />
+                <TextView
+                    android:id="@+id/stage_last_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0.15"
+                    android:textColor="@color/desc_text_color"
+                    android:textSize="14sp"
+                    tools:text="(30时56分)"/>
             </LinearLayout>
 
             <RelativeLayout
@@ -412,7 +404,7 @@
                         android:layout_width="@dimen/status_small_icon"
                         android:layout_height="@dimen/status_small_icon"
                         android:layout_toRightOf="@id/detail_reduce_humidity_title"
-                        tools:src="@drawable/door_able" />
+                        android:src="@drawable/door_disable" />
 
                     <TextView
                         android:id="@+id/detail_reduce_temperate_value"
@@ -421,7 +413,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/detail_reduce_humidity_img"
                         android:textColor="@color/disable_text_color"
-                        tools:text="关" />
+                        android:text="关" />
 
                     <TextView
                         android:id="@+id/detail_stream_heating_value"
@@ -430,14 +422,14 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:textColor="@color/disable_text_color"
-                        tools:text="关" />
+                        android:text="关" />
 
                     <ImageView
                         android:id="@+id/detail_stream_heating_img"
                         android:layout_width="@dimen/status_small_icon"
                         android:layout_height="@dimen/status_small_icon"
                         android:layout_toLeftOf="@id/detail_stream_heating_value"
-                        android:src="@drawable/stream_heating" />
+                        android:src="@drawable/stream_disable" />
 
                     <TextView
                         style="@style/detail_text_normal"
@@ -475,7 +467,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/detail_exhaust_humidity_img"
                         android:textColor="@color/disable_text_color"
-                        tools:text="关" />
+                        android:text="关" />
 
                     <TextView
                         android:id="@+id/detail_stream_humidity_value"
@@ -484,14 +476,14 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:textColor="@color/disable_text_color"
-                        tools:text="关" />
+                        android:text="关" />
 
                     <ImageView
                         android:id="@+id/detail_stream_humidity_img"
                         android:layout_width="@dimen/status_small_icon"
                         android:layout_height="@dimen/status_small_icon"
                         android:layout_toLeftOf="@id/detail_stream_humidity_value"
-                        android:src="@drawable/steam_humidity" />
+                        android:src="@drawable/stream_disable" />
 
                     <TextView
                         style="@style/detail_text_normal"
@@ -520,7 +512,7 @@
                         android:layout_width="@dimen/status_small_icon"
                         android:layout_height="@dimen/status_small_icon"
                         android:layout_toRightOf="@id/detail_cycle_blower"
-                        android:src="@drawable/fan_able" />
+                        android:src="@drawable/fan_disable" />
 
                     <TextView
                         android:id="@+id/detail_cycle_blower_value"
@@ -529,7 +521,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/detail_cycle_blower_img"
                         android:textColor="@color/disable_text_color"
-                        tools:text="关" />
+                        android:text="关" />
 
                     <TextView
                         android:id="@+id/detail_water_valve"
@@ -538,14 +530,14 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:textColor="@color/disable_text_color"
-                        tools:text="关" />
+                        android:text="关" />
 
                     <ImageView
                         android:id="@+id/detail_water_valve_img"
                         android:layout_width="@dimen/status_small_icon"
                         android:layout_height="@dimen/status_small_icon"
                         android:layout_toLeftOf="@id/detail_water_valve"
-                        android:src="@drawable/water_able" />
+                        android:src="@drawable/water_disable" />
 
                     <TextView
                         style="@style/detail_text_normal"
