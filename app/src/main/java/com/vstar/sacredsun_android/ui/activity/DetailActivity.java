@@ -351,8 +351,12 @@ public class DetailActivity extends AppCompatActivity {
     public void previousChart() {
 
         closeTodaySubscribe();
+        //不能查看昨天的图表
+        if(currentHour - 1 < 0) {
+            Toast.makeText(DetailActivity.this,"前一天数据请往服务器查询",Toast.LENGTH_SHORT).show();
+            return;
+        }
         currentHour = currentHour - 1;
-
         redrawChart(mLineChart, currentHour);
         LocalDateTime previousBegin = LocalDateTime.now().withHour(currentHour).withMinute(0).withSecond(0);
         LocalDateTime previousEnd = previousBegin.plusHours(1);
@@ -375,6 +379,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //查看增加一个小时之后，是否超过现如今的时间
         if (currentHour + 1 > LocalTime.now().getHour()) {
+            Toast.makeText(DetailActivity.this,"已经是最新时间了",Toast.LENGTH_SHORT).show();
             return;
         }
         closeTodaySubscribe();
