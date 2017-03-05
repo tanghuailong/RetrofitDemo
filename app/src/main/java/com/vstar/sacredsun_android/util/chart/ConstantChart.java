@@ -31,13 +31,16 @@ public class ConstantChart {
         put("humidity",5);
     }};
 
+    /**
+     * @see <a href="https://material.io/guidelines/style/color.html#color-color-palette"></a>
+     */
     public static final Map<String,Integer> abbreAndColor = new HashMap<String,Integer>(){{
-        put("温度一", Color.BLUE);
-        put("温度二",Color.GREEN);
-        put("湿度一",Color.MAGENTA);
-        put("湿度二",Color.LTGRAY);
-        put("设定温度",Color.YELLOW);
-        put("设定湿度",Color.WHITE);
+        put("温度一", Color.parseColor("#FF80AB"));
+        put("温度二",Color.parseColor("#FF4081"));
+        put("湿度一",Color.parseColor("#EA80FC"));
+        put("湿度二",Color.parseColor("#D500F9"));
+        put("设定温度",Color.parseColor("#AEEA00"));
+        put("设定湿度",Color.parseColor("#EEFF41"));
     }};
 
 }

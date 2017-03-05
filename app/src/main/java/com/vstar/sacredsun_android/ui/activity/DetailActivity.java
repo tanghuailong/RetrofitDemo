@@ -30,6 +30,7 @@ import com.vstar.sacredsun_android.dao.ChartValueDTO;
 import com.vstar.sacredsun_android.entity.ChartValueEntity;
 import com.vstar.sacredsun_android.entity.DeviceDetailEntity;
 import com.vstar.sacredsun_android.service.SacredsunService;
+import com.vstar.sacredsun_android.util.FunctionUtil;
 import com.vstar.sacredsun_android.util.SPHelper;
 import com.vstar.sacredsun_android.util.StatusMap;
 import com.vstar.sacredsun_android.util.TextHelper;
@@ -43,6 +44,7 @@ import com.vstar.sacredsun_android.util.rxjava.RxHelper;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalTime;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -52,6 +54,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Observable;
 import rx.Subscription;
+
+import static com.vstar.sacredsun_android.R.id.detail_cycle_blower_img;
+import static com.vstar.sacredsun_android.R.id.detail_exhaust_humidity_img;
 
 /**
  * Created by tanghuailong on 2017/1/10.
@@ -107,9 +112,9 @@ public class DetailActivity extends AppCompatActivity {
     TextView detailWaterValve;
     @BindView(R.id.detail_reduce_humidity_img)
     ImageView reduceTemperatureImg;
-    @BindView(R.id.detail_exhaust_humidity_img)
+    @BindView(detail_exhaust_humidity_img)
     ImageView exhaustHumidityImg;
-    @BindView(R.id.detail_cycle_blower_img)
+    @BindView(detail_cycle_blower_img)
     ImageView fanImg;
     @BindView(R.id.detail_stream_heating_img)
     ImageView streamHeatingImg;
@@ -135,6 +140,7 @@ public class DetailActivity extends AppCompatActivity {
     private static final String LOG_TAG = "DetailActivity";
     private static final String TAG = "assetsCode";
 
+    private Map<ImageView,Integer> preIconStatus = new HashMap();
     private Subscription presetSubscription = null;
     private Subscription todaySubscription = null;
     private Subscription deviceSubscription = null;
@@ -158,6 +164,9 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         assertsCode = intent.getStringExtra(TAG);
+
+        initIconStatus(preIconStatus);
+
 
         initChart(mLineChart);
         openSubscribe();
@@ -345,6 +354,16 @@ public class DetailActivity extends AppCompatActivity {
         setImgStatusValve(streamHeatingImg, entity.getStreamHumidity(), R.drawable.stream_heating, R.drawable.stream_disable);
         setImgStatusValve(streamHumidityImg, entity.getStreamHumidity(), R.drawable.steam_humidity, R.drawable.stream_disable);
         setImgStatusValve(waterValveImg, entity.getWaterValve(), R.drawable.water_able, R.drawable.water_disable);
+
+        //设置动画
+        setIconAnimation(reduceTemperatureImg,entity.getCoolingDamper(),preIconStatus);
+        setIconAnimation(exhaustHumidityImg,entity.getHumidityDamper(),preIconStatus);
+        setIconAnimation(fanImg,entity.getCirculatingFan(),preIconStatus);
+        setIconAnimation(streamHeatingImg,entity.getStreamHumidity(),preIconStatus);
+        setIconAnimation(streamHumidityImg,entity.getStreamHumidity(),preIconStatus);
+        setIconAnimation(waterValveImg,entity.getWaterValve(),preIconStatus);
+
+
     }
 
     @OnClick(R.id.detail_left_img)
@@ -597,6 +616,39 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     /**
+     * 给icon设置动画
+     * @param img
+     * @param status
+     * @param preStatus
+     */
+    private void setIconAnimation(ImageView img,String status,Map<ImageView,Integer> preStatus) {
+        if(status.trim().equals("0")) {
+            if(preStatus.get(img) ==  1) {
+                //停止动画
+                if(img.getId() == R.id.detail_reduce_humidity_img || img.getId() == R.id.detail_exhaust_humidity_img) {
+                    FunctionUtil.stopBackgroundAnimation(DetailActivity.this,img);
+                }else {
+                    FunctionUtil.stopAnimation(img);
+                }
+            }
+            preStatus.put(img,0);
+        }else if(status.trim().equals("1")) {
+            if(preStatus.get(img) == 0) {
+                //开始动画
+                if(img.getId() == R.id.detail_reduce_humidity_img || img.getId() == R.id.detail_exhaust_humidity_img) {
+                    FunctionUtil.startBackgroundAnimation(DetailActivity.this,img);
+                }else {
+                    if(img.getId() != R.id.detail_cycle_blower_img) {
+                        FunctionUtil.startAnimation(img,"rotate");
+                    }else{
+                        FunctionUtil.startAnimation(img,"blink");
+                    }
+                }
+            }
+            preStatus.put(img,1);
+        }
+    }
+    /**
      * 监听
      *
      * @param view
@@ -615,5 +667,14 @@ public class DetailActivity extends AppCompatActivity {
                     Toast.makeText(DetailActivity.this, "控制警报发生某些错误", Toast.LENGTH_SHORT).show();
                 });
 
+    }
+
+    private void initIconStatus(Map map){
+        map.put(reduceTemperatureImg,0);
+        map.put(exhaustHumidityImg,0);
+        map.put(fanImg,0);
+        map.put(streamHeatingImg,0);
+        map.put(streamHumidityImg,0);
+        map.put(waterValveImg,0);
     }
 }
