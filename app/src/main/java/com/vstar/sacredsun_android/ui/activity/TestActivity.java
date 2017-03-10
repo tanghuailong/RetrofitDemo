@@ -46,7 +46,7 @@ import rx.Observable;
 /**
  * Created by tanghuailong on 2017/1/22.
  */
-
+@Deprecated
 public class TestActivity extends AppCompatActivity{
 
     @BindView(R.id.testChart)

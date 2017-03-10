@@ -19,7 +19,7 @@ public class FunctionUtil {
 
     private static RotateAnimation rotate;
     private static AlphaAnimation blink;
-    private static AnimationDrawable switchAnim;
+
 
     //开启动画
     public static void startAnimation(ImageView img, String type) {
@@ -28,13 +28,12 @@ public class FunctionUtil {
     }
 
     public static AnimationDrawable startBackgroundAnimation(Context context, ImageView img) {
-        if(switchAnim == null) {
-            switchAnim = new AnimationDrawable();
-            switchAnim.addFrame(ContextCompat.getDrawable(context, R.drawable.door_able), 500);
-            switchAnim.addFrame(ContextCompat.getDrawable(context, R.drawable.dooropen_start), 500);
-            switchAnim.setOneShot(false);
-        }
+        AnimationDrawable switchAnim = new AnimationDrawable();
+        switchAnim.addFrame(ContextCompat.getDrawable(context, R.drawable.door_able), 500);
+        switchAnim.addFrame(ContextCompat.getDrawable(context, R.drawable.dooropen_start), 500);
+        switchAnim.setOneShot(false);
         img.setBackground(switchAnim);
+        switchAnim.start();
         return switchAnim;
     }
 
@@ -43,9 +42,9 @@ public class FunctionUtil {
         img.clearAnimation();
     }
 
-    public static void stopBackgroundAnimation(Context context,ImageView img) {
+    public static void stopBackgroundAnimation(Context context, ImageView img) {
 //        animation.stop();
-        img.setBackground(ContextCompat.getDrawable(context,R.drawable.door_disable));
+        img.setBackground(ContextCompat.getDrawable(context, R.drawable.door_disable));
 
     }
 

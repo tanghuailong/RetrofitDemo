@@ -55,9 +55,6 @@ import butterknife.OnClick;
 import rx.Observable;
 import rx.Subscription;
 
-import static com.vstar.sacredsun_android.R.id.detail_cycle_blower_img;
-import static com.vstar.sacredsun_android.R.id.detail_exhaust_humidity_img;
-
 /**
  * Created by tanghuailong on 2017/1/10.
  */
@@ -112,9 +109,9 @@ public class DetailActivity extends AppCompatActivity {
     TextView detailWaterValve;
     @BindView(R.id.detail_reduce_humidity_img)
     ImageView reduceTemperatureImg;
-    @BindView(detail_exhaust_humidity_img)
+    @BindView(R.id.detail_exhaust_humidity_img)
     ImageView exhaustHumidityImg;
-    @BindView(detail_cycle_blower_img)
+    @BindView(R.id.detail_cycle_blower_img)
     ImageView fanImg;
     @BindView(R.id.detail_stream_heating_img)
     ImageView streamHeatingImg;
@@ -164,6 +161,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         assertsCode = intent.getStringExtra(TAG);
+
 
         initIconStatus(preIconStatus);
 
@@ -638,7 +636,7 @@ public class DetailActivity extends AppCompatActivity {
                 if(img.getId() == R.id.detail_reduce_humidity_img || img.getId() == R.id.detail_exhaust_humidity_img) {
                     FunctionUtil.startBackgroundAnimation(DetailActivity.this,img);
                 }else {
-                    if(img.getId() != R.id.detail_cycle_blower_img) {
+                    if(img.getId() == R.id.detail_cycle_blower_img) {
                         FunctionUtil.startAnimation(img,"rotate");
                     }else{
                         FunctionUtil.startAnimation(img,"blink");
